@@ -1,7 +1,8 @@
 # Copilot Instructions – bryanchasko.com
 
-Hugo portfolio site for Bryan Chasko. Custom theme (`bryan-chasko-theme`) with
-3D/WebGL additions. Deployed to S3 + CloudFront.
+Hugo portfolio + professional services site for Bryan Chasko. Fully custom theme
+(`bryan-chasko-theme`) with 7 WebGL scenes, glassmorphism UI, and animated
+backgrounds. Deployed to S3 + CloudFront via Perl deploy script + Terraform.
 
 ## Agent Squad
 
@@ -10,8 +11,10 @@ See `.squad/` for the full squad configuration:
 - **Team roster:** `.squad/team.md`
 - **Coordinator:** Harald — routes all work, manages scope and priority
 - **Specialists:** Stratia (Site Architecture), Orin (Hugo Dev Environment),
-  Solan (Build & Deploy), Myrren (AWS/CDN), Kade Vox (Playwright Tests),
-  Scribe (Logger), Ralph (Work Monitor)
+  Solan (Build & Deploy), Myrren (AWS/CDN/Terraform), Kade Vox (Playwright/WebGL
+  Tests), Scribe (Logger), Ralph (Work Monitor)
+- **Agentic instruction fragments:** `agentic_instructions/` — use the matching
+  fragment for your task area (CSS, setup, CI/CD, etc.)
 
 ---
 
@@ -21,30 +24,62 @@ See `.squad/` for the full squad configuration:
 |---|---|
 | Site URL | https://bryanchasko.com |
 | Framework | Hugo |
-| Theme | `bryan-chasko-theme` (custom, lives in `themes/`) |
+| Theme | `themes/bryan-chasko-theme` — fully custom (not a PaperMod overlay) |
 | Hosting | AWS S3 + CloudFront |
+| IaC | Terraform (`terraform/`) with modules: acm, cloudfront, iam, route53, s3, ssm |
+| CI/CD | GitHub Actions: `deploy.yml`, `terraform.yml`, `webgl-tests.yml` |
 | Testing | Playwright (visual regression, WebGL, cross-browser) |
-| Infrastructure | `infrastructure/` (CloudFront/S3 JSON configs) + `terraform/` |
 
 ## Key Commands
 
 ```bash
 hugo server --config config.dev.toml   # local preview
 hugo --minify                          # production build
-./scripts/deploy.sh                    # build + S3 sync + CloudFront invalidation
-npm test                               # Playwright tests (all browsers)
+perl scripts/deploy.pl                 # build + S3 sync + CloudFront invalidation
+npm test                               # Playwright (all browsers)
 npm run test:chromium                  # Chrome only
+npm run test:update-baselines          # regenerate visual baselines after intentional changes
+cd terraform && terraform plan         # preview infra changes
+cd terraform && terraform apply        # apply infra changes
+```
+
+## Theme Architecture
+
+The custom theme lives entirely in `themes/bryan-chasko-theme/`:
+
+```
+assets/
+  css/
+    core/        ← variables.css, typography, reset
+    components/  ← home.css, terminal.css, navigation.css, cards.css,
+                    social-feed.css, github-calendar.css, github-dashboard.css,
+                    contact.css, notes-enhancements.css, cloudcroft.css
+    extended/    ← nebula.css (animated backgrounds, color palettes)
+    layouts/     ← page layout CSS
+    includes/    ← shared partials CSS
+    common/      ← utility CSS
+  js/
+    webgl-scenes/  ← BaseScene.js, OrbitScene.js, RippleScene.js,
+                      ShimmerScene.js, SkillsNetworkScene.js,
+                      TransitionScene.js, SceneInitializer.js
+    constellation.js, webgl-monitor.js, notes-tilt.js, fastsearch.js
 ```
 
 ## Conventions
 
-- **Never edit `themes/`** — all overrides go in `layouts/` and `assets/`
-- **WebGL assets:** edit `themes/bryan-chasko-theme/assets/js/webgl-scenes/`,
-  then sync: `cp themes/bryan-chasko-theme/assets/js/webgl-scenes/*.js themes/bryan-chasko-theme/static/js/webgl-scenes/`
+- **`themes/bryan-chasko-theme/` IS the theme** — it is not a submodule and IS
+  edited directly. `themes/PaperMod/` is the submodule — never touch it.
+- **CSS variables only** — colors from `variables.css` or `nebula.css`; never
+  hardcode hex values
+- **WebGL:** edit scenes in `themes/bryan-chasko-theme/assets/js/webgl-scenes/`,
+  then sync to static:
+  `cp themes/bryan-chasko-theme/assets/js/webgl-scenes/*.js themes/bryan-chasko-theme/static/js/webgl-scenes/`
+- **Deploy:** `perl scripts/deploy.pl` — not a shell script
 - **Never deploy with `buildDrafts = true`**
-- **CSS variables only** — no hardcoded colors; use `variables.css` / `nebula.css`
-- **CloudFront invalidation** required after every deploy touching cached content
-- **Kiro steering rules** live in `.kiro/steering/` — Kiro reads these automatically
+- **Terraform:** changes go through `terraform plan` → review → `terraform apply`;
+  state is remote (backend.tf)
+- **Agentic instructions:** see `agentic_instructions/README.md` for task-specific
+  guidance fragments
 
 ---
 

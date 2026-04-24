@@ -19,7 +19,7 @@ when:
 
 steps:
   - name: build-hugo
-    image: hugomods/hugo:ci-alpine
+    image: hugomods/hugo:ci
     commands:
       - hugo --minify
     environment:

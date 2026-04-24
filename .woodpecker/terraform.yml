@@ -32,7 +32,6 @@ steps:
       - unzip -qo /tmp/tf.zip -d /usr/local/bin
       - cd terraform
       - terraform fmt -check -recursive
-    failure: ignore
 
   - name: init
     image: debian:13-slim

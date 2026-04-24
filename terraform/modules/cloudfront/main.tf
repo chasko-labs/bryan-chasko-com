@@ -82,9 +82,9 @@ resource "aws_cloudfront_distribution" "main" {
 
   # Custom error response for Hugo 404 page
   custom_error_response {
-    error_code         = 404
-    response_code      = 404
-    response_page_path = "/404.html"
+    error_code            = 404
+    response_code         = 404
+    response_page_path    = "/404.html"
     error_caching_min_ttl = 10
   }
 
@@ -92,9 +92,9 @@ resource "aws_cloudfront_distribution" "main" {
   # The CloudFront Function handles URL rewriting to index.html, so most 403s should not occur
   # If they do, show the 404 page
   custom_error_response {
-    error_code         = 403
-    response_code      = 404
-    response_page_path = "/404.html"
+    error_code            = 403
+    response_code         = 404
+    response_page_path    = "/404.html"
     error_caching_min_ttl = 10
   }
 }

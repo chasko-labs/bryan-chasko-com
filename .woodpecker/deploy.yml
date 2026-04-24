@@ -45,7 +45,5 @@ steps:
         role_arn = arn:aws:iam::211125425201:role/heraldstack-ci-bryanchasko
         EOF
       - aws sts get-caller-identity
-      - S3_BUCKET=$(aws ssm get-parameter --name /sites/bryanchasko.com/s3_bucket --query 'Parameter.Value' --output text)
-      - CF_DIST_ID=$(aws ssm get-parameter --name /sites/bryanchasko.com/cloudfront_distribution_id --query 'Parameter.Value' --output text)
-      - aws s3 sync public/ s3://${S3_BUCKET} --delete --cache-control "public, max-age=3600" --exclude ".git/*" --exclude "*.md"
-      - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*"
+      - aws s3 sync public/ s3://bryanchasko.com --delete --cache-control "public, max-age=3600" --exclude ".git/*" --exclude "*.md"
+      - aws cloudfront create-invalidation --distribution-id E2E9BSL5RVN6DI --paths "/*"

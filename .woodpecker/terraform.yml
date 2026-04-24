@@ -1,21 +1,19 @@
 ---
 # woodpecker ci/cd -- bryan-chasko-com terraform plan/apply
 # replaces .github/workflows-disabled/terraform.yml
-# repo: chasko-labs/bryan-chasko-com
 #
 # auth chain:
 #   ci workload cert at /workload.{crt,key}
 #   aws_signing_helper at /usr/local/bin/aws_signing_helper
-#   --> rolesanywhere ci-profile --> heraldstack-ci-deploy
+#   --> rolesanywhere --> heraldstack-ci-deploy
 #   --> sts:AssumeRole --> heraldstack-ci-bryanchasko (site-scoped)
 #   --> terraform apply: s3 + cf + route53 + acm + ssm + iam
 #   --> tf state on s3://bryanchasko-terraform-state
 #   --> tf lock on dynamodb:bryanchasko-terraform-lock
-# backend.tf pins profile=websites-bryanchasko (legacy operator profile);
-# -backend-config overrides to ci-bryanchasko at init time so the pipeline
-# does not need that profile on disk.
-# base image must be glibc (amazon-linux/debian), NOT alpine --
-# aws_signing_helper is glibc-built and will not exec on musl.
+# backend.tf pins profile=websites-bryanchasko; overridden via
+# -backend-config at init so the pipeline doesn't need that profile.
+# base image is debian:13-slim (glibc) -- hashicorp/terraform is
+# alpine (musl) and aws_signing_helper won't exec on musl.
 
 when:
   - event: [pull_request, push, manual]
@@ -25,57 +23,65 @@ when:
         - terraform/**
         - .woodpecker/terraform.yml
 
-variables:
-  aws_env: &aws_env
-    AWS_DEFAULT_REGION: us-west-2
-    AWS_PROFILE: ci-bryanchasko
-
-  aws_config: &aws_config
-    - mkdir -p /root/.aws
-    - |
-      cat > /root/.aws/config <<EOF
-      [profile ci-deploy]
-      region = us-west-2
-      credential_process = /usr/local/bin/aws_signing_helper credential-process --trust-anchor-arn arn:aws:rolesanywhere:us-west-2:211125425201:trust-anchor/5e54afa4-d3d7-4e42-bae6-68f9d126c7d7 --profile-arn arn:aws:rolesanywhere:us-west-2:211125425201:profile/2177db77-a33c-4e5b-bcce-21b908659406 --role-arn arn:aws:iam::211125425201:role/heraldstack-ci-deploy --certificate /workload.crt --private-key /workload.key
-
-      [profile ci-bryanchasko]
-      region = us-west-2
-      source_profile = ci-deploy
-      role_arn = arn:aws:iam::211125425201:role/heraldstack-ci-bryanchasko
-      EOF
-
-  install_terraform: &install_terraform
-    - apt-get update -qq && apt-get install -y -qq --no-install-recommends ca-certificates curl unzip >/dev/null
-    - curl -sSL https://releases.hashicorp.com/terraform/1.5.0/terraform_1.5.0_linux_amd64.zip -o /tmp/tf.zip
-    - unzip -qo /tmp/tf.zip -d /usr/local/bin
-    - terraform -version
-
 steps:
   - name: fmt-check
     image: debian:13-slim
     commands:
-      - *install_terraform
+      - apt-get update -qq && apt-get install -y -qq --no-install-recommends ca-certificates curl unzip >/dev/null
+      - curl -sSL https://releases.hashicorp.com/terraform/1.5.0/terraform_1.5.0_linux_amd64.zip -o /tmp/tf.zip
+      - unzip -qo /tmp/tf.zip -d /usr/local/bin
       - cd terraform
       - terraform fmt -check -recursive
-    failure: continue
+    failure: ignore
 
   - name: init
     image: debian:13-slim
-    environment: *aws_env
+    environment:
+      AWS_DEFAULT_REGION: us-west-2
+      AWS_REGION: us-west-2
+      AWS_PROFILE: ci-bryanchasko
     commands:
-      - *install_terraform
-      - *aws_config
-      - aws sts get-caller-identity
+      - apt-get update -qq && apt-get install -y -qq --no-install-recommends ca-certificates curl unzip >/dev/null
+      - curl -sSL https://releases.hashicorp.com/terraform/1.5.0/terraform_1.5.0_linux_amd64.zip -o /tmp/tf.zip
+      - unzip -qo /tmp/tf.zip -d /usr/local/bin
+      - mkdir -p /root/.aws
+      - |
+        cat > /root/.aws/config <<EOF
+        [profile ci-deploy]
+        region = us-west-2
+        credential_process = /usr/local/bin/aws_signing_helper credential-process --trust-anchor-arn arn:aws:rolesanywhere:us-west-2:211125425201:trust-anchor/5e54afa4-d3d7-4e42-bae6-68f9d126c7d7 --profile-arn arn:aws:rolesanywhere:us-west-2:211125425201:profile/2177db77-a33c-4e5b-bcce-21b908659406 --role-arn arn:aws:iam::211125425201:role/heraldstack-ci-deploy --certificate /workload.crt --private-key /workload.key
+
+        [profile ci-bryanchasko]
+        region = us-west-2
+        source_profile = ci-deploy
+        role_arn = arn:aws:iam::211125425201:role/heraldstack-ci-bryanchasko
+        EOF
       - cd terraform
       - terraform init -backend-config="profile=ci-bryanchasko" -reconfigure
 
   - name: validate
     image: debian:13-slim
     depends_on: [init]
-    environment: *aws_env
+    environment:
+      AWS_DEFAULT_REGION: us-west-2
+      AWS_REGION: us-west-2
+      AWS_PROFILE: ci-bryanchasko
     commands:
-      - *install_terraform
-      - *aws_config
+      - apt-get update -qq && apt-get install -y -qq --no-install-recommends ca-certificates curl unzip >/dev/null
+      - curl -sSL https://releases.hashicorp.com/terraform/1.5.0/terraform_1.5.0_linux_amd64.zip -o /tmp/tf.zip
+      - unzip -qo /tmp/tf.zip -d /usr/local/bin
+      - mkdir -p /root/.aws
+      - |
+        cat > /root/.aws/config <<EOF
+        [profile ci-deploy]
+        region = us-west-2
+        credential_process = /usr/local/bin/aws_signing_helper credential-process --trust-anchor-arn arn:aws:rolesanywhere:us-west-2:211125425201:trust-anchor/5e54afa4-d3d7-4e42-bae6-68f9d126c7d7 --profile-arn arn:aws:rolesanywhere:us-west-2:211125425201:profile/2177db77-a33c-4e5b-bcce-21b908659406 --role-arn arn:aws:iam::211125425201:role/heraldstack-ci-deploy --certificate /workload.crt --private-key /workload.key
+
+        [profile ci-bryanchasko]
+        region = us-west-2
+        source_profile = ci-deploy
+        role_arn = arn:aws:iam::211125425201:role/heraldstack-ci-bryanchasko
+        EOF
       - cd terraform
       - terraform init -backend-config="profile=ci-bryanchasko" -reconfigure
       - terraform validate -no-color
@@ -83,10 +89,26 @@ steps:
   - name: plan
     image: debian:13-slim
     depends_on: [validate]
-    environment: *aws_env
+    environment:
+      AWS_DEFAULT_REGION: us-west-2
+      AWS_REGION: us-west-2
+      AWS_PROFILE: ci-bryanchasko
     commands:
-      - *install_terraform
-      - *aws_config
+      - apt-get update -qq && apt-get install -y -qq --no-install-recommends ca-certificates curl unzip >/dev/null
+      - curl -sSL https://releases.hashicorp.com/terraform/1.5.0/terraform_1.5.0_linux_amd64.zip -o /tmp/tf.zip
+      - unzip -qo /tmp/tf.zip -d /usr/local/bin
+      - mkdir -p /root/.aws
+      - |
+        cat > /root/.aws/config <<EOF
+        [profile ci-deploy]
+        region = us-west-2
+        credential_process = /usr/local/bin/aws_signing_helper credential-process --trust-anchor-arn arn:aws:rolesanywhere:us-west-2:211125425201:trust-anchor/5e54afa4-d3d7-4e42-bae6-68f9d126c7d7 --profile-arn arn:aws:rolesanywhere:us-west-2:211125425201:profile/2177db77-a33c-4e5b-bcce-21b908659406 --role-arn arn:aws:iam::211125425201:role/heraldstack-ci-deploy --certificate /workload.crt --private-key /workload.key
+
+        [profile ci-bryanchasko]
+        region = us-west-2
+        source_profile = ci-deploy
+        role_arn = arn:aws:iam::211125425201:role/heraldstack-ci-bryanchasko
+        EOF
       - cd terraform
       - terraform init -backend-config="profile=ci-bryanchasko" -reconfigure
       - terraform plan -no-color -input=false
@@ -96,10 +118,26 @@ steps:
   - name: apply
     image: debian:13-slim
     depends_on: [validate]
-    environment: *aws_env
+    environment:
+      AWS_DEFAULT_REGION: us-west-2
+      AWS_REGION: us-west-2
+      AWS_PROFILE: ci-bryanchasko
     commands:
-      - *install_terraform
-      - *aws_config
+      - apt-get update -qq && apt-get install -y -qq --no-install-recommends ca-certificates curl unzip >/dev/null
+      - curl -sSL https://releases.hashicorp.com/terraform/1.5.0/terraform_1.5.0_linux_amd64.zip -o /tmp/tf.zip
+      - unzip -qo /tmp/tf.zip -d /usr/local/bin
+      - mkdir -p /root/.aws
+      - |
+        cat > /root/.aws/config <<EOF
+        [profile ci-deploy]
+        region = us-west-2
+        credential_process = /usr/local/bin/aws_signing_helper credential-process --trust-anchor-arn arn:aws:rolesanywhere:us-west-2:211125425201:trust-anchor/5e54afa4-d3d7-4e42-bae6-68f9d126c7d7 --profile-arn arn:aws:rolesanywhere:us-west-2:211125425201:profile/2177db77-a33c-4e5b-bcce-21b908659406 --role-arn arn:aws:iam::211125425201:role/heraldstack-ci-deploy --certificate /workload.crt --private-key /workload.key
+
+        [profile ci-bryanchasko]
+        region = us-west-2
+        source_profile = ci-deploy
+        role_arn = arn:aws:iam::211125425201:role/heraldstack-ci-bryanchasko
+        EOF
       - cd terraform
       - terraform init -backend-config="profile=ci-bryanchasko" -reconfigure
       - terraform apply -auto-approve -input=false

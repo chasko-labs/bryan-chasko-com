@@ -1,0 +1,46 @@
+---
+# woodpecker ci/cd — bryan-chasko-com deploy
+# replaces .github/workflows-disabled/deploy.yml
+# repo: chasko-labs/bryan-chasko-com
+#
+# auth chain (zero long-lived iam keys):
+#   heraldstack ci workload cert at /workload.{crt,key}
+#   aws_signing_helper at /usr/local/bin/aws_signing_helper
+#   → rolesanywhere ci-profile → heraldstack-ci-deploy role
+#   → s3 rw /sites/bryanchasko.com + cloudfront invalidate
+# mounts come from woodpecker-agent env WOODPECKER_BACKEND_DOCKER_VOLUMES
+# (~/code/heraldstack/heraldstack-infra/docker-compose.yml)
+
+when:
+  - event: [push, manual]
+    branch: main
+
+steps:
+  - name: build-hugo
+    image: hugomods/hugo:ci-alpine
+    commands:
+      - hugo --minify
+    environment:
+      HUGO_ENV: production
+
+  - name: deploy
+    image: public.ecr.aws/aws-cli/aws-cli:latest
+    depends_on: [build-hugo]
+    environment:
+      AWS_DEFAULT_REGION: us-west-2
+      AWS_PROFILE: ci-deploy
+    commands:
+      # wire an aws profile that resolves its creds via the mounted
+      # workload cert + rolesanywhere — no plaintext keys anywhere
+      - mkdir -p /root/.aws
+      - |
+        cat > /root/.aws/config <<EOF
+        [profile ci-deploy]
+        region = us-west-2
+        credential_process = /usr/local/bin/aws_signing_helper credential-process --trust-anchor-arn arn:aws:rolesanywhere:us-west-2:211125425201:trust-anchor/5e54afa4-d3d7-4e42-bae6-68f9d126c7d7 --profile-arn arn:aws:rolesanywhere:us-west-2:211125425201:profile/2177db77-a33c-4e5b-bcce-21b908659406 --role-arn arn:aws:iam::211125425201:role/heraldstack-ci-deploy --certificate /workload.crt --private-key /workload.key
+        EOF
+      - aws sts get-caller-identity
+      - aws ssm get-parameter --name /sites/bryanchasko.com/s3_bucket --query 'Parameter.Value' --output text > /tmp/s3_bucket.txt && S3_BUCKET=$(cat /tmp/s3_bucket.txt)
+      - aws ssm get-parameter --name /sites/bryanchasko.com/cloudfront_distribution_id --query 'Parameter.Value' --output text > /tmp/cf_dist_id.txt && CF_DIST_ID=$(cat /tmp/cf_dist_id.txt)
+      - aws s3 sync public/ s3://${S3_BUCKET} --delete --cache-control "public, max-age=3600" --exclude ".git/*" --exclude "*.md"
+      - aws cloudfront create-invalidation --distribution-id ${CF_DIST_ID} --paths "/*"

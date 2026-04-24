@@ -1,0 +1,92 @@
+---
+# woodpecker ci/cd — bryan-chasko-com terraform plan/apply
+# replaces .github/workflows-disabled/terraform.yml
+# repo: chasko-labs/bryan-chasko-com
+#
+# auth chain:
+#   heraldstack ci workload cert at /workload.{crt,key}
+#   aws_signing_helper at /usr/local/bin/aws_signing_helper
+#   → rolesanywhere ci-profile → heraldstack-ci-deploy role
+
+when:
+  - event: [pull_request, push, manual]
+    branch: main
+    path:
+      include:
+        - terraform/**
+        - .woodpecker/terraform.yml
+
+steps:
+  - name: checkout
+    image: alpine/git
+    commands:
+      - git clone --depth 1 ${CI_REPO_URL} .
+
+  - name: fmt-check
+    image: hashicorp/terraform:1.5
+    working_dir: terraform
+    commands:
+      - terraform fmt -check -recursive
+    failure: continue
+
+  - name: init
+    image: hashicorp/terraform:1.5
+    working_dir: terraform
+    environment:
+      AWS_PROFILE: ci-deploy
+      AWS_REGION: us-west-2
+    commands:
+      - mkdir -p /root/.aws
+      - |
+        cat > /root/.aws/config <<EOF
+        [profile ci-deploy]
+        region = us-west-2
+        credential_process = /usr/local/bin/aws_signing_helper credential-process --trust-anchor-arn arn:aws:rolesanywhere:us-west-2:211125425201:trust-anchor/5e54afa4-d3d7-4e42-bae6-68f9d126c7d7 --profile-arn arn:aws:rolesanywhere:us-west-2:211125425201:profile/2177db77-a33c-4e5b-bcce-21b908659406 --role-arn arn:aws:iam::211125425201:role/heraldstack-ci-deploy --certificate /workload.crt --private-key /workload.key
+        EOF
+      - terraform init
+
+  - name: validate
+    image: hashicorp/terraform:1.5
+    working_dir: terraform
+    depends_on: [init]
+    commands:
+      - terraform validate -no-color
+
+  - name: plan
+    image: hashicorp/terraform:1.5
+    working_dir: terraform
+    depends_on: [validate]
+    environment:
+      AWS_PROFILE: ci-deploy
+      AWS_REGION: us-west-2
+    commands:
+      - mkdir -p /root/.aws
+      - |
+        cat > /root/.aws/config <<EOF
+        [profile ci-deploy]
+        region = us-west-2
+        credential_process = /usr/local/bin/aws_signing_helper credential-process --trust-anchor-arn arn:aws:rolesanywhere:us-west-2:211125425201:trust-anchor/5e54afa4-d3d7-4e42-bae6-68f9d126c7d7 --profile-arn arn:aws:rolesanywhere:us-west-2:211125425201:profile/2177db77-a33c-4e5b-bcce-21b908659406 --role-arn arn:aws:iam::211125425201:role/heraldstack-ci-deploy --certificate /workload.crt --private-key /workload.key
+        EOF
+      - terraform plan -no-color -input=false
+    when:
+      - event: pull_request
+
+  - name: apply
+    image: hashicorp/terraform:1.5
+    working_dir: terraform
+    depends_on: [validate]
+    environment:
+      AWS_PROFILE: ci-deploy
+      AWS_REGION: us-west-2
+    commands:
+      - mkdir -p /root/.aws
+      - |
+        cat > /root/.aws/config <<EOF
+        [profile ci-deploy]
+        region = us-west-2
+        credential_process = /usr/local/bin/aws_signing_helper credential-process --trust-anchor-arn arn:aws:rolesanywhere:us-west-2:211125425201:trust-anchor/5e54afa4-d3d7-4e42-bae6-68f9d126c7d7 --profile-arn arn:aws:rolesanywhere:us-west-2:211125425201:profile/2177db77-a33c-4e5b-bcce-21b908659406 --role-arn arn:aws:iam::211125425201:role/heraldstack-ci-deploy --certificate /workload.crt --private-key /workload.key
+        EOF
+      - terraform apply -auto-approve -input=false
+    when:
+      - event: push
+        branch: main

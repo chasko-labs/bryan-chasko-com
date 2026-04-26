@@ -13,7 +13,6 @@ File Path: content/blog/posts/aws-hero-bryan-chasko.md
 
 [“One of the leading innovators in the world”](https://www.lascrucesbulletin.com/stories/local-company-takes-cutting-edge-health-technology-global,2642)
 
-
 #### Background
 
 - **Intro to ethical hacking and electronics via time in US Army Special Operations**
@@ -24,7 +23,7 @@ File Path: content/blog/posts/aws-hero-bryan-chasko.md
 - **80’s Baby Born with acess to an MS-DOS Computer near Yuma Proving Grounds 💾**
 - **AWS Hero since 2008 known for Community and Spatial Computing**
 
-"Bryan Chasko’s journey with Amazon’s ecosystem has been nothing short of transformative, reflecting his deep understanding of AWS and its potential." 
+"Bryan Chasko’s journey with Amazon’s ecosystem has been nothing short of transformative, reflecting his deep understanding of AWS and its potential."
 
 ### Building a Journey with AWS
 
@@ -65,8 +64,8 @@ With over 15 years of experience in AWS Cloud ☁️, Bryan has demonstrated kna
 
 Over 100+ AWS services have been deployed by Bryan, including:
 
-🚀 Amazon EC2  🛠️ AWS Lambda  📦 Amazon S3  🗄️ Amazon Glacier  🌐 Amazon VPC  📊 Amazon RDS  💨 Amazon ElastiCache  📈 Amazon DynamoDB  📉 Amazon Redshift  🌍 Amazon CloudFront  🔗 Amazon Route 53  📧 Amazon SES  🔄 AWS CodeCommit  🔨 AWS CodeBuild  🚧 AWS CodeDeploy  🔄 AWS CodePipeline  🛠️ AWS CloudFormation 🔍 AWS CloudTrail 🔑 AWS IAM  🔐 AWS KMS  🔍 Amazon ES  📊 Amazon Kinesis  🗣️ Amazon Lex  🗣️ Amazon Polly 🖼️ Amazon Rekognition  🧠 Amazon Machine Learning  📡 AWS IoT  🕶️ Amazon Sumerian  🔌 Amazon API Gateway 🔒 Amazon Cognito  📩 Amazon SQS  🔔 Amazon SNS  📞 Amazon Chime  🎮 Amazon Lumberyard  🎙️ Alexa Skills Kit  🌩️ Amazon Bedrock  🕵️ Amazon Comprehend  📞 Amazon Connect  🤖 Amazon DeepLens  🔌 Amazon Direct Connect  🗄️ Amazon EBS  📂 Amazon EFS  📊 Amazon EMR  🎛️ Amazon EventBridge  🛠️ Amazon Fargate  📁 Amazon FSx  🛡️ Amazon GuardDuty  📹 Amazon Kinesis Video Streams  🔑 Amazon KMS  🗣️ Amazon Lex  🔆 Amazon LightSail  🌍 Amazon Location Service  🔐 Amazon Macie  💉 Amazon Medical Comprehend  🎬 Amazon Nimble Studio  🗣️ Amazon Polly  🔢 Amazon Q Developer  📊 Amazon QuickSight  📈 Amazon RDS  📉 Amazon Redshift 
-💼 Amazon WorkSpaces  🛠️ Amazon X-Ray  📈 AWS Amplify  🛠️ AWS Amplify Studio  🔗 AWS AppSync  🕵️ AWS Audit Manager  🛠️ AWS Cloud Developer Kit (CDK)  🔐 AWS Certificate Manager  🤖 AWS Chatbot 💻 AWS CLI 
+🚀 Amazon EC2  🛠️ AWS Lambda  📦 Amazon S3  🗄️ Amazon Glacier  🌐 Amazon VPC  📊 Amazon RDS  💨 Amazon ElastiCache  📈 Amazon DynamoDB  📉 Amazon Redshift  🌍 Amazon CloudFront  🔗 Amazon Route 53  📧 Amazon SES  🔄 AWS CodeCommit  🔨 AWS CodeBuild  🚧 AWS CodeDeploy  🔄 AWS CodePipeline  🛠️ AWS CloudFormation 🔍 AWS CloudTrail 🔑 AWS IAM  🔐 AWS KMS  🔍 Amazon ES  📊 Amazon Kinesis  🗣️ Amazon Lex  🗣️ Amazon Polly 🖼️ Amazon Rekognition  🧠 Amazon Machine Learning  📡 AWS IoT  🕶️ Amazon Sumerian  🔌 Amazon API Gateway 🔒 Amazon Cognito  📩 Amazon SQS  🔔 Amazon SNS  📞 Amazon Chime  🎮 Amazon Lumberyard  🎙️ Alexa Skills Kit  🌩️ Amazon Bedrock  🕵️ Amazon Comprehend  📞 Amazon Connect  🤖 Amazon DeepLens  🔌 Amazon Direct Connect  🗄️ Amazon EBS  📂 Amazon EFS  📊 Amazon EMR  🎛️ Amazon EventBridge  🛠️ Amazon Fargate  📁 Amazon FSx  🛡️ Amazon GuardDuty  📹 Amazon Kinesis Video Streams  🔑 Amazon KMS  🗣️ Amazon Lex  🔆 Amazon LightSail  🌍 Amazon Location Service  🔐 Amazon Macie  💉 Amazon Medical Comprehend  🎬 Amazon Nimble Studio  🗣️ Amazon Polly  🔢 Amazon Q Developer  📊 Amazon QuickSight  📈 Amazon RDS  📉 Amazon Redshift
+💼 Amazon WorkSpaces  🛠️ Amazon X-Ray  📈 AWS Amplify  🛠️ AWS Amplify Studio  🔗 AWS AppSync  🕵️ AWS Audit Manager  🛠️ AWS Cloud Developer Kit (CDK)  🔐 AWS Certificate Manager  🤖 AWS Chatbot 💻 AWS CLI
 💻 AWS Cloud9  🛠️ AWS CloudFormation  🔍 AWS CloudShell  🕵️ AWS CloudTrail  🔨 AWS CodeBuild  🔑 AWS CodeCommit  🚧 AWS CodeDeploy  🔄 AWS CodePipeline  ⭐ AWS CodeStar  🛠️ AWS Control Tower  📊 AWS Data Pipeline  📱 AWS Device Farm  📦 AWS Elastic Beanstalk  🔄 AWS Glue  ⚙️ AWS Graviton  🔐 AWS Identity Center 📦 AWS IoT 1-Click  📊 AWS IoT Core  📦 AWS IoT Greengrass  📊 AWS IoT SiteWise  🚀 AWS Lambda  🌍 AWS Local Zones  🔗 AWS Organizations  📹 AWS Panorama  🔑 AWS Secrets Manager  🔄 AWS Step Functions  
 📂 AWS Storage Gateway  ⚙️ AWS Systems Manager  🛡️ AWS Trusted Advisor  🛡️ AWS WAF  🔐 AWS Wickr  📚 CloudScape Design System (CDS) 🔄 Elastic Load Balancing - AWS  🔢 Open 3D Engine - Linux Foundation
 
@@ -134,5 +133,3 @@ Since 2020, Bryan has turned his attention towards the community leve and grassr
 "Bryan’s efforts in organizing AWS meetups and fostering community engagement are a testament to his leadership and passion for technology."
 
 ---
-
-

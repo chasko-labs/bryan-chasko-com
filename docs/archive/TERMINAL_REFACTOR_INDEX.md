@@ -13,22 +13,26 @@
 The terminal greeting component has been successfully extracted into a reusable, modular partial with:
 
 ✅ **Reusable Partial** - `terminal_greeting.html`
+
 - Customizable props: message, user, prompt, class, showSocialReveal
 - SSR-friendly (no JS required for rendering)
 - Clean, maintainable code
 
 ✅ **Dedicated CSS** - `terminal.css`
+
 - ~600 lines of terminal-specific styling
 - Light mode (purple frosted glass)
 - Dark mode (green phosphor CRT)
 - All animations and responsive rules
 
 ✅ **Generic JavaScript** - `terminal-overlay.js`
+
 - Auto-dismiss logic
 - Well-documented
 - Minimal and focused
 
 ✅ **Comprehensive Documentation**
+
 - Usage examples
 - Parameter reference
 - Styling guide
@@ -39,6 +43,7 @@ The terminal greeting component has been successfully extracted into a reusable,
 ## Files Changed
 
 ### Created (4 files)
+
 ```
 themes/bryan-chasko-theme/layouts/partials/terminal_greeting.html
 themes/bryan-chasko-theme/assets/css/components/terminal.css
@@ -47,6 +52,7 @@ TERMINAL_REFACTOR_SUMMARY.md
 ```
 
 ### Modified (3 files)
+
 ```
 themes/bryan-chasko-theme/layouts/partials/home_info.html
 themes/bryan-chasko-theme/assets/css/components/home.css
@@ -56,11 +62,13 @@ themes/bryan-chasko-theme/static/js/terminal-overlay.js
 ## How to Use
 
 ### Basic Usage
+
 ```hugo
 {{ partial "terminal_greeting.html" . }}
 ```
 
 ### Custom Message
+
 ```hugo
 {{ partial "terminal_greeting.html" (dict 
     "message" "Welcome to my site"
@@ -70,6 +78,7 @@ themes/bryan-chasko-theme/static/js/terminal-overlay.js
 ```
 
 ### Without Social Icons
+
 ```hugo
 {{ partial "terminal_greeting.html" (dict 
     "message" "Loading..."
@@ -93,6 +102,7 @@ For more examples, see [TERMINAL_COMPONENT.md#usage](TERMINAL_COMPONENT.md#usage
 ## Testing
 
 ### Manual Testing
+
 ```bash
 # Start dev server
 hugo server --config hugo.toml -D
@@ -106,6 +116,7 @@ hugo server --config hugo.toml -D
 ```
 
 ### Automated Testing
+
 ```bash
 # Run visual regression tests
 npm test
@@ -117,21 +128,25 @@ npm run test:update-baselines
 ## Deployment
 
 1. **Local Testing**
+
    ```bash
    hugo server --config hugo.toml -D
    ```
 
 2. **Automated Testing**
+
    ```bash
    npm test
    ```
 
 3. **Create Feature Branch**
+
    ```bash
    git checkout -b refactor/terminal-component
    ```
 
 4. **Commit Changes**
+
    ```bash
    git add .
    git commit -m "refactor: modularize terminal component"
@@ -142,6 +157,7 @@ npm run test:update-baselines
    - Verify CI/CD passes
 
 6. **Merge & Deploy**
+
    ```bash
    git merge refactor/terminal-component
    perl scripts/deploy.pl --profile websites-bryanchasko
@@ -150,9 +166,11 @@ npm run test:update-baselines
 ## Documentation Structure
 
 ### TERMINAL_COMPONENT.md
+
 **Complete reference for using the component**
 
 Sections:
+
 - Overview
 - File structure
 - Usage (basic, custom, advanced)
@@ -170,9 +188,11 @@ Sections:
 - Future enhancements
 
 ### TERMINAL_REFACTOR_SUMMARY.md
+
 **Details about the refactoring process**
 
 Sections:
+
 - Overview
 - Changes made (files created/modified)
 - Key features
@@ -187,9 +207,11 @@ Sections:
 - Rollback instructions
 
 ### TERMINAL_COMPONENT_CHECKLIST.md
+
 **Verification checklist for QA/testing**
 
 Sections:
+
 - Files created (with descriptions)
 - Files modified (with descriptions)
 - CSS import structure
@@ -211,6 +233,7 @@ Sections:
 ## Quick Reference
 
 ### Animation Timeline
+
 ```
 0ms ─────────────────────────────────────────────────────────────────── 8500ms
 │                                                                        │
@@ -221,6 +244,7 @@ Sections:
 ```
 
 ### Parameters
+
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `message` | string | "Hello, Friend" | Text displayed after prompt |
@@ -230,6 +254,7 @@ Sections:
 | `showSocialReveal` | bool | true | Show social icons reveal animation |
 
 ### CSS Variables
+
 ```css
 --nebula-purple          /* Light mode primary color */
 --nebula-orange          /* Prompt color */
@@ -243,21 +268,25 @@ Sections:
 ## Troubleshooting
 
 ### Terminal not appearing
+
 - Check if `terminal-overlay.js` is loaded
 - Verify `.terminal-wrapper` class is present
 - Check browser console for errors
 
 ### Animation stuttering
+
 - Disable browser extensions
 - Check for CPU throttling
 - Verify GPU acceleration is enabled
 
 ### Colors not matching theme
+
 - Verify CSS variables are defined
 - Check for CSS specificity conflicts
 - Inspect computed styles in DevTools
 
 ### Social icons not revealing
+
 - Verify `showSocialReveal` is `true`
 - Check if `social_icons.html` partial exists
 - Verify animation timing (8.5s default)
@@ -300,11 +329,13 @@ For more troubleshooting, see [TERMINAL_COMPONENT.md#troubleshooting](TERMINAL_C
    - Read [TERMINAL_REFACTOR_SUMMARY.md](TERMINAL_REFACTOR_SUMMARY.md) for details
 
 2. **Local Testing**
+
    ```bash
    hugo server --config hugo.toml -D
    ```
 
 3. **Automated Testing**
+
    ```bash
    npm test
    ```
@@ -320,6 +351,7 @@ For more troubleshooting, see [TERMINAL_COMPONENT.md#troubleshooting](TERMINAL_C
 ## Questions?
 
 Refer to the appropriate documentation:
+
 - **How do I use this?** → [TERMINAL_COMPONENT.md](TERMINAL_COMPONENT.md)
 - **What changed?** → [TERMINAL_REFACTOR_SUMMARY.md](TERMINAL_REFACTOR_SUMMARY.md)
 - **Is everything ready?** → [TERMINAL_COMPONENT_CHECKLIST.md](TERMINAL_COMPONENT_CHECKLIST.md)

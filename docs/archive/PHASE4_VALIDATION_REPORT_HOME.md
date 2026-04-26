@@ -33,21 +33,26 @@
 ## Validation Steps Completed
 
 ### ✅ Step 1: Patch Applied
+
 - Modified `components/home.css`
 - Verified changes with grep:
   - `gap: var(--space-sm)` found at lines 12, 182, 446, 840
   - `padding: var(--space-md) var(--space-lg)` found at lines 60, 841
 
 ### ✅ Step 2: Hugo Rebuild
+
 - Dev server still running on localhost:1313
 - No restart needed (CSS hot-reload)
 
 ### ✅ Step 3: Screenshot Capture
+
 - **Home Page**: `phase4-validation-home-dev-2.png` (1280x720)
 - **Blog Page**: `phase4-validation-blog-dev-2.png` (1280x720)
 
 ### ✅ Step 4: Visual Inspection
+
 **No regressions detected** in:
+
 - ✅ GitHub section (profile link, latest commit box)
 - ✅ Home info navigation buttons
 - ✅ Instagram card (profile btn, follow link)
@@ -60,6 +65,7 @@
 ## Spacing Verification
 
 ### Before Patch
+
 ```css
 .github-profile-link { gap: 0.5em; }                    /* 8px */
 .github-profile-link { padding: 0.25em 0.75em; }        /* 4px 12px */
@@ -74,6 +80,7 @@
 ```
 
 ### After Patch
+
 ```css
 .github-profile-link { gap: var(--space-sm); }                    /* 8px */
 .github-profile-link { padding: var(--space-xs) var(--space-sm); } /* 4px 8px */
@@ -95,6 +102,7 @@
 ## Regression Testing
 
 ### Cross-Component Verification
+
 - ✅ GitHub section renders correctly
 - ✅ Navigation buttons maintain layout
 - ✅ Instagram card displays properly
@@ -103,6 +111,7 @@
 - ✅ No overflow or layout shifts
 
 ### Browser Compatibility
+
 - ✅ CSS variables supported (all modern browsers)
 - ✅ Fallback not needed
 

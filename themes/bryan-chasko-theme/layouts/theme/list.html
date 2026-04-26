@@ -1,0 +1,285 @@
+{{ define "main" }}
+{{ $t := site.Data.theme }}
+<article class="theme-page">
+
+	<header class="theme-hero">
+		<p class="theme-eyebrow">design system · v1</p>
+		<h1 class="theme-title">nebula</h1>
+		<p class="theme-lede">{{ $t.intro }}</p>
+		<nav class="theme-toc" aria-label="design system sections">
+			<a href="#palette">palette</a>
+			<a href="#typography">typography</a>
+			<a href="#spacing">spacing</a>
+			<a href="#radius">radius</a>
+			<a href="#elevation">elevation</a>
+			<a href="#shadow">shadow</a>
+			<a href="#motion">motion</a>
+			<a href="#components">components</a>
+			<a href="#source">source</a>
+		</nav>
+	</header>
+
+	{{/* palette */}}
+	<section class="theme-section" id="palette">
+		<header class="theme-section-head">
+			<h2>palette</h2>
+			<p>brand chips first, semantic mappings second. semantic vars are the right citation in component css — brand vars are the source</p>
+		</header>
+
+		<h3 class="theme-subhead">brand</h3>
+		<div class="swatch-grid">
+			{{ range $t.palette.brand }}
+			<article class="swatch" style="--swatch-color:{{ .hex }}">
+				<div class="swatch-chip" aria-hidden="true"></div>
+				<div class="swatch-meta">
+					<strong class="swatch-name">{{ .name }}</strong>
+					<code class="swatch-var">{{ .var }}</code>
+					<span class="swatch-hex">{{ .hex }}</span>
+					<p class="swatch-role">{{ .role }}</p>
+				</div>
+			</article>
+			{{ end }}
+		</div>
+
+		<h3 class="theme-subhead">semantic</h3>
+		<div class="semantic-grid">
+			{{ range $t.palette.semantic }}
+			<article class="semantic-row">
+				<code class="semantic-var">{{ .var }}</code>
+				<span class="semantic-arrow" aria-hidden="true">→</span>
+				<code class="semantic-target">{{ .maps_to }}</code>
+				<span class="semantic-role">{{ .role }}</span>
+			</article>
+			{{ end }}
+		</div>
+	</section>
+
+	{{/* typography */}}
+	<section class="theme-section" id="typography">
+		<header class="theme-section-head">
+			<h2>typography</h2>
+			<p>system stack — defaulting to platform fonts means crisp render at every viewport, zero web-font cost, no flash of unstyled text</p>
+		</header>
+
+		<h3 class="theme-subhead">font stacks</h3>
+		<div class="font-stack-grid">
+			{{ range $t.typography.font_stacks }}
+			<article class="font-stack">
+				<header class="font-stack-head">
+					<strong>{{ .name }}</strong>
+					<code>{{ .var }}</code>
+				</header>
+				<p class="font-stack-sample" style="font-family: {{ .stack | safeCSS }}">
+					the quick brown fox jumps over the lazy dog
+				</p>
+				<p class="font-stack-role">{{ .role }}</p>
+			</article>
+			{{ end }}
+		</div>
+
+		<h3 class="theme-subhead">type scale</h3>
+		<div class="type-scale">
+			{{ range $t.typography.scale }}
+			<article class="type-row">
+				<div class="type-meta">
+					<code>{{ .var }}</code>
+					<span class="type-px">{{ .px }}px · {{ .rem }}</span>
+				</div>
+				<p class="type-sample" style="font-size: {{ .rem | safeCSS }}">{{ .sample }}</p>
+			</article>
+			{{ end }}
+		</div>
+
+		<h3 class="theme-subhead">line height</h3>
+		<div class="line-height-grid">
+			{{ range $t.typography.line_height }}
+			<article class="line-height-row">
+				<header>
+					<strong>{{ .name }}</strong>
+					<code>{{ .var }}</code>
+					<span>{{ .value }}</span>
+				</header>
+				<p style="line-height: {{ .value | safeCSS }}">
+					stacking lines at this rhythm. the cosmic ledger keeps its accounting clean even as it stretches across the viewport. each line earns its place
+				</p>
+				<p class="line-height-role">{{ .role }}</p>
+			</article>
+			{{ end }}
+		</div>
+	</section>
+
+	{{/* spacing */}}
+	<section class="theme-section" id="spacing">
+		<header class="theme-section-head">
+			<h2>spacing</h2>
+			<p>a 4-based scale doubling at each step until the gutter takes over. measure twice, gap once</p>
+		</header>
+		<div class="spacing-grid">
+			{{ range $t.spacing }}
+			<article class="spacing-row">
+				<div class="spacing-meta">
+					<strong>{{ .name }}</strong>
+					<code>{{ .var }}</code>
+					<span>{{ .px }}px · {{ .rem }}</span>
+				</div>
+				<div class="spacing-bar" style="width: {{ .rem | safeCSS }}" aria-hidden="true"></div>
+			</article>
+			{{ end }}
+		</div>
+	</section>
+
+	{{/* radius */}}
+	<section class="theme-section" id="radius">
+		<header class="theme-section-head">
+			<h2>radius</h2>
+			<p>chip → pill, the curve grows as the surface widens. nothing is ever fully square except code</p>
+		</header>
+		<div class="radius-grid">
+			{{ range $t.radius }}
+			<article class="radius-row">
+				<div class="radius-specimen" style="border-radius: {{ .value | safeCSS }}" aria-hidden="true"></div>
+				<div class="radius-meta">
+					<strong>{{ .name }}</strong>
+					<code>{{ .var }}</code>
+					<span>{{ .value }}</span>
+					<p>{{ .role }}</p>
+				</div>
+			</article>
+			{{ end }}
+		</div>
+	</section>
+
+	{{/* elevation */}}
+	<section class="theme-section" id="elevation">
+		<header class="theme-section-head">
+			<h2>elevation</h2>
+			<p>dark mode reads as depth; light mode reads as paper. the elevation stack is the same idea drawn twice</p>
+		</header>
+		<div class="elevation-stack">
+			{{ range $t.elevation }}
+			<article class="elevation-tile" style="background: var({{ .var }})">
+				<strong>{{ .name }}</strong>
+				<code>{{ .var }}</code>
+				<p>{{ .role }}</p>
+			</article>
+			{{ end }}
+		</div>
+	</section>
+
+	{{/* shadow */}}
+	<section class="theme-section" id="shadow">
+		<header class="theme-section-head">
+			<h2>shadow</h2>
+			<p>shadows do the work of suggesting depth without committing to it. small for separation, xl for modal weight</p>
+		</header>
+		<div class="shadow-grid">
+			{{ range $t.shadow }}
+			<article class="shadow-row">
+				<div class="shadow-specimen" style="box-shadow: {{ .value | safeCSS }}" aria-hidden="true"></div>
+				<div class="shadow-meta">
+					<strong>{{ .name }}</strong>
+					<code>{{ .var }}</code>
+					<p>{{ .role }}</p>
+				</div>
+			</article>
+			{{ end }}
+		</div>
+	</section>
+
+	{{/* motion */}}
+	<section class="theme-section" id="motion">
+		<header class="theme-section-head">
+			<h2>motion</h2>
+			<p>three transition durations. fast for attention, base for confirmation, slow for arrival. every easing is the same cubic-bezier — variation is duration, not curve</p>
+		</header>
+		<div class="motion-grid">
+			{{ range $t.motion }}
+			<article class="motion-row">
+				<div class="motion-demo" style="transition: transform {{ .value | safeCSS }}" aria-hidden="true">
+					<span class="motion-dot"></span>
+				</div>
+				<div class="motion-meta">
+					<strong>{{ .name }}</strong>
+					<code>{{ .var }}</code>
+					<span class="motion-value">{{ .value }}</span>
+					<p>{{ .role }}</p>
+				</div>
+			</article>
+			{{ end }}
+		</div>
+		<p class="motion-hint">hover any swatch above to feel the timing</p>
+	</section>
+
+	{{/* components */}}
+	<section class="theme-section" id="components">
+		<header class="theme-section-head">
+			<h2>components</h2>
+			<p>specimens of the most-used composed atoms — buttons, cards, code, callouts. each renders with the live theme css so this page stays honest</p>
+		</header>
+
+		<h3 class="theme-subhead">buttons</h3>
+		<div class="component-row component-row-buttons">
+			<a href="#" class="hero-cta">primary cta</a>
+			<a href="#" class="hero-cta hero-cta-secondary">secondary cta</a>
+			<button type="button" class="theme-btn-ghost">ghost</button>
+		</div>
+
+		<h3 class="theme-subhead">card</h3>
+		<div class="component-row">
+			<article class="theme-card-specimen">
+				<header>
+					<strong>service card</strong>
+					<span class="theme-card-tag">aws</span>
+				</header>
+				<p>cards use the glassmorphism gradient + nebula border. hover lifts via translate-Y and amplifies the corner glow</p>
+				<a href="#" class="theme-card-link">learn more →</a>
+			</article>
+		</div>
+
+		<h3 class="theme-subhead">callout / chip</h3>
+		<div class="component-row component-row-chips">
+			<span class="theme-chip">tag</span>
+			<span class="theme-chip theme-chip-accent">aws hero</span>
+			<code class="theme-code-inline">--nebula-purple</code>
+		</div>
+
+		<h3 class="theme-subhead">code block</h3>
+		<pre class="theme-pre"><code>:root {
+	--color-primary: var(--nebula-purple);
+	--color-accent: var(--nebula-orange);
+	--space-md: 1rem;
+}</code></pre>
+	</section>
+
+	{{/* container constraints */}}
+	<section class="theme-section" id="containers">
+		<header class="theme-section-head">
+			<h2>containers</h2>
+			<p>three boundaries do all the layout work — page, prose, and gutter</p>
+		</header>
+		<div class="container-grid">
+			{{ range $t.containers }}
+			<article class="container-row">
+				<strong>{{ .name }}</strong>
+				<code>{{ .var }}</code>
+				<span>{{ .value }}</span>
+				<p>{{ .role }}</p>
+			</article>
+			{{ end }}
+		</div>
+	</section>
+
+	{{/* live source */}}
+	<section class="theme-section" id="source">
+		<header class="theme-section-head">
+			<h2>source</h2>
+			<p>the canonical token file. this page renders from a curated mirror at <code>data/theme.yaml</code>. when the two diverge the css below wins. PRs welcome</p>
+		</header>
+		<details class="theme-source">
+			<summary>themes/bryan-chasko-theme/assets/css/core/variables.css</summary>
+			<pre class="theme-pre theme-source-pre"><code>{{ readFile "themes/bryan-chasko-theme/assets/css/core/variables.css" }}</code></pre>
+		</details>
+	</section>
+
+</article>
+{{ end }}

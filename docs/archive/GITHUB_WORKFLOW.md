@@ -3,6 +3,7 @@
 ## Philosophy
 
 **No broken code reaches production.** Every change goes through:
+
 1. Feature branch (isolated work)
 2. Local testing (verify it works)
 3. Pull request (document what changed)
@@ -29,6 +30,7 @@ git checkout -b chore/update-documentation
 ```
 
 **Naming Convention:**
+
 - `feature/` - New features
 - `bugfix/` or `fix/` - Bug fixes
 - `chore/` - Maintenance, documentation, tooling
@@ -60,11 +62,13 @@ git push origin feature/fix-menu-navigation
 Go to GitHub and create a Pull Request with:
 
 **PR Title:**
+
 ```
 Fix: WebGL canvas pointer-events blocking menu clicks
 ```
 
 **PR Description:**
+
 ```markdown
 ## Problem
 The WebGL constellation canvas was blocking clicks on the navigation menu 
@@ -90,10 +94,12 @@ because pointer-events wasn't properly configured.
 ### Step 4: Wait for Review
 
 **Automated Checks** (GitHub Actions):
+
 - ✅ Tests run automatically on PR
 - ✅ Must pass before merge is allowed
 
 **Human Review**:
+
 - Ask a team member to review your changes
 - Address any feedback
 - Push new commits (they automatically appear in PR)
@@ -103,11 +109,13 @@ because pointer-events wasn't properly configured.
 Once approved and tests pass:
 
 1. **Squash and merge** (recommended):
+
    ```
    Squash and merge — Combines all PR commits into one clean commit on main
    ```
 
 2. **Or merge with a merge commit**:
+
    ```
    Create a merge commit — Preserves individual PR commits
    ```
@@ -154,6 +162,7 @@ footer
 ### Examples
 
 **Good commits:**
+
 ```
 fix(menu): make navigation clickable by adjusting pointer-events
 feature(webgl): add ripple effect to blog post cards
@@ -163,6 +172,7 @@ refactor(css): consolidate theme color variables
 ```
 
 **Bad commits:**
+
 ```
 fixed stuff
 WIP
@@ -219,6 +229,7 @@ npm test
 **If tests fail:**
 
 1. **Check the error message**:
+
    ```
    WebGL color test failed: Expected [0,206,209], got [94,65,162]
    ```
@@ -229,6 +240,7 @@ npm test
    - Is this a cache issue? (hard refresh browser)
 
 3. **Fix and re-test**:
+
    ```bash
    npm test  # Re-run tests
    ```

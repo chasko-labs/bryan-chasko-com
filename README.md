@@ -1,7 +1,4 @@
-
-
 # Bryan Chasko - Cloudcroft Cloud Company 🌿🌸
-
 
 ---
 
@@ -12,7 +9,6 @@ See [MARKDOWN_GUIDE.md](MARKDOWN_GUIDE.md) for Markdown syntax, formatting, auto
 ---
 
 ---
-
 
 ## 🧑‍💻 Agentic Instructions
 
@@ -26,8 +22,7 @@ hugo server --config hugo.toml
 Production Command:
 hugo --minify --gc
 
-Deploy Command:
-hugo && aws s3 sync public/ s3://bryanchasko.com --profile websites-bryanchasko
+Deploy: push to main — woodpecker pipeline at `.woodpecker/deploy.yml` builds with hugo, syncs to s3://bryanchasko.com, invalidates cloudfront E2E9BSL5RVN6DI. Auth via rolesanywhere → ci-deploy → ci-bryanchasko (no long-lived iam keys)
 
 ## 🏗️ Architecture Diagrams
 
@@ -40,7 +35,7 @@ graph TB
     B -->|Resolves| C["⚡ CloudFront<br/>CDN"]
     C -->|Edge Logic| D["λ CloudFront<br/>Functions"]
     D -->|SigV4 Signed| E["📦 S3<br/>Bucket"]
-    
+
     style A fill:#e1f5ff,stroke:#01579b,stroke-width:2px
     style B fill:#fff3e0,stroke:#e65100,stroke-width:2px
     style C fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
@@ -50,7 +45,8 @@ graph TB
 
   "SITE_DISTRIBUTION_ID": "E1ABC2DEF3GHIJ",
 ```
-```json
+
+````json
 - Deployment to S3, CloudFront, and Route 53 is documented in `README_HOSTING.md`. Follow that guide for production deployment steps.
 **Troubleshooting checklist**
 
@@ -71,27 +67,11 @@ graph TB
     - **Primary config**: This project uses `hugo.toml` at the repository root. Older docs mention `config.dev.toml` and `config.prod.toml`; these are optional aliases. Use `--config` to point to any custom config file.
     - **If Hugo complains about "Unable to locate config file"**: make sure you run the server from the repository root (where `hugo.toml` lives), or pass `--config ./path/to/config` and `--source ./path/to/site`.
 
-    **Themes (PaperMod)**
+    **Theme (custom: bryan-chasko-theme)**
 
-    - The site uses the PaperMod theme. Make sure the theme is available in `themes/PaperMod` or configured as a Hugo Module.
-    - Quick install (no submodule):
-
-    ```bash
-    mkdir -p themes
-    git clone https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
-    ```
-
-    - To install as a Git submodule (optional):
-
-    ```bash
-    # If your .gitignore blocks themes/, remove that entry first or use -f
-    git submodule add https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
-    git submodule update --init --recursive
-    ```
-
-    - Common theme errors:
-      - `module "PaperMod" not found` — theme not present in `themes/` and not configured as a module. Clone or add it as a module.
-      - `The following paths are ignored by one of your .gitignore files: themes/PaperMod` — remove the `themes/` ignore line or add the submodule with `-f`.
+    - The site uses a fully custom theme at `themes/bryan-chasko-theme/`. PaperMod was retired 2026-04-26
+    - Theme is tracked in-tree (not a submodule). All layout + css + js lives under `themes/bryan-chasko-theme/`
+    - Design system documented at `/theme/` (live page) — see `themes/bryan-chasko-theme/assets/css/core/variables.css` for the source-of-truth tokens
 
     **Run locally (examples)**
 
@@ -131,8 +111,6 @@ graph TB
     **Troubleshooting checklist**
 
     - Hugo reports missing config: confirm current working dir contains `hugo.toml` or pass `--config`/`--source`.
-    - Theme errors: ensure `themes/PaperMod` exists (clone or submodule) or add PaperMod as a Hugo module in `hugo.toml`.
-    - `.gitignore` blocks `themes/`: remove that line before adding a submodule, or clone the theme manually and commit it.
 
     ## 🚀 Deployment & Best Practices
 
@@ -144,17 +122,18 @@ graph TB
     Feature Branch → Test Locally → Pull Request → Human Review → Merge to main → Deploy
     ```
 
-    See [**DEPLOYMENT.md**](DEPLOYMENT.md) for complete deployment guide including:
-    - ✅ Feature branch workflow requirements
-    - ✅ Pre-deployment checklist (tests must pass)
-    - ✅ How to use `scripts/deploy.pl` safely
-    - ✅ CloudFront cache invalidation
-    - ✅ Rollback procedures
+    Deployment runs via woodpecker (`.woodpecker/deploy.yml`) on push to main:
+
+    - hugo --minify build
+    - aws s3 sync public/ s3://bryanchasko.com --delete
+    - cloudfront invalidation against E2E9BSL5RVN6DI
+
+    Auth chain: rolesanywhere trust anchor → ci-deploy → ci-bryanchasko (site-scoped). Zero long-lived iam keys.
 
     ### Quick Deploy
 
     ```bash
-    # 1. Ensure working on main and all tests pass
+    # ensure working on main and all tests pass
     git status
     npm test
 
@@ -215,3 +194,4 @@ graph TB
     - **IMPORTANT**: Don't push to main without:
       /* Lines 717-745 omitted */
     Thank you — happy hacking! 🎉
+````

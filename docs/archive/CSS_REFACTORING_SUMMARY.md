@@ -1,4 +1,5 @@
 # CSS Refactoring Summary
+
 **Date:** December 17, 2025  
 **Project:** Bryan Chasko Portfolio - Hugo Site
 
@@ -14,16 +15,20 @@
 ## 📊 Hex Color Consolidation
 
 ### Before Refactoring
+
 **67 unique color values** scattered across CSS files with:
+
 - Hardcoded hex values repeated multiple times
 - Inconsistent color usage (#f6f7f9 vs #F9FAFB)
 - No centralized color system
 - Difficult to maintain theme consistency
 
 ### After Refactoring
+
 **All colors centralized** in [variables.css](themes/bryan-chasko-theme/assets/css/core/variables.css):
 
 #### **Brand Colors (Nebula Palette)**
+
 ```css
 --nebula-dark-navy: #1C2230;
 --nebula-purple: #5E41A2;
@@ -33,6 +38,7 @@
 ```
 
 #### **Neutral Grays (Tailwind-inspired Scale)**
+
 ```css
 --white: #FFFFFF;
 --gray-50: #F9FAFB;
@@ -51,6 +57,7 @@
 ```
 
 #### **Syntax Highlighting (Catppuccin Theme)**
+
 ```css
 --syntax-bg: #24273a;
 --syntax-text: #cad3f5;
@@ -70,6 +77,7 @@
 ```
 
 #### **Semantic Color Mappings**
+
 ```css
 --color-primary: var(--nebula-purple);
 --color-primary-hover: var(--nebula-lavender);
@@ -89,6 +97,7 @@
 ### 1. **help.css** - Eliminated ID Selectors
 
 **Before (High Specificity):**
+
 ```css
 #help-hero { }                              /* [1,0,0] */
 #help-hero h1 { }                           /* [1,0,1] */
@@ -99,6 +108,7 @@
 ```
 
 **After (Flattened):**
+
 ```css
 .help-hero { }                              /* [0,1,0] */
 .help-hero-title { }                        /* [0,1,0] */
@@ -113,6 +123,7 @@
 ### 2. **header.css** - Replaced All ID Selectors
 
 **Before:**
+
 ```css
 button#theme-toggle { }                     /* [1,0,1] */
 [data-theme="dark"] #moon { }               /* [1,1,0] */
@@ -126,6 +137,7 @@ button#theme-toggle { }                     /* [1,0,1] */
 ```
 
 **After:**
+
 ```css
 .theme-toggle-btn { }                       /* [0,1,0] */
 .theme-icon-moon { }                        /* [0,1,0] */
@@ -139,7 +151,8 @@ button#theme-toggle { }                     /* [1,0,1] */
 .logo-image { }                             /* [0,1,0] */
 ```
 
-**Impact:** 
+**Impact:**
+
 - Eliminated **5 ID selectors** (33 total across project → 28 remaining)
 - Reduced max specificity from [1,1,0] to [0,2,0]
 - All selectors now reusable (no ID dependency)
@@ -147,12 +160,14 @@ button#theme-toggle { }                     /* [1,0,1] */
 ### 3. **buttons.css** - Consolidated Color Variables
 
 **Before:**
+
 ```css
 color: #FFFFFF;           /* Repeated 4 times */
 background: #E68A00;      /* Hardcoded hover state */
 ```
 
 **After:**
+
 ```css
 color: var(--white);
 background: var(--color-accent-dark);
@@ -191,16 +206,19 @@ background: var(--color-accent-dark);
 ## 🗂️ Files Modified
 
 ### Core Theme Files
+
 1. [variables.css](themes/bryan-chasko-theme/assets/css/core/variables.css) - Added 50+ color variables
 2. [buttons.css](themes/bryan-chasko-theme/assets/css/components/buttons.css) - Updated to use `--white` and `--color-accent-dark`
 3. [navigation.css](themes/bryan-chasko-theme/assets/css/components/navigation.css) - Updated to use `--white`
 4. [chroma-styles.css](themes/bryan-chasko-theme/assets/css/includes/chroma-styles.css) - All 15 colors now variables
 
 ### Layout Files  
+
 5. [header.css](themes/bryan-chasko-theme/assets/css/common/header.css) - Flattened 9 selectors, removed 5 IDs
-6. [help.css](assets/css/extended/help.css) - Flattened 6 selectors, removed 3 IDs
+2. [help.css](assets/css/extended/help.css) - Flattened 6 selectors, removed 3 IDs
 
 ### Generated Files
+
 7. [nebula.css](themes/bryan-chasko-theme/assets/css/extended/nebula.css) - Rebuilt with all updates
 
 ---
@@ -210,24 +228,28 @@ background: var(--color-accent-dark);
 ### Three-Tier Variable System
 
 **Tier 1: Raw Color Palette**
+
 ```css
 --nebula-purple: #5E41A2;
 --gray-500: #6B7280;
 ```
 
 **Tier 2: Semantic Mappings**
+
 ```css
 --color-primary: var(--nebula-purple);
 --color-text-secondary: var(--gray-500);
 ```
 
 **Tier 3: Legacy Compatibility**
+
 ```css
 --primary: var(--color-text);  /* PaperMod compatibility */
 --secondary: var(--color-text-secondary);
 ```
 
 This allows:
+
 - **Brand updates:** Change `--nebula-purple` once, updates everywhere
 - **Theme switching:** Override semantic colors in `[data-theme="dark"]`
 - **Backward compatibility:** Old PaperMod CSS still works
@@ -266,6 +288,7 @@ Since we changed ID selectors to classes, update HTML templates:
 ## 📝 Quick Reference: New Class Names
 
 ### Help Page Components
+
 - `.help-hero` (was `#help-hero`)
 - `.help-hero-title` (was `#help-hero h1`)
 - `.help-hero-text` (was `#help-hero p`)
@@ -274,6 +297,7 @@ Since we changed ID selectors to classes, update HTML templates:
 - `.service-card-cta` (was `.help-service-card a.cta-link`)
 
 ### Navigation Components
+
 - `.main-menu` (was `#menu`)
 - `.menu-item` (for list items)
 - `.menu-link` (was `#menu a`)
@@ -289,6 +313,7 @@ Since we changed ID selectors to classes, update HTML templates:
 ## ✅ Validation
 
 Site builds successfully:
+
 ```
 Pages: 112
 Build time: 140ms

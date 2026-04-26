@@ -10,6 +10,7 @@
 ## Hardcoded Spacing Values Found
 
 ### Already Using Variables ✅ (Good)
+
 ```
 ✅ margin-bottom: var(--space-md)           [.github-dashboard-header]
 ✅ margin-top: var(--space-sm)              [.home-info .entry-content]
@@ -66,6 +67,7 @@
 ## Summary
 
 ### Current State
+
 - **Already Using Variables**: ~23 declarations (33%)
 - **Hardcoded Values**: 19 declarations (28%)
 - **Percentage-based/Custom**: 27 declarations (39%)
@@ -73,6 +75,7 @@
 ### Mapping Results
 
 **High Priority Changes** (exact matches):
+
 1. Line 12: `.github-profile-link` gap `0.5em` → `var(--space-sm)`
 2. Line 60: `.github-latest-commit` padding `1em 1.5em` → `var(--space-md) var(--space-lg)`
 3. Line 61: `.github-latest-commit` margin `1em 0` → `var(--space-md) 0`
@@ -87,6 +90,7 @@
 10. Line 678: `.insta-follow-link` padding `10px 16px` → `var(--space-sm) var(--space-md)`
 
 **Low Priority Changes** (custom values, keep as-is):
+
 - Line 218, 238, 264: Mobile/tablet/desktop button padding (responsive, custom values)
 - Line 464, 694: Margin values (10px, custom)
 - Line 634: `.insta-follow-btn` padding `12px 20px` (custom)
@@ -219,16 +223,19 @@
 ## Notes
 
 **Why keep percentage-based margins?**
+
 - Lines 463, 694, 725, 726 use percentages for responsive positioning
 - These are layout-specific, not spacing scale values
 - Changing to fixed values would break responsive design
 
 **Why keep custom button padding?**
+
 - Lines 218, 238, 264: Mobile/tablet/desktop have different padding for responsive design
 - Custom values (0.4em, 0.45em, 0.6em) are intentional for visual hierarchy
 - Standardizing would reduce design flexibility
 
 **Why keep 10px and 12px values?**
+
 - These are custom spacing not in the scale
 - Could be standardized to --space-sm (8px) but would require visual verification
 - Recommend keeping for now, revisit in Phase 6

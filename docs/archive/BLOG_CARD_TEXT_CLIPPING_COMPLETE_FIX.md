@@ -30,6 +30,7 @@ The text clipping was caused by **CSS line-clamp properties** in `themes/bryan-c
 ### All Fixes Applied
 
 #### 1. **Removed Line-Clamp from `.entry-content`** ✅
+
 ```css
 /* AFTER - Full content display */
 .entry-content {
@@ -45,6 +46,7 @@ The text clipping was caused by **CSS line-clamp properties** in `themes/bryan-c
 ```
 
 #### 2. **Removed Line-Clamp from `.first-entry .entry-header`** ✅
+
 ```css
 .first-entry .entry-header {
     /* Removed overflow constraints to prevent text clipping */
@@ -52,6 +54,7 @@ The text clipping was caused by **CSS line-clamp properties** in `themes/bryan-c
 ```
 
 #### 3. **Removed Line-Clamp from `.first-entry .entry-content`** ✅
+
 ```css
 .first-entry .entry-content {
     margin: 14px 0;
@@ -61,6 +64,7 @@ The text clipping was caused by **CSS line-clamp properties** in `themes/bryan-c
 ```
 
 #### 4. **Removed `overflow: hidden` from `.first-entry` Container** ✅
+
 ```css
 .first-entry {
     /* ... other styles ... */
@@ -73,6 +77,7 @@ The text clipping was caused by **CSS line-clamp properties** in `themes/bryan-c
 ```
 
 #### 5. **Template Enhancement** ✅ (Already Applied)
+
 ```html
 <!-- Prioritizes full .Description, falls back to .Summary -->
 <div class="entry-content">
@@ -85,12 +90,14 @@ The text clipping was caused by **CSS line-clamp properties** in `themes/bryan-c
 ```
 
 #### 6. **Hugo Configuration** ✅ (Already Applied)
+
 ```toml
 # hugo.toml
 summaryLength = 50  # Increased from default (~20-30 words)
 ```
 
 #### 7. **Text Wrapping in cards.css** ✅ (Already Applied)
+
 ```css
 .post-entry .entry-content,
 .entry-content {
@@ -111,17 +118,20 @@ summaryLength = 50  # Increased from default (~20-30 words)
 ### Why This Fixes the Issue
 
 **CSS Level**:
+
 - ✅ **No Line Truncation**: Removed `-webkit-line-clamp` from all text elements
 - ✅ **No Container Clipping**: Removed `overflow: hidden` from content containers
 - ✅ **Proper Text Wrapping**: Added `overflow-wrap` and `word-break` for long words
 - ✅ **Natural Flow**: `white-space: normal` allows proper line breaks
 
 **Template Level**:
+
 - ✅ **Full Descriptions**: Posts with `description:` frontmatter show complete text
 - ✅ **Longer Summaries**: Increased word limit for auto-generated summaries
 - ✅ **Fallback Logic**: Smart handling when no description exists
 
 **Visual Design Preserved**:
+
 - ✅ **Glassmorphism Effects**: Maintained on service cards and hero sections
 - ✅ **Gradient Borders**: All accent lines and animations intact
 - ✅ **Responsive Design**: Text flows properly on all devices
@@ -165,11 +175,13 @@ summaryLength = 50  # Increased from default (~20-30 words)
 ### Architecture Notes
 
 **CSS Separation**:
+
 - `common/post-entry.css` - Base PaperMod compatibility styles (minimal structure)
 - `components/cards.css` - Modern glassmorphism design (visual enhancements)
 - Both files needed updates to fully resolve the issue
 
 **Preserved Features**:
+
 - Gradient accent lines (::before pseudo-elements)
 - Corner glow effects (::after pseudo-elements)
 - Hover animations and transitions

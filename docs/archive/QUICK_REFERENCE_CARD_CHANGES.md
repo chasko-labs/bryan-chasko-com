@@ -3,6 +3,7 @@
 ## What Changed?
 
 ### 1. **Titles** - Now Bolder & Larger
+
 ```css
 /* Before */
 font-weight: 700;
@@ -18,6 +19,7 @@ gap: 0.5em;
 ```
 
 ### 2. **Content Block** - Now Separated & Padded
+
 ```css
 /* Before */
 margin: var(--space-sm) 0 var(--space-md) 0;
@@ -33,6 +35,7 @@ line-height: 1.65;                          /* Better readability */
 ```
 
 ### 3. **Footer** - Now Better Spaced
+
 ```css
 /* Before */
 margin-top: var(--space-md);
@@ -48,6 +51,7 @@ border-top: 1px solid rgba(94, 65, 162, 0.1);  /* Refined */
 ```
 
 ### 4. **Card Container** - Now Softer & Spacious
+
 ```css
 /* Before */
 border-radius: var(--radius-xl);            /* 12px */
@@ -71,6 +75,7 @@ box-shadow: 0 4px 12px ...;                 /* Enhanced depth */
 ## Dark Mode
 
 All changes have dark mode equivalents:
+
 - Content background: `rgba(129, 105, 197, 0.06)` (darker purple)
 - Footer border: `rgba(129, 105, 197, 0.12)` (softer)
 - Shadows: Enhanced for better depth
@@ -91,11 +96,13 @@ All changes have dark mode equivalents:
 ## Testing
 
 Run locally:
+
 ```bash
 hugo server --config hugo.toml
 ```
 
 Then check:
+
 - [ ] Light mode on desktop/tablet/mobile
 - [ ] Dark mode on desktop/tablet/mobile
 - [ ] Hover effects on cards

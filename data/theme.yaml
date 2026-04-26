@@ -1,0 +1,251 @@
+---
+# bryanchasko.com — design system tokens
+# source of truth: themes/bryan-chasko-theme/assets/css/core/variables.css
+# this data file mirrors the curated public-facing subset rendered at /theme/
+
+intro: >
+  nebula is the design system that powers bryanchasko.com — a cosmic palette of
+  deep navy, lavender accent, and aws orange highlight. every page on this site
+  is built from the tokens documented below. dark mode is the default voice;
+  light mode is a courtesy.
+
+palette:
+  brand:
+    - name: dark navy
+      var: --nebula-dark-navy
+      hex: "#1C2230"
+      role: dark theme app shell
+    - name: card navy
+      var: --nebula-card-navy
+      hex: "#0e1324"
+      role: dark theme card surface
+    - name: deep space
+      var: --nebula-deep-space
+      hex: "#0b0e14"
+      role: dark theme background
+    - name: nebula purple
+      var: --nebula-purple
+      hex: "#5E41A2"
+      role: primary brand, links, active states
+    - name: lavender
+      var: --nebula-lavender
+      hex: "#8169C5"
+      role: hover states, secondary brand
+    - name: lavender chip
+      var: --nebula-lavender-chip
+      hex: "#d8b4fe"
+      role: dark mode link, soft accents
+    - name: aws orange
+      var: --nebula-orange
+      hex: "#FF9900"
+      role: highlight, cta accent, aws affiliation
+    - name: aws orange dark
+      var: --nebula-orange-dark
+      hex: "#E68A00"
+      role: orange hover state
+  semantic:
+    - name: primary
+      var: --color-primary
+      maps_to: --nebula-purple
+      role: primary action color
+    - name: primary hover
+      var: --color-primary-hover
+      maps_to: --nebula-lavender
+      role: primary hover state
+    - name: accent
+      var: --color-accent
+      maps_to: --nebula-orange
+      role: highlight + cta accent
+    - name: link
+      var: --color-link
+      maps_to: --nebula-purple
+      role: anchor color (light)
+    - name: link hover
+      var: --color-link-hover
+      maps_to: --nebula-lavender-chip
+      role: anchor hover (light)
+    - name: border
+      var: --color-border
+      maps_to: --gray-200
+      role: card + divider borders
+    - name: border hover
+      var: --color-border-hover
+      maps_to: --nebula-lavender
+      role: interactive border highlight
+
+typography:
+  font_stacks:
+    - name: body
+      var: --font-body
+      stack: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
+      role: ui + prose
+    - name: mono
+      var: --font-mono
+      stack: "ui-monospace, SFMono-Regular, SF Mono, Consolas, Liberation Mono, Menlo, monospace"
+      role: code, terminal greeting, var names
+  scale:
+    - name: xs
+      var: --font-size-xs
+      px: 12
+      rem: "0.75rem"
+      sample: cosmic chip caption
+    - name: sm
+      var: --font-size-sm
+      px: 14
+      rem: "0.875rem"
+      sample: body-secondary, meta
+    - name: base
+      var: --font-size-base
+      px: 16
+      rem: "1rem"
+      sample: paragraph body
+    - name: lg
+      var: --font-size-lg
+      px: 18
+      rem: "1.125rem"
+      sample: lead paragraph
+    - name: xl
+      var: --font-size-xl
+      px: 20
+      rem: "1.25rem"
+      sample: card title
+    - name: 2xl
+      var: --font-size-2xl
+      px: 24
+      rem: "1.5rem"
+      sample: section h3
+    - name: 3xl
+      var: --font-size-3xl
+      px: 30
+      rem: "1.875rem"
+      sample: section h2
+    - name: 4xl
+      var: --font-size-4xl
+      px: 36
+      rem: "2.25rem"
+      sample: page h1
+  line_height:
+    - name: tight
+      var: --line-height-tight
+      value: "1.25"
+      role: headings
+    - name: base
+      var: --line-height-base
+      value: "1.6"
+      role: body prose
+    - name: relaxed
+      var: --line-height-relaxed
+      value: "1.75"
+      role: long-form notes
+
+spacing:
+  - name: xs
+    var: --space-xs
+    px: 4
+    rem: "0.25rem"
+  - name: sm
+    var: --space-sm
+    px: 8
+    rem: "0.5rem"
+  - name: md
+    var: --space-md
+    px: 16
+    rem: "1rem"
+  - name: lg
+    var: --space-lg
+    px: 24
+    rem: "1.5rem"
+  - name: xl
+    var: --space-xl
+    px: 32
+    rem: "2rem"
+  - name: 2xl
+    var: --space-2xl
+    px: 48
+    rem: "3rem"
+  - name: 3xl
+    var: --space-3xl
+    px: 64
+    rem: "4rem"
+
+radius:
+  - name: sm
+    var: --radius-sm
+    value: "4px"
+    role: chips, tag pills
+  - name: md
+    var: --radius-md
+    value: "6px"
+    role: inputs, code spans
+  - name: lg
+    var: --radius-lg
+    value: "8px"
+    role: cards, buttons
+  - name: xl
+    var: --radius-xl
+    value: "12px"
+    role: hero panels, feature cards
+  - name: full
+    var: --radius-full
+    value: "9999px"
+    role: pills, avatars
+
+shadow:
+  - name: sm
+    var: --shadow-sm
+    value: "0 1px 2px 0 rgba(0,0,0,0.05)"
+    role: subtle separation
+  - name: md
+    var: --shadow-md
+    value: "0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)"
+    role: cards, dropdowns
+  - name: lg
+    var: --shadow-lg
+    value: "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)"
+    role: floating panels
+  - name: xl
+    var: --shadow-xl
+    value: "0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)"
+    role: modals, hero overlays
+
+motion:
+  - name: fast
+    var: --transition-fast
+    value: "150ms cubic-bezier(0.4, 0, 0.2, 1)"
+    role: micro-interactions, hover color shifts
+  - name: base
+    var: --transition-base
+    value: "200ms cubic-bezier(0.4, 0, 0.2, 1)"
+    role: button press, link hover
+  - name: slow
+    var: --transition-slow
+    value: "300ms cubic-bezier(0.4, 0, 0.2, 1)"
+    role: card lift, panel entry
+
+elevation:
+  - name: surface 0
+    var: --color-background
+    role: page canvas
+  - name: surface 1
+    var: --color-background-secondary
+    role: subtle separation, code backgrounds
+  - name: surface 2
+    var: --color-builder-card-bg
+    role: builder card section, dark callouts
+  - name: card surface
+    var: --nebula-card-navy
+    role: dark theme cards (lifted)
+
+containers:
+  - name: max width
+    var: --container-max-width
+    value: "1200px"
+    role: outer page bound
+  - name: content width
+    var: --content-max-width
+    value: "65ch"
+    role: prose column (45-75 char read-width)
+  - name: container padding
+    var: --container-padding
+    value: var(--space-lg)
+    role: gutter on narrow screens

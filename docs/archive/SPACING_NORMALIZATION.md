@@ -9,15 +9,18 @@ This document establishes the vertical spacing standard for bryanchasko.com to e
 ## Scope
 
 ### Pages Affected
+
 - Home page (`/`)
 - Blog index (`/blog/`)
 
 ### Spacing Rules
+
 - **Between sections**: 24px (margin-bottom or margin-top)
 - **Section padding**: 24px (padding-top/padding-bottom for section containers)
 - **Gap between flex/grid items**: 24px (gap property)
 
 ### Exclusions (Do NOT normalize)
+
 - Card internals (`.post-entry`, `.social-feed-hero`, `.builder-card`)
 - WebGL canvas containers and overlays
 - Terminal component spacing
@@ -68,6 +71,7 @@ Add to `.stylelintrc.json` to enforce spacing standard:
 ## MCP Tool Usage for Spacing Audits
 
 ### Playwright MCP (Visual Inspection)
+
 ```bash
 # Capture baseline screenshots
 playwright navigate https://bryanchasko.com
@@ -79,6 +83,7 @@ playwright take_screenshot --filename baseline-local-home.png
 ```
 
 ### Chrome DevTools MCP (DOM Geometry)
+
 ```bash
 # Extract computed styles for spacing analysis
 chrome-devtools evaluate_script "
@@ -96,6 +101,7 @@ chrome-devtools evaluate_script "
 ```
 
 ### CSS MCP (AST Analysis)
+
 ```bash
 # Parse CSS files and extract spacing rules
 css-mcp analyze themes/bryan-chasko-theme/assets/css/

@@ -1,7 +1,9 @@
 # GitHub Contributions Calendar - Rendering Fix
 
 ## Problem Summary
+
 The GitHub Contributions Calendar was rendering but displaying incorrectly due to:
+
 1. Missing SVG-specific CSS rules
 2. Inherited layout constraints from parent containers
 3. Lack of explicit sizing and overflow handling
@@ -10,21 +12,25 @@ The GitHub Contributions Calendar was rendering but displaying incorrectly due t
 ## Root Causes Identified
 
 ### 1. CSS Constraints
+
 - **Issue**: No explicit `display: block`, `width: 100%`, or `overflow: visible` on `.calendar`
 - **Impact**: SVG was constrained by parent container dimensions
 - **Location**: `github-dashboard.css` (minimal rules)
 
 ### 2. SVG Rendering Issues
+
 - **Issue**: SVG elements (`rect`, `text`, `g`, `path`) lacked overflow handling
 - **Impact**: Calendar content was clipped or hidden
 - **Location**: No dedicated SVG styling
 
 ### 3. Responsive Scaling
+
 - **Issue**: SVG missing `viewBox` attribute for responsive scaling
 - **Impact**: Calendar didn't scale properly on different screen sizes
 - **Location**: GitHubCalendar library initialization
 
 ### 4. Pointer Events
+
 - **Issue**: `.home-social-container` had `pointer-events: none !important`
 - **Impact**: Calendar was non-interactive (already fixed in previous iteration)
 - **Location**: `home.css` line 406
@@ -32,6 +38,7 @@ The GitHub Contributions Calendar was rendering but displaying incorrectly due t
 ## Solutions Implemented
 
 ### 1. Enhanced CSS Rules (`github-dashboard.css`)
+
 ```css
 .calendar {
   pointer-events: auto;
@@ -68,6 +75,7 @@ The GitHub Contributions Calendar was rendering but displaying incorrectly due t
 ```
 
 ### 2. Dedicated Calendar CSS File (`github-calendar.css`)
+
 - Created new component-specific stylesheet
 - Includes responsive breakpoints
 - Dark mode adjustments
@@ -75,6 +83,7 @@ The GitHub Contributions Calendar was rendering but displaying incorrectly due t
 - Automatically bundled via Hugo's CSS pipeline
 
 ### 3. JavaScript Initialization Fix (`home_info.html`)
+
 ```javascript
 // After GitHubCalendar() call:
 setTimeout(() => {
@@ -127,6 +136,7 @@ setTimeout(() => {
 ## Verification Steps
 
 1. **Local Development**:
+
    ```bash
    hugo server --config hugo.toml -D
    # Open http://localhost:1313
@@ -135,6 +145,7 @@ setTimeout(() => {
    ```
 
 2. **Check CSS Application**:
+
    ```javascript
    // In browser console:
    const cal = document.querySelector('.calendar');
@@ -144,6 +155,7 @@ setTimeout(() => {
    ```
 
 3. **Verify SVG Rendering**:
+
    ```javascript
    // In browser console:
    const svg = document.querySelector('.calendar svg');
@@ -179,6 +191,6 @@ setTimeout(() => {
 
 ## References
 
-- GitHub Calendar Library: https://github.com/Bloggify/github-calendar
-- SVG Responsive Scaling: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
-- CSS Overflow: https://developer.mozilla.org/en-US/docs/Web/CSS/overflow
+- GitHub Calendar Library: <https://github.com/Bloggify/github-calendar>
+- SVG Responsive Scaling: <https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox>
+- CSS Overflow: <https://developer.mozilla.org/en-US/docs/Web/CSS/overflow>

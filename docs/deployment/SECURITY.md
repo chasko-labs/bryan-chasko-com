@@ -21,6 +21,7 @@ dns-record.json
 ```
 
 These files contain:
+
 - ❌ AWS Account ID: `[YOUR-AWS-ACCOUNT-ID]`
 - ❌ S3 Bucket Name: `[your-site-domain]`
 - ❌ CloudFront Distribution ID: `[YOUR-DISTRIBUTION-ID]` (example only - never hardcode actual IDs)
@@ -45,6 +46,7 @@ Create `~/.bcc-site/config.json` (in your home directory, NOT the repo):
 ```
 
 **File permissions:**
+
 ```bash
 # Restrict to your user only
 chmod 600 ~/.bcc-site/config.json
@@ -98,6 +100,7 @@ perl scripts/deploy.pl --param-path /sites/bryanchasko.com
 ```
 
 **Why SSM Parameter Store?**
+
 - ✅ Centralized configuration (team-wide)
 - ✅ No credentials stored locally
 - ✅ Free for standard parameters
@@ -117,6 +120,7 @@ aws_secret_access_key = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 ```
 
 **File permissions:**
+
 ```bash
 chmod 600 ~/.aws/credentials
 ```
@@ -152,8 +156,11 @@ The `scripts/deploy.pl` script includes security features:
 ### Configuration Priority (Prevents Accidental Hardcoding)
 
 1. **Command-line args** (highest priority)
+
    ```bash
+
   perl scripts/deploy.pl --profile websites-bryanchasko --bucket my-bucket
+
    ```
 
 2. **Environment variables**
@@ -161,11 +168,11 @@ The `scripts/deploy.pl` script includes security features:
   export AWS_PROFILE=websites-bryanchasko
    ```
 
-3. **Local config file** (`~/.bcc-site/config.json`)
+1. **Local config file** (`~/.bcc-site/config.json`)
 
-4. **AWS Parameter Store** (`/sites/domain/...`)
+2. **AWS Parameter Store** (`/sites/domain/...`)
 
-5. **Hugo config inference** (lowest priority, fallback to baseURL)
+3. **Hugo config inference** (lowest priority, fallback to baseURL)
 
 ### Dry-Run Mode
 
@@ -329,6 +336,7 @@ Create an IAM user for deployments with **minimum required permissions**:
 ```
 
 **Why this approach?**
+
 - ✅ User can only upload to the specific S3 bucket
 - ✅ User can only invalidate CloudFront cache
 - ✅ User cannot delete buckets, modify policies, or access other AWS resources
@@ -339,6 +347,7 @@ Create an IAM user for deployments with **minimum required permissions**:
 ### If Credentials Are Exposed
 
 1. **Rotate immediately**
+
    ```bash
    # In AWS Console or CLI
    aws iam create-access-key --user-name deploy-user --profile admin
@@ -352,6 +361,7 @@ Create an IAM user for deployments with **minimum required permissions**:
    - Delete and re-create with new credentials
 
 4. **Review CloudTrail logs** (optional but recommended)
+
    ```bash
    # Check what was accessed with the exposed credentials
    aws cloudtrail lookup-events --event-sources s3.amazonaws.com \
@@ -361,6 +371,7 @@ Create an IAM user for deployments with **minimum required permissions**:
 ### If Broken Code Deployed
 
 1. **Rollback using git**
+
    ```bash
    # Find the good commit
    git log --oneline | head -10
@@ -369,7 +380,9 @@ Create an IAM user for deployments with **minimum required permissions**:
    git revert <commit-hash>
 
    # Deploy the fix
+
   perl scripts/deploy.pl --profile websites-bryanchasko
+
    ```
 
 2. **Or manually restore from S3 versioning**

@@ -36,6 +36,7 @@
 ### 3. Mobile: Left-Aligned Text
 
 **Mobile** (`max-width: 768px`):
+
 - Text aligned to left
 - Full width with minimal padding
 - No side margins
@@ -58,6 +59,7 @@
 ### 4. Desktop: Center-Left Alignment
 
 **Desktop** (`min-width: 769px`):
+
 - Text centered (just left of center)
 - Proper padding for breathing room
 - Centered container

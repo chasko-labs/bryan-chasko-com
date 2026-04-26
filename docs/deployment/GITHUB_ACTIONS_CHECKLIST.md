@@ -21,19 +21,23 @@ Use this checklist to verify your GitHub Actions CI/CD setup is complete and wor
 ## Step 1: IAM User Setup (One-Time)
 
 ### Create GitHub Actions User
+
 ```bash
 aws iam create-user --user-name github-actions-webgl-tests \
   --profile websites-bryanchasko
 ```
+
 - [ ] IAM user created
 - [ ] User name: `github-actions-webgl-tests`
 - [ ] Region: `us-west-2` (recommended)
 
 ### Create Access Keys
+
 ```bash
 aws iam create-access-key --user-name github-actions-webgl-tests \
   --profile websites-bryanchasko
 ```
+
 - [ ] Access key created
 - [ ] Save `AccessKeyId` (use for `AWS_ACCESS_KEY_ID`)
 - [ ] Save `SecretAccessKey` (use for `AWS_SECRET_ACCESS_KEY`)
@@ -99,6 +103,7 @@ aws iam put-user-policy \
   - [ ] CloudFront permissions
 
 ### Verify Policy
+
 ```bash
 aws iam get-user-policy \
   --user-name github-actions-webgl-tests \
@@ -114,6 +119,7 @@ aws iam get-user-policy \
 ## Step 3: S3 Baseline Bucket Setup (One-Time)
 
 ### Create Baseline Bucket
+
 ```bash
 aws s3api create-bucket \
   --bucket bryanchasko-com-webgl-baselines \
@@ -127,6 +133,7 @@ aws s3api create-bucket \
 - [ ] Region: `us-west-2`
 
 ### Enable Versioning
+
 ```bash
 aws s3api put-bucket-versioning \
   --bucket bryanchasko-com-webgl-baselines \
@@ -137,6 +144,7 @@ aws s3api put-bucket-versioning \
 - [ ] Versioning enabled
 
 ### Enable Encryption
+
 ```bash
 aws s3api put-bucket-encryption \
   --bucket bryanchasko-com-webgl-baselines \
@@ -153,6 +161,7 @@ aws s3api put-bucket-encryption \
 - [ ] Encryption enabled (AES256)
 
 ### Set Lifecycle Policy (Optional but Recommended)
+
 ```bash
 aws s3api put-bucket-lifecycle-configuration \
   --bucket bryanchasko-com-webgl-baselines \
@@ -209,6 +218,7 @@ aws ssm put-parameter \
 ```
 
 ### Verify Parameters Created
+
 ```bash
 aws ssm get-parameters \
   --names /sites/bryanchasko.com/s3_bucket \
@@ -225,6 +235,7 @@ aws ssm get-parameters \
 - [ ] AWS region is us-west-2
 
 ### Why Parameter Store?
+
 - ✅ **Free**: Standard parameters cost nothing
 - ✅ **Secure**: Centralized, no hardcoding in config files
 - ✅ **Auditable**: Change history tracked automatically
@@ -243,22 +254,27 @@ aws ssm get-parameters \
 **Important**: Only store AWS IAM credentials here. Configuration is stored in AWS Parameter Store.
 
 ### Secret 1: AWS_ACCESS_KEY_ID
+
 ```
 Name: AWS_ACCESS_KEY_ID
 Value: [AccessKeyId from Step 1]
 ```
+
 - [ ] Added
 - [ ] Value is correct (no extra spaces)
 
 ### Secret 2: AWS_SECRET_ACCESS_KEY
+
 ```
 Name: AWS_SECRET_ACCESS_KEY
 Value: [SecretAccessKey from Step 1]
 ```
+
 - [ ] Added
 - [ ] Value is correct (no extra spaces)
 
 ### Verification
+
 - [ ] Both secrets appear in Settings → Secrets (with masked values)
 - [ ] Secrets are not visible to the public
 - [ ] Secrets can only be used in workflows
@@ -269,6 +285,7 @@ Value: [SecretAccessKey from Step 1]
 ## Step 6: Workflow Configuration
 
 ### Deploy Workflow (`.github/workflows/deploy.yml`)
+
 - [ ] File exists in repository
 - [ ] Contains:
   - [ ] `name: Build & Deploy to S3`
@@ -284,6 +301,7 @@ Value: [SecretAccessKey from Step 1]
 - [ ] **Note**: Configuration (bucket name, distribution ID) sourced from AWS Parameter Store via deploy.pl script
 
 ### Tests Workflow (`.github/workflows/webgl-tests.yml`)
+
 - [ ] File exists in repository
 - [ ] Contains:
   - [ ] `name: WebGL Visual Regression & Performance Tests`
@@ -299,6 +317,7 @@ Value: [SecretAccessKey from Step 1]
 ## Step 7: Build Verification
 
 ### Local Test (Before First Deploy)
+
 ```bash
 # Run tests locally
 npm test
@@ -315,16 +334,21 @@ ls -la public/ | head -20
 - [ ] `public/` directory exists with content
 
 ### Create Test PR
+
 1. Create new branch:
+
    ```bash
    git checkout -b test-ci-cd
    ```
+
 2. Make trivial change (e.g., update a comment)
 3. Commit and push:
+
    ```bash
    git commit -m "Test CI/CD setup"
    git push origin test-ci-cd
    ```
+
 4. Create Pull Request on GitHub
 
 - [ ] PR created
@@ -332,6 +356,7 @@ ls -la public/ | head -20
 - [ ] Check Actions tab for workflow status
 
 ### Monitor Workflow
+
 - [ ] Tests workflow runs (should appear in PR checks)
 - [ ] All browsers (Chrome, Firefox, Safari) test successfully
 - [ ] Artifacts uploaded (view in Actions details)
@@ -342,6 +367,7 @@ ls -la public/ | head -20
 ## Step 8: First Production Deploy
 
 ### Prerequisites
+
 - [ ] PR tests pass
 - [ ] PR reviewed and approved
 - [ ] Ready to merge to main
@@ -349,11 +375,13 @@ ls -la public/ | head -20
 - [ ] GitHub Secrets configured (Step 5)
 
 ### Merge to Main
+
 1. Click **Merge pull request** on GitHub
 2. Watch **Actions** tab
 3. Verify **Build & Deploy to S3** workflow runs
 
 ### Monitor Deploy Workflow
+
 - [ ] Workflow triggered automatically
 - [ ] Security gate passes (no hardcoded secrets detected)
 - [ ] Hugo build step passes
@@ -364,7 +392,8 @@ ls -la public/ | head -20
 - [ ] Workflow status shows ✅
 
 ### Verify Live Site
-1. Open https://bryanchasko.com in browser
+
+1. Open <https://bryanchasko.com> in browser
 2. Do a hard refresh (Cmd+Shift+R on macOS)
 3. Verify changes are live
 4. Check browser console for any errors
@@ -379,6 +408,7 @@ ls -la public/ | head -20
 ## Step 9: Troubleshooting Checklist
 
 ### Tests Fail in Workflow
+
 - [ ] View workflow logs
 - [ ] Download test artifacts (screenshots, reports)
 - [ ] Compare actual vs. baseline
@@ -387,24 +417,28 @@ ls -la public/ | head -20
 - [ ] Re-run workflow
 
 ### S3 Sync Fails
+
 - [ ] Check IAM user policy has S3 permissions
 - [ ] Verify bucket name in AWS Parameter Store matches actual bucket
 - [ ] Check AWS credentials in GitHub Secrets are correct
 - [ ] View workflow logs for exact error
 
 ### CloudFront Invalidation Fails
+
 - [ ] Verify distribution exists: `aws cloudfront list-distributions`
 - [ ] Confirm distribution ID in Parameter Store is correct
 - [ ] Check IAM user has CloudFront permissions
 - [ ] View workflow logs for lookup attempts
 
 ### Parameter Store Not Found Errors
+
 - [ ] Verify parameters exist: `aws ssm get-parameters --names /sites/bryanchasko.com/s3_bucket ...`
 - [ ] Check IAM user has SSM read permissions (included in standard policy)
 - [ ] Confirm parameter names match exactly (case-sensitive)
 - [ ] Check AWS region is correct (us-west-2)
 
 ### Baselines Not Updating
+
 - [ ] Verify on main branch push (not PR merge)
 - [ ] Check S3 baseline bucket exists and is accessible
 - [ ] Verify IAM policy includes baseline bucket access
@@ -415,7 +449,9 @@ ls -la public/ | head -20
 ## Step 10: Ongoing Maintenance
 
 ### Regular Tasks
+
 - [ ] **Every 90 days**: Rotate AWS access keys
+
   ```bash
   # Create new key
   aws iam create-access-key --user-name github-actions-webgl-tests
@@ -427,6 +463,7 @@ ls -la public/ | head -20
   ```
 
 - [ ] **Quarterly**: Update Parameter Store values if needed
+
   ```bash
   aws ssm put-parameter \
     --name /sites/bryanchasko.com/[parameter-name] \
@@ -447,6 +484,7 @@ ls -la public/ | head -20
   - Remove any unused permissions
 
 ### Documentation Updates
+
 - [ ] Keep CI_CD_SETUP.md current with any changes
 - [ ] Update copilot-instructions.md with new procedures
 - [ ] Document any custom workflow additions
@@ -456,12 +494,14 @@ ls -la public/ | head -20
 ## Final Verification Checklist
 
 ### Access & Permissions
+
 - [ ] IAM user created: `github-actions-webgl-tests`
 - [ ] Access keys generated and stored securely
 - [ ] IAM policy attached (S3 + CloudFront + SSM)
 - [ ] Verified with: `aws iam get-user-policy`
 
 ### AWS Parameter Store Configuration
+
 - [ ] 4 parameters created under `/sites/bryanchasko.com/`
   - [ ] `s3_bucket` = bryanchasko.com
   - [ ] `domain` = bryanchasko.com
@@ -470,6 +510,7 @@ ls -la public/ | head -20
 - [ ] Parameters readable: `aws ssm get-parameters --names /sites/bryanchasko.com/...`
 
 ### S3 Baseline Bucket
+
 - [ ] Bucket created: `bryanchasko-com-webgl-baselines`
 - [ ] Versioning enabled
 - [ ] Encryption enabled (AES256)
@@ -477,6 +518,7 @@ ls -la public/ | head -20
 - [ ] IAM user has access
 
 ### GitHub Configuration
+
 - [ ] GitHub Secrets added: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` only
 - [ ] **No bucket names or distribution IDs in Secrets** (use Parameter Store instead)
 - [ ] Workflows exist: `deploy.yml`, `webgl-tests.yml`
@@ -484,6 +526,7 @@ ls -la public/ | head -20
 - [ ] Status checks required (workflows must pass)
 
 ### Workflow Execution
+
 - [ ] Test PR created and checks pass
 - [ ] Merge to main and deploy succeeds
 - [ ] Changes live on production
@@ -495,6 +538,7 @@ ls -la public/ | head -20
 ## Success! 🎉
 
 If all checkboxes are complete, your GitHub Actions CI/CD pipeline is:
+
 - ✅ **Configured** (workflows set up)
 - ✅ **Secured** (credentials stored safely)
 - ✅ **Tested** (first deploy successful)

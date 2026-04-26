@@ -12,7 +12,13 @@ when:
         - "**/*.js"
         - "**/*.ts"
         - "**/*.json"
+        - "**/*.css"
+        - "**/*.md"
+        - "**/*.yml"
+        - "**/*.yaml"
         - biome.json
+        - .markdownlint.json
+        - .markdownlintignore
         - package.json
         - .woodpecker/ci.yml
 
@@ -50,3 +56,10 @@ steps:
     failure: fail
     commands:
       - biome ci --diagnostic-level=error .
+
+  - name: markdownlint
+    image: davidanson/markdownlint-cli2:v0.14.0
+    depends_on: [tier-0-metadata]
+    failure: fail
+    commands:
+      - markdownlint-cli2 "**/*.md"

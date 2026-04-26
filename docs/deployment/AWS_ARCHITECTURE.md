@@ -86,12 +86,14 @@ This site is deployed on a highly secure, modern AWS architecture using CloudFro
 **Purpose:** Route domain `bryanchasko.com` to CloudFront
 
 **Configuration:**
+
 - Type: ALIAS record
 - Name: `bryanchasko.com`
 - Target: CloudFront distribution `[your-actual-distribution-id]`
 - Evaluate Target Health: No
 
 **Why ALIAS (not CNAME)?**
+
 - Works with root domain (CNAME cannot be used at root)
 - CloudFront edge locations distribute globally
 - No additional latency
@@ -132,6 +134,7 @@ This site is deployed on a highly secure, modern AWS architecture using CloudFro
 4. **Cache:** CloudFront caches the object for subsequent requests
 
 **Why OAC Instead of OAI?**
+
 - OAI (Origin Access Identity) is legacy
 - OAC is modern, more flexible, supports role-based access
 - Supports both S3 and custom origins
@@ -163,12 +166,14 @@ This site is deployed on a highly secure, modern AWS architecture using CloudFro
 ```
 
 **Why This Policy?**
+
 - Grants only CloudFront service permission to GetObject (read files)
 - OAC authentication enforced via SigV4 signing
 - No PutObject, DeleteObject, or other modifying actions allowed
 - No direct public access possible
 
 **Block Public Access (All Enabled):**
+
 ```
 - BlockPublicAcls: true
 - IgnorePublicAcls: true  
@@ -177,6 +182,7 @@ This site is deployed on a highly secure, modern AWS architecture using CloudFro
 ```
 
 These settings prevent:
+
 - ❌ Direct S3 object URLs: `https://bryanchasko.com.s3.amazonaws.com/index.html`
 - ❌ Public ACLs on objects
 - ❌ Public bucket policies
@@ -193,11 +199,13 @@ Automatic rollback: If you need to revert to a previous version, S3 keeps versio
 **Issued By:** AWS Certificate Manager (free)
 
 **SSL/TLS Settings:**
+
 - Protocol: TLSv1.2+ (enforce)
 - SNI (Server Name Indication): Required
 - Renewal: Automatic (via ACM)
 
 **Why SNI?**
+
 - Allows multiple domains per IP address
 - Reduces CloudFront IP addressing complexity
 - Industry standard since 2010
@@ -213,6 +221,7 @@ Automatic rollback: If you need to revert to a previous version, S3 keeps versio
 | `bryanchasko-com-url-rewrite` | LIVE | URL rewriting + redirects | viewer-request | [`infrastructure/cloudfront-url-rewrite-function.js`](../../infrastructure/cloudfront-url-rewrite-function.js) |
 
 **URL Rewrite Function Logic:**
+
 ```javascript
 function handler(event) {
     var request = event.request;
@@ -242,6 +251,7 @@ function handler(event) {
 ```
 
 **Why CloudFront Functions?**
+
 - ✅ Executes at edge (low latency)
 - ✅ No cold starts (unlike Lambda@Edge)
 - ✅ Cheaper than Lambda@Edge (~$0.60/month vs $0.50 per 1M requests)
@@ -249,6 +259,7 @@ function handler(event) {
 - ✅ Case-insensitive URL matching
 
 **Deployment:**
+
 ```bash
 # Update function code
 aws cloudfront update-function \
@@ -268,16 +279,19 @@ aws cloudfront publish-function \
 ### 7. Deployment Endpoints
 
 **Development Server:**
+
 ```
 http://localhost:1313/
 ```
 
 **Staging (if used):**
+
 ```
 https://staging.bryanchasko.com/  (can set up separate CloudFront + S3 + Route 53)
 ```
 
 **Production:**
+
 ```
 https://bryanchasko.com/
 ```
@@ -285,6 +299,7 @@ https://bryanchasko.com/
 ## Data Flow: Request → Response
 
 ### Step 1: DNS Resolution
+
 ```
 User types: https://bryanchasko.com/
 Browser queries: Route 53
@@ -292,6 +307,7 @@ Response: CloudFront distribution IP (global)
 ```
 
 ### Step 2: TLS Handshake
+
 ```
 Browser: TLS ClientHello (wants bryanchasko.com)
 CloudFront: Returns ACM cert for bryanchasko.com
@@ -300,6 +316,7 @@ Result: HTTPS established ✅
 ```
 
 ### Step 3: HTTP Request
+
 ```
 Browser sends: GET /index.html HTTP/2
 CloudFront edge location checks local cache
@@ -308,12 +325,14 @@ CloudFront edge location checks local cache
 ### Step 4: Cache Hit / Cache Miss
 
 **Cache Hit (fast):**
+
 ```
 CloudFront cache: Has index.html (age < 24 hours)
 Result: Return to browser instantly (Age: <24h)
 ```
 
 **Cache Miss (slower):**
+
 ```
 CloudFront cache: Empty or expired
 CloudFront: Create SigV4 signed request
@@ -325,6 +344,7 @@ CloudFront: Return to browser
 ```
 
 ### Step 5: Browser Caches Locally
+
 ```
 Browser checks Cache-Control header
 Stores in local cache (browser-controlled TTL)
@@ -340,6 +360,7 @@ perl scripts/deploy.pl --profile websites-bryanchasko
 ```
 
 This triggers:
+
 ```
 CloudFront: Remove all cached objects (/* path)
 Next request: CloudFront → S3 (get latest)
@@ -373,6 +394,7 @@ User: Gets new version within 1-2 minutes
 | **TOTAL** | | | **~$1.50/month** |
 
 **Cost Optimization:**
+
 - ✅ Free S3 tier not used (50 MB < 1 GB)
 - ✅ CloudFront caches aggressively (reduces data transfer)
 - ✅ Regional S3 endpoint (no cross-region replication costs)
@@ -414,16 +436,19 @@ Developer Local
 ## Monitoring & Maintenance
 
 ### CloudFront Cache Invalidation Status
+
 ```bash
 aws cloudfront list-invalidations --distribution-id [your-actual-distribution-id] --profile websites-bryanchasko
 ```
 
 ### S3 Bucket Size
+
 ```bash
 aws s3 ls s3://bryanchasko.com/ --recursive --profile websites-bryanchasko | tail -1
 ```
 
 ### CloudFront Request Metrics
+
 ```bash
 aws cloudwatch get-metric-statistics \
   --namespace AWS/CloudFront \
@@ -437,12 +462,14 @@ aws cloudwatch get-metric-statistics \
 ```
 
 ### Verify OAC Configuration
+
 ```bash
 # Get OAC ID from .secrets-reference.json
 aws cloudfront get-origin-access-control --id [YOUR-OAC-ID] --profile [YOUR-AWS-PROFILE]
 ```
 
 ### Check Bucket Policy
+
 ```bash
 aws s3api get-bucket-policy --bucket bryanchasko.com --profile websites-bryanchasko | jq .
 ```
@@ -452,6 +479,7 @@ aws s3api get-bucket-policy --bucket bryanchasko.com --profile websites-bryancha
 ### Issue: Site Returns 403 Forbidden
 
 **Diagnosis:**
+
 ```bash
 curl -v https://bryanchasko.com/
 # Check: <Code>AccessDenied</Code>
@@ -460,6 +488,7 @@ curl -v https://bryanchasko.com/
 **Root Causes & Fixes:**
 
 1. **OAC Not Configured on Origin**
+
    ```bash
    # Check if CloudFront has OAC
    aws cloudfront get-distribution-config --id [your-actual-distribution-id] --profile websites-bryanchasko \
@@ -469,6 +498,7 @@ curl -v https://bryanchasko.com/
    ```
 
 2. **Bucket Policy Missing OAC**
+
    ```bash
    # Get current policy
    aws s3api get-bucket-policy --bucket bryanchasko.com --profile websites-bryanchasko | jq .
@@ -477,6 +507,7 @@ curl -v https://bryanchasko.com/
    ```
 
 3. **Wrong S3 Endpoint**
+
    ```bash
    # Should be REGIONAL: bryanchasko.com.s3.us-west-2.amazonaws.com
    # NOT website: bryanchasko.com.s3-website-us-west-2.amazonaws.com
@@ -488,6 +519,7 @@ curl -v https://bryanchasko.com/
 ### Issue: Cache Not Updating After Deploy
 
 **Check Invalidation Status:**
+
 ```bash
 aws cloudfront list-invalidations --distribution-id [your-actual-distribution-id] --profile websites-bryanchasko \
   | jq '.InvalidationList.Items[0] | {Status, CreateTime}'
@@ -496,6 +528,7 @@ aws cloudfront list-invalidations --distribution-id [your-actual-distribution-id
 ```
 
 **Force Browser Refresh:**
+
 ```
 macOS: Cmd + Shift + R
 Windows/Linux: Ctrl + Shift + R
@@ -504,6 +537,7 @@ Windows/Linux: Ctrl + Shift + R
 ### Issue: SSL Certificate Error
 
 **Check Certificate:**
+
 ```bash
 aws acm describe-certificate \
   --certificate-arn $(aws acm list-certificates --query 'CertificateSummaryList[?DomainName==`bryanchasko.com`].CertificateArn' --output text --profile websites-bryanchasko) \

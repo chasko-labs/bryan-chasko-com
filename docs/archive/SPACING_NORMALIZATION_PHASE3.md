@@ -97,10 +97,13 @@ Located in `core/variables.css`:
 ## Refactoring Strategy
 
 ### Phase 3A: Audit & Document (Current)
+
 ✅ **Complete** - Identified all spacing usage patterns
 
 ### Phase 3B: Tier 1 Refactoring (Recommended Next)
+
 **Files to refactor** (in order):
+
 1. `components/social-feed.css` (76 declarations)
 2. `components/home.css` (69 declarations)
 3. `extended/nebula.css` (69 declarations)
@@ -108,6 +111,7 @@ Located in `core/variables.css`:
 5. `components/github-dashboard.css` (46 declarations)
 
 **Approach**:
+
 - Extract all hardcoded margin/padding/gap values
 - Map to nearest `--space-*` variable
 - Document any custom spacing that doesn't fit the scale
@@ -115,11 +119,13 @@ Located in `core/variables.css`:
 - Capture before/after screenshots for visual regression testing
 
 ### Phase 3C: Tier 2 Refactoring
+
 - `components/cards.css` (37)
 - `common/header.css` (36)
 - `components/contact.css` (33)
 
 ### Phase 3D: Tier 3 & 4 Cleanup
+
 - Remaining files with lower impact
 
 ---
@@ -129,10 +135,12 @@ Located in `core/variables.css`:
 ### Common Hardcoded Values (Estimated)
 
 From HTML grep analysis:
+
 - **11 margin declarations** (various values)
 - **6 padding declarations** (various values)
 
 **Likely patterns**:
+
 - `margin: 0` / `padding: 0` (reset)
 - `margin: 1rem` / `padding: 1rem` (16px)
 - `margin: 1.5rem` / `padding: 1.5rem` (24px - should use `--space-lg`)
@@ -151,6 +159,7 @@ From HTML grep analysis:
    - Total: ~10-15 hours
 
 2. **Establish Refactoring Checklist**
+
    ```
    - [ ] Extract all spacing values from file
    - [ ] Map to --space-* variables
@@ -179,6 +188,7 @@ From HTML grep analysis:
 ## CSS Architecture Overview
 
 ### Directory Structure
+
 ```
 assets/css/
 ├── core/              # Foundation (variables, reset, typography)
@@ -190,6 +200,7 @@ assets/css/
 ```
 
 ### Total Metrics
+
 - **37 CSS files** analyzed
 - **6,439 source lines of code**
 - **1,443 CSS rules**

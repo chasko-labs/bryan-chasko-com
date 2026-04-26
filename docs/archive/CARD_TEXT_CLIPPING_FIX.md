@@ -5,11 +5,13 @@
 ### Changes Made
 
 #### 1. **Removed Redundant Accent Line** ✅
+
 - **Removed**: `::after` pseudo-element gradient line under `.entry-header`
 - **Reason**: Header already has `border-bottom` for separation
 - **Result**: Cleaner visual hierarchy, less clutter
 
 #### 2. **Eliminated Text Truncation** ✅
+
 - **Removed**: All `-webkit-line-clamp` restrictions
 - **Removed**: `display: -webkit-box` and `-webkit-box-orient: vertical`
 - **Removed**: `text-overflow: ellipsis`
@@ -17,6 +19,7 @@
 - **Result**: All text content now fully visible
 
 #### 3. **Enhanced Text Wrapping** ✅
+
 - **Added**: `white-space: normal` for natural text flow
 - **Kept**: `overflow-wrap: break-word` for long words
 - **Kept**: `word-break: break-word` for character-level breaking
@@ -45,6 +48,7 @@
 ### Technical Changes
 
 #### Removed Elements
+
 ```css
 /* REMOVED: Redundant accent line */
 .post-entry .entry-header::after { ... }
@@ -58,6 +62,7 @@ overflow: hidden;
 ```
 
 #### Added/Enhanced Elements
+
 ```css
 /* ADDED: Natural text flow */
 white-space: normal;
@@ -88,6 +93,7 @@ hugo server --config hugo.toml
 ```
 
 Navigate to `/blog/` to see:
+
 - Clean card headers with single border separation
 - Full text content without truncation
 - Natural text wrapping for all content lengths

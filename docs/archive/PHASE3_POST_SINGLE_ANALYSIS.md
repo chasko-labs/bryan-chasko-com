@@ -10,6 +10,7 @@
 ## Hardcoded Spacing Values Found
 
 ### Already Using Variables ✅ (Good)
+
 ```
 ✅ margin-bottom: var(--content-gap)     [.post-content dl/ol/p/figure/ul]
 ✅ margin-bottom: var(--content-gap)     [.post-content table]
@@ -57,6 +58,7 @@
 ## Summary
 
 ### Current State
+
 - **Already Using Variables**: ~6 declarations (11%)
 - **Hardcoded Values**: 27 declarations (49%)
 - **Font sizes/Other**: 22 declarations (40%)
@@ -64,6 +66,7 @@
 ### Mapping Results
 
 **High Priority Changes** (exact matches):
+
 1. Line 3: `.page-header, .post-header` margin `24px` → `var(--space-lg)`
 2. Line 201: `.post-content code` margin `auto 4px` → `auto var(--space-xs)`
 3. Line 239: `.post-content img` margin `1rem 0` → `var(--space-md) 0`

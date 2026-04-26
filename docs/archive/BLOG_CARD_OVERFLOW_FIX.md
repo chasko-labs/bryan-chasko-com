@@ -9,6 +9,7 @@ The `.post-entry` container had `overflow: hidden` which was clipping text conte
 ### Changes Made
 
 #### 1. **Removed `overflow: hidden` from `.post-entry`** ✅
+
 ```css
 /* BEFORE */
 .post-entry {
@@ -26,6 +27,7 @@ The `.post-entry` container had `overflow: hidden` which was clipping text conte
 ```
 
 #### 2. **Removed Duplicate CSS Rule** ✅
+
 Cleaned up duplicate `.post-entry .entry-content` rule that was appearing after the responsive media queries.
 
 ### Why This Fixes the Issue
@@ -65,6 +67,7 @@ Cleaned up duplicate `.post-entry .entry-content` rule that was appearing after 
 ### Expected Result
 
 All blog card text should now be fully visible with:
+
 - ✅ No text cutoff or clipping
 - ✅ Natural text wrapping
 - ✅ Complete content visibility

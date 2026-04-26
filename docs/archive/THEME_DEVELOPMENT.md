@@ -13,6 +13,7 @@ We are creating a custom Hugo theme based on PaperMod, following object-oriented
 **Phase 5**: ⏳ Pending - Integration  
 
 ### Recently Completed
+
 - ✅ Social Feed profile heroes on `/blog/` page with AWS Builder Center & LinkedIn cards
 - ✅ Profile data files (`builder_posts.yaml`, `linkedin_posts.yaml`) with structured content
 - ✅ 400+ lines of glassmorphism CSS for profile heroes and activity feed
@@ -36,6 +37,7 @@ All work items for theme development are tracked as markdown files in `.github/i
 ## Architecture Principles
 
 ### Object-Oriented Design
+
 - **Modularity**: Components are isolated and reusable (layouts/partials)
 - **Inheritance**: Hugo's lookup order provides natural inheritance from base theme
 - **Encapsulation**: CSS and JS scoped to specific components
@@ -87,6 +89,7 @@ bryan-chasko-theme/          # Custom theme repository (separate)
 ## Current State vs Target State
 
 ### Current (Override Approach)
+
 - ✅ Modifications in `layouts/` and `assets/` override PaperMod
 - ✅ Changes tracked in version control
 - ⚠️ Tightly coupled to PaperMod structure
@@ -94,6 +97,7 @@ bryan-chasko-theme/          # Custom theme repository (separate)
 - ⚠️ Difficult to share/reuse across projects
 
 ### Target (Custom Theme)
+
 - ✅ Standalone theme repository
 - ✅ Clear inheritance from PaperMod (documented)
 - ✅ Modular component architecture
@@ -103,6 +107,7 @@ bryan-chasko-theme/          # Custom theme repository (separate)
 ## Migration Strategy
 
 ### Phase 1: Extract & Organize (Week 1)
+
 1. Create new repository: `bryan-chasko-theme`
 2. Copy current `layouts/` and `assets/` overrides
 3. Organize by component (header, footer, toc, etc.)
@@ -110,6 +115,7 @@ bryan-chasko-theme/          # Custom theme repository (separate)
 5. Create theme.toml
 
 ### Phase 2: Modularize CSS (Week 2)
+
 1. Split monolithic CSS into components
 2. Create Nebula theme file
 3. Implement CSS custom properties (variables)
@@ -117,12 +123,14 @@ bryan-chasko-theme/          # Custom theme repository (separate)
 5. Add component-level documentation
 
 ### Phase 3: Component Documentation (Week 3)
+
 1. Document each layout partial
 2. Add JSDoc for JavaScript
 3. Create component usage examples
 4. Write theme README
 
 ### Phase 4: Testing & Refinement (Week 4)
+
 1. Test all pages for visual regression
 2. Validate HTML/CSS
 3. Check responsive breakpoints
@@ -130,6 +138,7 @@ bryan-chasko-theme/          # Custom theme repository (separate)
 5. Performance audit
 
 ### Phase 5: Integration
+
 1. Add custom theme as Git submodule
 2. Update hugo.toml to use custom theme
 3. Remove old override files
@@ -138,24 +147,28 @@ bryan-chasko-theme/          # Custom theme repository (separate)
 ## Component Responsibilities
 
 ### Header Component
+
 - Site logo/branding
 - Navigation menu
 - Theme toggle
 - Responsive hamburger menu
 
 ### Footer Component  
+
 - Social icons
 - Copyright
 - Privacy policy link
 - Powered by attribution
 
 ### TOC Component
+
 - Automatic heading detection
 - Active section highlighting
 - Responsive behavior
 - Scroll synchronization
 
 ### Social Icons Component
+
 - Reusable social links
 - SVG icons
 - Configurable via site params
@@ -164,6 +177,7 @@ bryan-chasko-theme/          # Custom theme repository (separate)
 ## Theme Configuration
 
 ### Site Params (hugo.toml)
+
 ```toml
 [params]
   theme_name = "bryan-chasko-theme"
@@ -185,6 +199,7 @@ bryan-chasko-theme/          # Custom theme repository (separate)
 ## Development Workflow
 
 ### Local Development
+
 ```bash
 # Clone theme repo
 cd themes/
@@ -198,12 +213,14 @@ hugo server --theme=bryan-chasko-theme
 ```
 
 ### Making Changes
+
 1. Edit files in `themes/bryan-chasko-theme/`
 2. Test locally
 3. Commit to theme repository
 4. Update submodule in main site
 
 ### Versioning
+
 - Use semantic versioning (v1.0.0, v1.1.0, etc.)
 - Tag releases in theme repository
 - Pin to specific version in main site
@@ -211,28 +228,34 @@ hugo server --theme=bryan-chasko-theme
 ## Nebula Theme Colors
 
 ### Palette
+
 - **Dark Navy**: `#1C2230` - Background (dark mode)
 - **Vibrant Purple**: `#5E41A2` - Primary accent, headers
 - **Lavender**: `#8169C5` - Secondary accent
 - **Amazon Orange**: `#FF9900` - Calls to action, hover states
 
 ### Implementation
+
 Located in `assets/css/themes/nebula.css`
 
 ## Dependencies
 
 ### Hugo Version
+
 - Minimum: v0.152.2 (current version used)
 - Modules: Extended version required
 
 ### External Libraries
+
 - None currently (self-contained)
 - KaTeX loaded via CDN for math rendering
 
 ## Maintenance
 
 ### Updating from PaperMod
+
 When PaperMod releases updates:
+
 1. Review PaperMod changelog
 2. Identify relevant changes
 3. Manually merge into custom theme
@@ -240,6 +263,7 @@ When PaperMod releases updates:
 5. Tag new version
 
 ### Best Practices
+
 - Keep modifications documented
 - Comment non-obvious code
 - Test across browsers
@@ -256,6 +280,7 @@ When PaperMod releases updates:
 ## Key Theme Files
 
 ### CSS Components (`themes/bryan-chasko-theme/assets/css/components/`)
+
 | File | Purpose |
 |------|---------|
 | `home.css` | Terminal header animation, navigation chips, builder card |
@@ -265,6 +290,7 @@ When PaperMod releases updates:
 | `social-icons.css` | SVG social icon styling |
 
 ### Layouts (`themes/bryan-chasko-theme/layouts/partials/`)
+
 | File | Purpose |
 |------|---------|
 | `home_info.html` | Home page content with terminal animation |
@@ -272,6 +298,7 @@ When PaperMod releases updates:
 | `social_icons.html` | Reusable social icons component |
 
 ### Data Files (`data/`)
+
 | File | Purpose |
 |------|---------|
 | `builder_posts.yaml` | AWS Builder Center profile & articles |
@@ -280,6 +307,7 @@ When PaperMod releases updates:
 ## GitHub Issues Checklist
 
 See [.github/issues/](/.github/issues/) for tracked work items:
+
 - [x] Issue #1: Create Custom Theme Repository
 - [x] Issue #2: Extract and Organize Current Overrides  
 - [x] Issue #3: Implement Modular CSS Architecture

@@ -22,6 +22,7 @@ Complete reference for WebGL scene integration, styling, and lifecycle managemen
 **Purpose**: Abstract WebGL context management and lifecycle
 
 **Responsibilities**:
+
 - WebGL context initialization and error handling
 - Canvas sizing and viewport management
 - Resize event listener with observer pattern
@@ -29,6 +30,7 @@ Complete reference for WebGL scene integration, styling, and lifecycle managemen
 - Resource cleanup (dispose pattern)
 
 **Key Methods**:
+
 ```javascript
 class BaseScene {
   // Lifecycle
@@ -51,6 +53,7 @@ class BaseScene {
 ```
 
 **Resize Event Flow**:
+
 ```
 window.resize event
     ↓
@@ -76,6 +79,7 @@ Subclass recalculates dependent properties
 **Location**: `themes/bryan-chasko-theme/static/js/constellation.js`
 
 **DOM Integration**:
+
 ```html
 <div class="constellation-hero webgl-container" data-constellation aria-hidden="true">
   <div class="webgl-fallback webgl-fallback--hero"></div>
@@ -83,6 +87,7 @@ Subclass recalculates dependent properties
 ```
 
 **CSS Setup**:
+
 ```css
 .constellation-hero {
   position: fixed;          /* Full viewport */
@@ -97,6 +102,7 @@ Subclass recalculates dependent properties
 **Initialization**: Self-initializing via DOMContentLoaded on `[data-constellation]` containers
 
 **Features**:
+
 - 80 particles with connecting lines
 - Mouse influence (attract/repel)
 - Orange/gold color scheme
@@ -104,6 +110,7 @@ Subclass recalculates dependent properties
 - Reduced motion support
 
 **Console Logs**:
+
 - `[Constellation] Found X constellation container(s)`
 - `[Constellation] Initializing constellation X...`
 - `[Constellation] Successfully initialized constellation X`
@@ -117,6 +124,7 @@ Subclass recalculates dependent properties
 **Location**: `themes/bryan-chasko-theme/static/js/webgl-scenes/OrbitScene.js`
 
 **DOM Integration**:
+
 ```html
 <div class="builder-card" data-orbit-scene>
   <a href="..." class="builder-card-link">
@@ -128,6 +136,7 @@ Subclass recalculates dependent properties
 ```
 
 **CSS Setup**:
+
 ```css
 .builder-card {
   position: relative;        /* Establish positioning context */
@@ -146,6 +155,7 @@ Subclass recalculates dependent properties
 **Initialization**: Via `SceneInitializer.initHomeScenes()` after DOMContentLoaded
 
 **Features**:
+
 - 3 concentric orbits (15 particles each)
 - Varying speeds (0.3, 0.5, 0.8 rad/s)
 - Particle trails with fade effect
@@ -153,12 +163,14 @@ Subclass recalculates dependent properties
 - **Dynamic center recalculation** on window resize
 
 **CSS Variables**:
+
 ```css
 --cosmic-teal: #00CED1;        /* Orbit particle color */
 --cosmic-energy: #00FA9A;      /* Center node color */
 ```
 
 **Recent Fix**: [Responsive Orbit Canvas Implementation](RESPONSIVE_ORBIT_FIX.md)
+
 - Canvas now scales between 120-240px based on container
 - `onResize()` method recalculates center position on window resize
 - Orbit radii scale proportionally (no distortion)
@@ -172,12 +184,14 @@ Subclass recalculates dependent properties
 **Location**: `themes/bryan-chasko-theme/static/js/webgl-scenes/TransitionScene.js`
 
 **DOM Integration**:
+
 ```javascript
 // Auto-created by SceneInitializer.initTransitionScene()
 // Creates: <div id="webgl-transition-overlay"></div>
 ```
 
 **CSS Setup**:
+
 ```css
 #webgl-transition-overlay {
   position: fixed;
@@ -188,12 +202,14 @@ Subclass recalculates dependent properties
 ```
 
 **Features**:
+
 - Noise texture generation for pixelated dissolve
 - Fragment shader with time-based fade
 - Navigation interception with 300ms animation
 - Reduced motion support (instant transition if preferred)
 
 **Implementation Notes**:
+
 - Fixed: texImage2D parameter type correction (December 18, 2025)
 - Internalizes navigation clicks, shows transition, then navigates
 - Fully contained within SceneInitializer lifecycle
@@ -209,6 +225,7 @@ Subclass recalculates dependent properties
 **Data File**: `data/skills-network.yaml`
 
 **Proposed DOM Integration**:
+
 ```html
 <!-- In skills page layout -->
 <div class="skills-section">
@@ -221,6 +238,7 @@ Subclass recalculates dependent properties
 ```
 
 **Required CSS Setup**:
+
 ```css
 .skills-network-container {
   position: relative;
@@ -240,6 +258,7 @@ Subclass recalculates dependent properties
 ```
 
 **CSS Variables** (by category):
+
 ```css
 --brand-purple: #5E41A2;        /* Cloud/Infrastructure */
 --brand-orange: #FF9900;        /* Frontend/UI */
@@ -247,6 +266,7 @@ Subclass recalculates dependent properties
 ```
 
 **Features**:
+
 - Force-directed physics simulation
 - Draggable/interactive nodes
 - Connection lines between related skills
@@ -254,6 +274,7 @@ Subclass recalculates dependent properties
 - Collision detection
 
 **Integration Steps**:
+
 1. Add `data-skills-network` attribute to skills page container
 2. Create layout in `layouts/blog/posts/my-skills-and-experience.html` (or similar)
 3. SceneInitializer will auto-detect and initialize
@@ -268,6 +289,7 @@ Subclass recalculates dependent properties
 **Location**: `themes/bryan-chasko-theme/static/js/webgl-scenes/RippleScene.js`
 
 **Proposed DOM Integration**:
+
 ```html
 <!-- In blog post card partial -->
 <article class="post-entry" data-ripple>
@@ -278,6 +300,7 @@ Subclass recalculates dependent properties
 ```
 
 **Required CSS Setup**:
+
 ```css
 .post-entry[data-ripple] {
   position: relative;
@@ -300,12 +323,14 @@ Subclass recalculates dependent properties
 ```
 
 **CSS Variables**:
+
 ```css
 --brand-purple: #5E41A2;        /* Ripple wave color */
 --brand-lavender: #8169C5;      /* Secondary ring color */
 ```
 
 **Features**:
+
 - Click/touch-triggered ripple animation
 - Expanding wave with fade
 - Multi-ring ripple pattern
@@ -313,6 +338,7 @@ Subclass recalculates dependent properties
 - Performance optimized for multiple cards
 
 **Integration Steps**:
+
 1. Add `data-ripple` attribute to post card wrapper
 2. Update `layouts/_default/single.html` or card partial
 3. Ensure `overflow: hidden` CSS on container
@@ -330,6 +356,7 @@ Subclass recalculates dependent properties
 **Purpose**: Auto-detect and initialize WebGL scenes on page load
 
 **Lifecycle**:
+
 ```
 DOMContentLoaded
     ↓
@@ -349,6 +376,7 @@ Scene lifecycle management (pause on visibility change, cleanup on timeout)
 ```
 
 **Auto-Detection Pattern**:
+
 ```javascript
 // Container in HTML
 <div data-orbit-scene></div>
@@ -365,6 +393,7 @@ window.__scenes.push(scene);
 ```
 
 **Console Output**:
+
 - `[SceneInitializer] Initializing WebGL scenes...`
 - `[WebGL] OrbitScene initialized on home page`
 - `[WebGL] TransitionScene initialized globally`
@@ -381,6 +410,7 @@ window.__scenes.push(scene);
 **Available Palettes**:
 
 1. **Vibrant Cosmic** (default, used by Orbit Scene)
+
    ```css
    --cosmic-teal: #00CED1;
    --cosmic-energy: #00FA9A;
@@ -389,6 +419,7 @@ window.__scenes.push(scene);
    ```
 
 2. **Brand Colors** (used by Skills Network, Ripple)
+
    ```css
    --brand-purple: #5E41A2;
    --brand-lavender: #8169C5;
@@ -397,6 +428,7 @@ window.__scenes.push(scene);
    ```
 
 3. **Theme-Aware Switching**
+
    ```css
    /* Light mode */
    --color-text: var(--gray-900);
@@ -410,6 +442,7 @@ window.__scenes.push(scene);
    ```
 
 **Usage in WebGL**:
+
 ```javascript
 // JavaScript can read CSS variables
 const style = getComputedStyle(document.documentElement);
@@ -457,6 +490,7 @@ npm test
 ### Common Tasks
 
 **Add a new WebGL scene**:
+
 1. Create `themes/bryan-chasko-theme/static/js/webgl-scenes/MyScene.js` extending `BaseScene`
 2. Add data attribute to HTML: `<div data-my-scene></div>`
 3. Register in `SceneInitializer.init()` with auto-detection
@@ -465,12 +499,14 @@ npm test
 6. Run tests: `npm test`
 
 **Update scene styling**:
+
 1. Edit `themes/bryan-chasko-theme/assets/css/components/home.css` or relevant CSS file
 2. Rebuild: `hugo --minify`
 3. Hard refresh browser
 4. Verify with tests: `npm test`
 
 **Fix responsive issues**:
+
 1. Check canvas sizing in scene constructor
 2. Override `onResize()` method if center position needs recalculation
 3. Test at multiple viewport sizes
@@ -483,6 +519,7 @@ npm test
 ### GPU Tier Detection
 
 For future optimization, consider detecting GPU capabilities:
+
 ```javascript
 // Detect WebGL extensions
 const gl = canvas.getContext('webgl');
@@ -524,6 +561,7 @@ if (maxTexture < 2048) {
 ### Scene not initializing
 
 **Check**:
+
 1. Is the data attribute present? `<div data-orbit-scene></div>`
 2. Is SceneInitializer loaded? Check console for `[SceneInitializer]` logs
 3. Browser console for WebGL errors
@@ -532,6 +570,7 @@ if (maxTexture < 2048) {
 ### Canvas displays as blank
 
 **Check**:
+
 1. WebGL context error? Check console for `WebGL errors`
 2. Shader compilation failed? Look for `Shader compilation failed`
 3. Browser cache? Hard refresh (Cmd+Shift+R)
@@ -540,6 +579,7 @@ if (maxTexture < 2048) {
 ### Responsive sizing broken
 
 **Check**:
+
 1. Is `onResize()` method overridden in scene class?
 2. Are center position/radius values being updated?
 3. Run tests: `npm test` — pixel validation will catch distortion

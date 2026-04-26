@@ -58,6 +58,7 @@
 ## ✅ Functionality Verification
 
 ### Terminal Component
+
 - [x] Renders with default props
 - [x] Accepts custom message
 - [x] Accepts custom user indicator
@@ -66,6 +67,7 @@
 - [x] Can hide social icons reveal
 
 ### Animations
+
 - [x] Slide down animation (0-600ms)
 - [x] Glitch effect (600-8600ms)
 - [x] Fade out animation (7600-8400ms)
@@ -76,6 +78,7 @@
 - [x] Social icons reveal (7600ms)
 
 ### Styling
+
 - [x] Light mode: Purple frosted glass
 - [x] Dark mode: Green phosphor CRT
 - [x] Responsive on mobile
@@ -84,6 +87,7 @@
 - [x] Proper contrast ratios
 
 ### Accessibility
+
 - [x] ARIA labels present
 - [x] Live region for screen readers
 - [x] Semantic HTML
@@ -91,6 +95,7 @@
 - [x] Auto-dismisses after animation
 
 ### Dark/Light Mode
+
 - [x] Detects theme via `[data-theme]` attribute
 - [x] Light mode colors correct
 - [x] Dark mode colors correct
@@ -121,6 +126,7 @@
 ## ✅ Testing
 
 ### Manual Testing Checklist
+
 - [ ] Visit home page in light mode
 - [ ] Verify terminal slides down
 - [ ] Verify glitch effect plays
@@ -137,6 +143,7 @@
 - [ ] Test with screen reader
 
 ### Automated Testing
+
 - [ ] Run `npm test` (visual regression)
 - [ ] Verify no new test failures
 - [ ] Update baselines if needed: `npm run test:update-baselines`
@@ -177,6 +184,7 @@
 ## Next Steps
 
 1. **Local Testing**
+
    ```bash
    hugo server --config hugo.toml -D
    # Visit http://localhost:1313
@@ -186,6 +194,7 @@
    ```
 
 2. **Automated Testing**
+
    ```bash
    npm test
    # Verify no new failures
@@ -193,6 +202,7 @@
    ```
 
 3. **Deployment**
+
    ```bash
    # Create feature branch
    git checkout -b refactor/terminal-component

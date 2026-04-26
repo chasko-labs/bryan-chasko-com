@@ -10,6 +10,7 @@
 ## Hardcoded Spacing Values Found
 
 ### Already Using Variables ✅ (Good)
+
 ```
 ✅ gap: var(--space-lg)                  [mobile .github-dashboard__actions]
 ✅ padding: var(--space-md)              [mobile .github-dashboard__actions]
@@ -57,6 +58,7 @@
 ## Summary
 
 ### Current State
+
 - **Already Using Variables**: ~2 declarations (4%)
 - **Hardcoded Values**: 31 declarations (67%)
 - **Other**: 13 declarations (29%)
@@ -64,6 +66,7 @@
 ### Mapping Results
 
 **High Priority Changes** (exact matches):
+
 1. Line 15: `.github-dashboard` padding `24px` → `var(--space-lg)`
 2. Line 87: `.github-dashboard__actions` gap `16px` → `var(--space-md)`
 3. Line 88: `.github-dashboard__actions` margin-bottom `24px` → `var(--space-lg)`

@@ -10,6 +10,7 @@
 ## Hardcoded Spacing Values Found
 
 ### Already Using Variables ✅ (Good)
+
 ```
 ✅ margin-top: var(--space-xl)           [h1-h6]
 ✅ margin-bottom: var(--space-md)        [h1-h6]
@@ -44,6 +45,7 @@
 ## Summary
 
 ### Current State
+
 - **Already Using Variables**: ~40 declarations (58%)
 - **Hardcoded Values**: 9 declarations (13%)
 - **Dimensions/Animations**: 20 declarations (29%)
@@ -51,6 +53,7 @@
 ### Mapping Results
 
 **High Priority Changes** (exact matches):
+
 1. Line 70: `.cat-eye--left` margin-right `8px` → `var(--space-sm)`
 2. Line 71: `.cat-eye--right` margin-left `8px` → `var(--space-sm)`
 3. Line 114: `.error-title` margin-top `0.5rem` → `var(--space-sm)`
@@ -168,17 +171,20 @@
 ## Notes
 
 **Why 2.5rem → --space-2xl?**
+
 - 2.5rem = 40px (custom value)
 - Closest variable: --space-2xl = 48px (3rem)
 - Alternative: --space-xl = 32px (2rem)
 - Decision: Use --space-2xl for larger bottom margin on cat mascot (visual hierarchy)
 
 **Why 22px → --space-lg?**
+
 - 22px (custom value)
 - Closest variable: --space-lg = 24px (1.5rem)
 - Acceptable approximation (2px difference)
 
 **Why 0.75em → --space-sm?**
+
 - 0.75em = 12px (custom value)
 - Closest variable: --space-sm = 8px (0.5rem)
 - Acceptable approximation (4px difference, but maintains visual hierarchy)

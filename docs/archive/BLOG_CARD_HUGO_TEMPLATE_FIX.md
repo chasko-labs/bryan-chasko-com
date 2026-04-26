@@ -7,18 +7,20 @@
 The text cutoff was **NOT** caused by CSS, but by **Hugo's template logic**:
 
 1. **Hugo `.Summary`** automatically truncates content (default: ~70 words)
-2. **Template logic** was using `.Summary | plainify | htmlUnescape` 
+2. **Template logic** was using `.Summary | plainify | htmlUnescape`
 3. **CSS changes** had no effect because the content was already truncated at the template level
 
 ### Issues Found & Fixed
 
 #### 1. **Hugo Summary Length** ✅
+
 ```toml
 # Added to hugo.toml
 summaryLength = 50  # Increased from default (~20-30 words)
 ```
 
 #### 2. **Template Logic Enhanced** ✅
+
 ```html
 <!-- BEFORE: Always used truncated .Summary -->
 <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
@@ -32,17 +34,20 @@ summaryLength = 50  # Increased from default (~20-30 words)
 ```
 
 #### 3. **CSS Container Fix** ✅ (Previously Applied)
+
 - Removed `overflow: hidden` from `.post-entry` container
 - Removed duplicate CSS rules
 
 ### How This Fixes the Issue
 
 **Template Level**:
+
 - ✅ **Description Priority**: Uses full `.Description` from frontmatter if available
 - ✅ **Longer Summaries**: Increased `summaryLength` to 50 words
 - ✅ **Fallback Logic**: Still uses `.Summary` when no description exists
 
 **CSS Level**:
+
 - ✅ **No Container Clipping**: Removed `overflow: hidden`
 - ✅ **Natural Text Flow**: `white-space: normal` allows proper wrapping
 - ✅ **Word Breaking**: Long words/URLs break properly
@@ -50,6 +55,7 @@ summaryLength = 50  # Increased from default (~20-30 words)
 ### Content Strategy
 
 **For Blog Posts**:
+
 ```yaml
 ---
 title: "Post Title"
@@ -58,6 +64,7 @@ description: "Custom description that will show in full on cards"
 ```
 
 **Benefits**:
+
 - ✅ **Full Control**: Authors can write custom descriptions
 - ✅ **No Truncation**: Descriptions show completely
 - ✅ **Fallback**: Auto-summary when no description provided

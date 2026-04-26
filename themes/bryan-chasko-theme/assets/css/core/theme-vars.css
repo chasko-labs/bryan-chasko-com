@@ -31,10 +31,11 @@
 	color-scheme: dark;
 }
 
+/* list page body background — uses semantic token directly (#27) */
 .list {
-	background: var(--code-bg);
+	background: var(--color-background-secondary);
 }
 
 [data-theme="dark"] .list {
-	background: var(--theme);
+	background: var(--color-background);
 }

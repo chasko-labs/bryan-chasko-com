@@ -60,3 +60,4 @@ terraform.rc
 # GitHub
 .github/issues/
 .github/copilot-instructions.md
+.audit-screenshots/

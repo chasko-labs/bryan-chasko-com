@@ -401,6 +401,30 @@
 	--transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
 	--transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 	--transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+	/* ============================================
+     DECOMPOSED TIMING + EASING TOKENS (#27)
+     Additive — --transition-* remain unchanged.
+     Consumers opt in; existing code unaffected.
+     ============================================ */
+	--ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+	--duration-fast: 150ms;
+	--duration-base: 200ms;
+	--duration-slow: 300ms;
+
+	/* ============================================
+     SEMANTIC STATE COLORS (#27)
+     Coordinates with existing palette:
+     --color-info aligns with --tech-cyan
+     --color-warning aligns with --brand-orange-dark
+     ============================================ */
+	--color-success: #10b981;
+	--color-danger: #ef4444;
+	--color-info: var(--tech-cyan); /* #06b6d4 */
+	--color-warning: var(--brand-orange-dark); /* #e68a00 */
+
+	/* Focus ring — light mode default (#27) */
+	--focus-ring: 2px solid var(--color-primary);
 }
 
 /* Dark Theme Overrides */
@@ -414,6 +438,9 @@
 	--color-link-hover: var(--brand-lavender-light);
 	--color-border: var(--gray-700);
 	--color-border-hover: var(--brand-lavender);
+
+	/* Focus ring override — lavender for dark-mode contrast (#27) */
+	--focus-ring: 2px solid var(--brand-lavender);
 
 	/* WebGL scene defaults (dark mode) */
 	--webgl-primary: var(--cosmic-purple-bright);
@@ -1427,93 +1454,12 @@ button[type="submit"] {
 	outline: 2px solid var(--color-primary);
 	outline-offset: 2px;
 }
-/* Card Component Styles */
+/* Card Component Styles — canonical declarations live in components/cards.css (#28)
+   Only nebula-specific overrides belong here. */
 
-/* Service Cards */
-.help-services-list {
-	display: flex;
-	flex-direction: column;
-	gap: var(--space-md);
-	margin: var(--space-md) 0 var(--space-xl) 0;
-	padding: 0;
-	list-style: none;
-}
-
-.help-service-card {
-	display: flex;
-	flex-direction: column;
-	gap: var(--space-sm);
-	padding: var(--space-lg);
-	border-radius: var(--radius-lg);
-	border: 1px solid var(--color-border);
-	background: var(--color-background);
-	transition: all var(--transition-base);
-}
-
-.help-service-card:hover {
-	border-color: var(--color-primary);
-	box-shadow: var(--shadow-md);
-	transform: translateY(-2px);
-}
-
-.help-service-card h3 {
-	margin: 0;
-	font-size: var(--font-size-xl);
-	color: var(--color-text);
-}
-
-.help-service-card p {
-	margin: var(--space-xs) 0 var(--space-md) 0;
-	color: var(--color-text-secondary);
-	line-height: var(--line-height-relaxed);
-}
-
-/* Hero Card */
-#help-hero {
-	padding: var(--space-2xl);
-	border-radius: var(--radius-lg);
-	background: var(--color-background-secondary);
-	box-shadow: var(--shadow-md);
-	margin-bottom: var(--space-xl);
-	border: 1px solid var(--color-border);
-}
-
-#help-hero h1 {
-	font-size: var(--font-size-3xl);
-	margin-bottom: var(--space-md);
-	color: var(--color-text);
-}
-
-#help-hero p,
-#help-hero strong,
-#help-hero b {
-	color: var(--color-text);
-	line-height: var(--line-height-relaxed);
-}
-
-/* Blog Post Cards - Styles moved to components/cards.css */
-/* Keeping only minimal overrides here */
-
+/* note-entry hover border: nebula-specific purple tint, overrides --color-border generic */
 .note-entry:hover {
 	border-color: rgba(94, 65, 162, 0.25);
-}
-
-/* Responsive Card Grid */
-@media (min-width: 720px) {
-	.help-services-list {
-		flex-direction: row;
-		flex-wrap: wrap;
-	}
-
-	.help-service-card {
-		flex: 1 1 calc(50% - var(--space-md));
-	}
-}
-
-@media (min-width: 1024px) {
-	.help-service-card {
-		flex: 1 1 calc(33.333% - var(--space-md));
-	}
 }
 /* Navigation Component Styles */
 

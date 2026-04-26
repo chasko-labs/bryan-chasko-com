@@ -3,6 +3,21 @@
    .help-service-card + .note-entry demoted to flat — backdrop-filter +
    decorative pseudo-elements removed to drop mobile gpu cost (audit 2026-04-26) */
 
+/* Featured (first) service card — parallel lead treatment to .note-entry:first-of-type (#32)
+   border-left accent + heading size bump. stagger animation-delay unaffected. */
+.help-service-card:first-of-type {
+	border-left: 3px solid var(--brand-orange);
+	padding-left: calc(var(--space-lg) - 3px); /* compensate for border-left */
+}
+
+.help-service-card:first-of-type h3 {
+	font-size: clamp(1.3rem, 2.25vw, 1.6rem);
+}
+
+[data-theme="dark"] .help-service-card:first-of-type {
+	border-left-color: var(--brand-orange);
+}
+
 /* Service Cards - Flat Gradient */
 .help-services-list {
 	display: flex;
@@ -213,6 +228,23 @@
 #help-hero b {
 	color: var(--color-text);
 	line-height: var(--line-height-relaxed);
+}
+
+/* Featured (first) note-entry — lead card treatment (#32)
+   border-left accent + heading size bump. no layout reshape.
+   parallels .help-service-card:first-of-type below. */
+.note-entry:first-of-type {
+	border-left: 3px solid var(--brand-orange);
+	padding-left: calc(40px - 3px); /* compensate for border-left so text stays flush */
+}
+
+.note-entry:first-of-type .entry-header h2,
+.note-entry:first-of-type .entry-hint-parent {
+	font-size: clamp(1.55rem, 3vw, 1.9rem);
+}
+
+[data-theme="dark"] .note-entry:first-of-type {
+	border-left-color: var(--brand-orange);
 }
 
 /* Blog Post Cards - Professional Tech Brand Design */

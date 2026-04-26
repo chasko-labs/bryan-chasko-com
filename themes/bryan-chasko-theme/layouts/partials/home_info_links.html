@@ -1,0 +1,10 @@
+{{/* render homeInfoParams.links as a horizontal nav of emoji + label markdown links
+     source: hugo.toml `[[params.homeInfoParams.links]]` array of tables
+     replaces a fragile single-line markdown blob with structured config */}}
+{{- with site.Params.homeInfoParams.links }}
+<p class="home-info-links">
+{{- range $i, $link := . }}{{ if $i }} {{ end -}}
+<a href="{{ $link.url | relURL }}">{{ $link.emoji }}&nbsp;{{ $link.label }}</a>
+{{- end }}
+</p>
+{{- end }}

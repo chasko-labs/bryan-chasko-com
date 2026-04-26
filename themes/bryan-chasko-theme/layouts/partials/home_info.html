@@ -2,7 +2,7 @@
 
 <article class="first-entry home-info">
     <div class="entry-content">
-        {{ .Content | markdownify }}
+        {{ partial "home_info_links.html" . }}
     </div>
     <footer class="entry-footer">
         {{/* Social icons - moved inside entry-footer */}}

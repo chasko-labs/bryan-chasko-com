@@ -77,7 +77,35 @@ summaryLength = 50
 
 [params.homeInfoParams]
   Title = "Hello, Friend ^.^"
-Content = "[🦊&nbsp;About](notes/posts/about-bryan-chasko) [🐈&nbsp;Buddy](notes/posts/my-cat-buddy) [🏈&nbsp;#ForeverNE](notes/posts/new-england-patriots-fandom) [🔧&nbsp;Skills](notes/posts/my-skills-and-experience#skills) [📈&nbsp;Experience](notes/posts/my-skills-and-experience#experience) [☁️&nbsp;AWS Cloud](notes/posts/aws-hero-bryan-chasko) [📅&nbsp;Booking](services)"
+
+  [[params.homeInfoParams.links]]
+    emoji = "🦊"
+    label = "About"
+    url = "notes/posts/about-bryan-chasko"
+  [[params.homeInfoParams.links]]
+    emoji = "🐈"
+    label = "Buddy"
+    url = "notes/posts/my-cat-buddy"
+  [[params.homeInfoParams.links]]
+    emoji = "🏈"
+    label = "#ForeverNE"
+    url = "notes/posts/new-england-patriots-fandom"
+  [[params.homeInfoParams.links]]
+    emoji = "🔧"
+    label = "Skills"
+    url = "notes/posts/my-skills-and-experience#skills"
+  [[params.homeInfoParams.links]]
+    emoji = "📈"
+    label = "Experience"
+    url = "notes/posts/my-skills-and-experience#experience"
+  [[params.homeInfoParams.links]]
+    emoji = "☁️"
+    label = "AWS Cloud"
+    url = "notes/posts/aws-hero-bryan-chasko"
+  [[params.homeInfoParams.links]]
+    emoji = "📅"
+    label = "Booking"
+    url = "services"
 
   [[params.homeInfoParams.instagram]]
     url = "https://www.instagram.com/p/EXAMPLE1/"

@@ -286,6 +286,18 @@ class ConstellationScene {
 	}
 
 	onMouseMove(e) {
+		// Block star reaction when cursor is over interactive content areas.
+		// Canvas sits at z-index: -2 so mousemove fires on document regardless of
+		// what element is visually under the pointer — this guard restores idle
+		// behavior (stars drift as if mouse were off-screen) when over those elements.
+		const blocked = e.target.closest(
+			"article.note-entry, .builder-card, nav, .home-social-container, a, button, .help-service-card, footer",
+		);
+		if (blocked) {
+			this.mousePos.x = -1000;
+			this.mousePos.y = -1000;
+			return;
+		}
 		const rect = this.canvas.getBoundingClientRect();
 		const dpr = Math.min(window.devicePixelRatio || 1, 2);
 		this.mousePos.x = (e.clientX - rect.left) * dpr;
@@ -294,6 +306,15 @@ class ConstellationScene {
 
 	onTouchMove(e) {
 		if (e.touches.length > 0) {
+			// Same guard as onMouseMove — block star reaction over interactive content.
+			const blocked = e.touches[0].target?.closest(
+				"article.note-entry, .builder-card, nav, .home-social-container, a, button, .help-service-card, footer",
+			);
+			if (blocked) {
+				this.mousePos.x = -1000;
+				this.mousePos.y = -1000;
+				return;
+			}
 			const rect = this.canvas.getBoundingClientRect();
 			const dpr = Math.min(window.devicePixelRatio || 1, 2);
 			this.mousePos.x = (e.touches[0].clientX - rect.left) * dpr;

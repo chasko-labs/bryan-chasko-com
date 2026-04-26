@@ -1,0 +1,100 @@
+/* print stylesheet — strip everything decorative, optimize for ink + paper
+   prospects who print services pages or save notes as pdf get a clean read */
+
+@media print {
+	/* canvas + decorative chrome */
+	.constellation-hero,
+	.webgl-container,
+	canvas {
+		display: none !important;
+	}
+
+	/* nav, header chrome, footer, social icons, theme toggle */
+	header,
+	nav,
+	footer,
+	.top-link,
+	#theme-toggle,
+	.social-icons,
+	.share-icons,
+	.post-nav-links,
+	.theme-toc {
+		display: none !important;
+	}
+
+	/* page surface — black on white, no gradients */
+	html,
+	body,
+	main {
+		background: #ffffff !important;
+		color: #000000 !important;
+	}
+
+	/* prose width — full page minus standard print margins */
+	.main,
+	.theme-page,
+	article {
+		max-width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		background: transparent !important;
+		box-shadow: none !important;
+	}
+
+	/* links — show urls inline so paper readers can navigate */
+	a {
+		color: #000000 !important;
+		text-decoration: underline;
+	}
+
+	a[href^="http"]::after {
+		content: " (" attr(href) ")";
+		font-size: 0.85em;
+		color: #555555;
+	}
+
+	/* skip url annotation on internal anchors + non-text links */
+	a[href^="#"]::after,
+	a[href^="mailto:"]::after {
+		content: "";
+	}
+
+	/* pagination hygiene */
+	h1,
+	h2,
+	h3,
+	h4 {
+		page-break-after: avoid;
+		color: #000000 !important;
+		background: transparent !important;
+		-webkit-text-fill-color: initial !important;
+	}
+
+	pre,
+	blockquote,
+	.theme-card-specimen,
+	.swatch,
+	.font-stack,
+	.spacing-row,
+	.shadow-row {
+		page-break-inside: avoid;
+	}
+
+	/* code blocks — keep readable, drop chroma colors */
+	pre,
+	code {
+		background: #f4f4f4 !important;
+		color: #000000 !important;
+		border: 1px solid #cccccc !important;
+	}
+
+	/* drop card decoration */
+	.theme-card-specimen,
+	.help-service-card,
+	.builder-note-card {
+		border: 1px solid #cccccc !important;
+		background: transparent !important;
+		box-shadow: none !important;
+		backdrop-filter: none !important;
+	}
+}

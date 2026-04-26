@@ -1,8 +1,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-{{- /* fonts: system stack only — see --font-body in css/core/variables.css.
-       no web-font fetch, no third-party preconnect, no foit/fout */}}
+{{- /* fonts: system stack only — see body font defaults in core/theme-vars.css
+       + extended/nebula.css. no web-font fetch, no third-party preconnect, no foit/fout */}}
 {{- if hugo.IsProduction | or (eq site.Params.env "production") | and (ne .Params.robotsNoIndex true) }}
 <meta name="robots" content="index, follow">
 {{- else }}

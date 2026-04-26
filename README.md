@@ -1,16 +1,22 @@
-# Bryan Chasko - Cloudcroft Cloud Company 🌿🌸
+# bryan chasko · cloudcroft cloud company
+
+```
++--------------------------------------------------+
+|  bryan chasko · cloudcroft cloud company         |
+|  bryanchasko.com                                 |
+|  aws · ai/ml · hugo · cloudfront · woodpecker   |
++--------------------------------------------------+
+```
 
 ---
 
-## 📄 Markdown Style Guide
+## markdown style guide
 
 See [MARKDOWN_GUIDE.md](MARKDOWN_GUIDE.md) for Markdown syntax, formatting, autoformatting, and linting instructions.
 
 ---
 
----
-
-## 🧑‍💻 Agentic Instructions
+## agentic instructions
 
 For focused agent instructions (CSS, setup, CI/CD, etc.), see [agentic_instructions/README.md](agentic_instructions/README.md) for the full menu and links to all fragments.
 
@@ -24,9 +30,9 @@ hugo --minify --gc
 
 Deploy: push to main — woodpecker pipeline at `.woodpecker/deploy.yml` builds with hugo, syncs to s3://bryanchasko.com, invalidates cloudfront E2E9BSL5RVN6DI. Auth via rolesanywhere → ci-deploy → ci-bryanchasko (no long-lived iam keys)
 
-## 🏗️ Architecture Diagrams
+## architecture diagrams
 
-### Website Architecture
+### website architecture
 
 ```mermaid
 %%{init: {'flowchart': {'curve': 'linear'}, 'theme': 'base', 'themeVariables': {'fontSize': '16px', 'fontFamily': 'arial', 'lineColor': '#d8bfd8'}}}%%
@@ -41,7 +47,7 @@ graph TB
     style C fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
     style D fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
     style F fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
-## 🚀 How to Replicate This Stack for Your Own Site
+## how to replicate this stack for your own site
 
   "SITE_DISTRIBUTION_ID": "E1ABC2DEF3GHIJ",
 ```
@@ -112,9 +118,9 @@ graph TB
 
     - Hugo reports missing config: confirm current working dir contains `hugo.toml` or pass `--config`/`--source`.
 
-    ## 🚀 Deployment & Best Practices
+    ## deployment & best practices
 
-    ### Deployment Workflow
+    ### deployment workflow
 
     **ALWAYS follow this workflow to prevent broken code in production:**
 
@@ -130,7 +136,7 @@ graph TB
 
     Auth chain: rolesanywhere trust anchor → ci-deploy → ci-bryanchasko (site-scoped). Zero long-lived iam keys.
 
-    ### Quick Deploy
+    ### quick deploy
 
     ```bash
     # ensure working on main and all tests pass
@@ -144,7 +150,7 @@ graph TB
     curl -I https://bryanchasko.com/
     ```
 
-    ## 🏗️ AWS Architecture
+    ## aws architecture
 
     This site uses a modern, secure AWS architecture:
 
@@ -162,17 +168,17 @@ graph TB
 
     See [**AWS_ARCHITECTURE.md**](AWS_ARCHITECTURE.md) for complete architecture documentation.
 
-    ## 🔐 Security & Secrets Management
+    ## security & secrets management
 
     **Never commit AWS credentials or account-specific data to GitHub.**
 
-    ### What's Gitignored (Account-Specific)
+    ### what's gitignored (account-specific)
     - `_README_HOSTING.md` - Deployment instructions
     - `_AWS_ENVIRONMENT_DETAILS.md` - Account details
     - `bucket-policy.json`, `cloudfront-config.json` - Infrastructure configs
     - All `*-config.json` files
 
-    ### Configuration
+    ### configuration
     Use `~/.bcc-site/config.json` for your AWS settings (not in GitHub):
 
     ```json
@@ -193,5 +199,5 @@ graph TB
     - Run the site locally to verify changes: `hugo server --config hugo.toml -D`.
     - **IMPORTANT**: Don't push to main without:
       /* Lines 717-745 omitted */
-    Thank you — happy hacking! 🎉
+    thank you — happy hacking
 ````

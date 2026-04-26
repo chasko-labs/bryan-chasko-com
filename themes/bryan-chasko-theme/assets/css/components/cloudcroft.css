@@ -203,6 +203,9 @@
 	display: inline-block;
 	filter: drop-shadow(0 2px 8px rgba(94, 65, 162, 0.2));
 	transition: transform var(--transition-base);
+	/* explicit emoji chain so glyph renders on Linux/Android without OS auto-cascade */
+	font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji", sans-serif;
 }
 
 .ccc-service-card:hover .service-icon {
@@ -289,6 +292,9 @@
 	display: inline-block;
 	filter: drop-shadow(0 2px 8px rgba(94, 65, 162, 0.2));
 	transition: transform var(--transition-base);
+	/* explicit emoji chain so glyph renders on Linux/Android without OS auto-cascade */
+	font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji", sans-serif;
 }
 
 .ccc-service-card:hover .service-icon {

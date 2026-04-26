@@ -1,6 +1,7 @@
 ---
 # bryanchasko.com — design system tokens
-# source of truth: themes/bryan-chasko-theme/assets/css/core/variables.css
+# source of truth: themes/bryan-chasko-theme/assets/css/extended/nebula.css
+# (loaded at runtime via head.html resources.Match "css/extended/*.css")
 # this data file mirrors the curated public-facing subset rendered at /theme/
 
 intro: >

@@ -5,6 +5,7 @@
 ### Card Structure
 
 **BEFORE:**
+
 ```
 ┌─────────────────────────────────────┐
 │ Title (font-weight: 700)            │  ← Smaller, lighter
@@ -19,6 +20,7 @@
 ```
 
 **AFTER:**
+
 ```
 ┌──────────────────────────────────────┐
 │ 📝 Title (font-weight: 800)          │  ← Larger, bolder, emoji aligned
@@ -38,6 +40,7 @@
 ## Spacing Changes
 
 ### Vertical Spacing
+
 ```
 Title
   ↓ 16px (was 8px)
@@ -49,12 +52,14 @@ Meta Info
 ```
 
 ### Content Block Padding
+
 ```
 Before: No padding, no background
 After:  16px padding + rgba(94, 65, 162, 0.04) background
 ```
 
 ### Footer Meta Gaps
+
 ```
 Before: 8px gaps between items
 After:  16px gaps between items
@@ -63,6 +68,7 @@ After:  16px gaps between items
 ## Typography Changes
 
 ### Title
+
 | Property | Before | After |
 |----------|--------|-------|
 | Font-size | 1.25-1.5rem | 1.3-1.6rem |
@@ -72,6 +78,7 @@ After:  16px gaps between items
 | Letter-spacing | -0.01em | -0.015em |
 
 ### Content
+
 | Property | Before | After |
 |----------|--------|-------|
 | Line-height | 1.6 | 1.65 |
@@ -81,6 +88,7 @@ After:  16px gaps between items
 | Border-radius | None | 6px |
 
 ### Footer
+
 | Property | Before | After |
 |----------|--------|-------|
 | Padding-top | 8px | 16px |
@@ -111,18 +119,21 @@ background: rgba(94, 65, 162, 0.04);
 ## Responsive Adjustments
 
 ### Mobile (≤480px)
+
 - Title: 1.2rem (was 1.125rem)
 - Content padding: 8px (was 0)
 - Content lines: 2 (was 2)
 - Footer gap: 8px (was 8px)
 
 ### Tablet (481px-768px)
+
 - Title: 1.35rem (was 1.25rem)
 - Content padding: 16px (was 0)
 - Content lines: 2 (was 2)
 - Footer gap: 16px (was 8px)
 
 ### Desktop (≥769px)
+
 - Title: 1.5rem (was 1.375rem)
 - Content padding: 16px (was 0)
 - Content lines: 2 (was 3)

@@ -54,17 +54,21 @@ The GitHub Actions CI/CD pipeline now leverages AWS Systems Manager Parameter St
 ## Configuration Breakdown
 
 ### GitHub Secrets (Credentials Only)
+
 Only 2 secrets stored in GitHub:
+
 - `AWS_ACCESS_KEY_ID` - IAM user access key
 - `AWS_SECRET_ACCESS_KEY` - IAM user secret key
 
 **Why minimal?**
+
 - Credentials rotate frequently (every 90 days recommended)
 - Configuration values (bucket names, distribution IDs) rarely change
 - No hardcoding of infrastructure details in repository
 - Separation of concerns: credentials vs. configuration
 
 ### AWS Parameter Store (Configuration)
+
 4 parameters stored in AWS SSM Parameter Store under `/sites/bryanchasko.com/`:
 
 | Parameter | Example Value | Purpose |
@@ -75,6 +79,7 @@ Only 2 secrets stored in GitHub:
 | `aws_region` | `us-west-2` | AWS region for resources |
 
 **Why Parameter Store?**
+
 - ✅ **Free**: Standard parameters cost nothing
 - ✅ **Secure**: IAM-controlled access, no secrets in code
 - ✅ **Auditable**: Change history tracked automatically
@@ -145,22 +150,26 @@ Execute: Hugo build → Tests (gate) → S3 sync → CloudFront invalidate
 See [GITHUB_ACTIONS_CHECKLIST.md](GITHUB_ACTIONS_CHECKLIST.md) for complete step-by-step guide:
 
 1. **IAM User Creation**
+
    ```bash
    aws iam create-user --user-name github-actions-webgl-tests
    ```
 
 2. **Access Keys**
+
    ```bash
    aws iam create-access-key --user-name github-actions-webgl-tests
    ```
 
 3. **S3 Baseline Bucket**
+
    ```bash
    aws s3api create-bucket --bucket bryanchasko-com-webgl-baselines \
      --region us-west-2 --create-bucket-configuration LocationConstraint=us-west-2
    ```
 
 4. **AWS Parameter Store** (Key Step!)
+
    ```bash
    aws ssm put-parameter --name /sites/bryanchasko.com/s3_bucket \
      --type String --value bryanchasko.com
@@ -171,6 +180,7 @@ See [GITHUB_ACTIONS_CHECKLIST.md](GITHUB_ACTIONS_CHECKLIST.md) for complete step
    aws ssm put-parameter --name /sites/bryanchasko.com/aws_region \
      --type String --value us-west-2
    ```
+
    ⚠️ **Important**: Replace `[your-actual-distribution-id]` with your actual CloudFront distribution ID. This value should ONLY be stored in Parameter Store, never in code or public documentation.
 
 5. **GitHub Secrets** (Only Credentials)
@@ -182,6 +192,7 @@ See [GITHUB_ACTIONS_CHECKLIST.md](GITHUB_ACTIONS_CHECKLIST.md) for complete step
 ### Ongoing Maintenance
 
 - **Every 90 days**: Rotate AWS access keys
+
   ```bash
   aws iam create-access-key --user-name github-actions-webgl-tests
   # Update GitHub Secrets with new key
@@ -189,6 +200,7 @@ See [GITHUB_ACTIONS_CHECKLIST.md](GITHUB_ACTIONS_CHECKLIST.md) for complete step
   ```
 
 - **Quarterly**: Update Parameter Store values if needed
+
   ```bash
   aws ssm put-parameter --name /sites/bryanchasko.com/[param] \
     --type String --value [new-value] --overwrite
@@ -202,6 +214,7 @@ See [GITHUB_ACTIONS_CHECKLIST.md](GITHUB_ACTIONS_CHECKLIST.md) for complete step
 ## Key Benefits
 
 ### Security
+
 - ✅ Credentials stored only in GitHub Secrets
 - ✅ Configuration stored only in AWS Parameter Store (not in code)
 - ✅ No hardcoded bucket names, distribution IDs, or regions
@@ -209,6 +222,7 @@ See [GITHUB_ACTIONS_CHECKLIST.md](GITHUB_ACTIONS_CHECKLIST.md) for complete step
 - ✅ Change audit trail in SSM
 
 ### Operations
+
 - ✅ **Easy Updates**: Change bucket/domain without touching code
 - ✅ **Free**: Parameter Store costs nothing for standard parameters
 - ✅ **Centralized**: Single source of truth for all environments
@@ -216,6 +230,7 @@ See [GITHUB_ACTIONS_CHECKLIST.md](GITHUB_ACTIONS_CHECKLIST.md) for complete step
 - ✅ **Team-Friendly**: Share config across team without sharing secrets
 
 ### Compliance
+
 - ✅ **Audit Trail**: All configuration changes logged in SSM
 - ✅ **Minimal Secrets**: Only credentials, no sensitive config
 - ✅ **Rotation-Ready**: Update credentials without touching config
@@ -226,11 +241,13 @@ See [GITHUB_ACTIONS_CHECKLIST.md](GITHUB_ACTIONS_CHECKLIST.md) for complete step
 ## Documentation References
 
 ### Setup & Implementation
+
 - **Checklist**: [GITHUB_ACTIONS_CHECKLIST.md](GITHUB_ACTIONS_CHECKLIST.md) - Step-by-step setup guide
 - **Full Reference**: [CI_CD_SETUP.md](CI_CD_SETUP.md) - Complete workflow documentation
 - **Developer Guide**: [.github/copilot-instructions.md](.github/copilot-instructions.md) - Configuration strategy explained
 
 ### Related Components
+
 - **Deploy Script**: [scripts/deploy.pl](scripts/deploy.pl) - Reads from Parameter Store
 - **Testing Guide**: [TESTING.md](TESTING.md) - WebGL test pipeline
 - **WebGL Architecture**: [WEBGL_ARCHITECTURE.md](WEBGL_ARCHITECTURE.md) - Scene integration
@@ -240,6 +257,7 @@ See [GITHUB_ACTIONS_CHECKLIST.md](GITHUB_ACTIONS_CHECKLIST.md) for complete step
 ## Quick Verification
 
 ### Check Parameters Exist
+
 ```bash
 aws ssm get-parameters \
   --names /sites/bryanchasko.com/s3_bucket \
@@ -250,6 +268,7 @@ aws ssm get-parameters \
 ```
 
 ### Check GitHub Secrets
+
 1. Go to: GitHub Repo → Settings → Secrets and variables → Actions
 2. Verify:
    - ✅ `AWS_ACCESS_KEY_ID` present
@@ -257,6 +276,7 @@ aws ssm get-parameters \
    - ✅ Only 2 secrets (no bucket names, domains, etc.)
 
 ### Test Deploy (Dry Run)
+
 ```bash
 perl scripts/deploy.pl --dry-run --verbose \
   --param-path /sites/bryanchasko.com \
@@ -264,6 +284,7 @@ perl scripts/deploy.pl --dry-run --verbose \
 ```
 
 Expected output:
+
 ```
 [ℹ]  cfg: domain=bryanchasko.com bucket=bryanchasko.com
 [ℹ]  Looking up CloudFront distribution for domain: bryanchasko.com
@@ -275,14 +296,18 @@ Expected output:
 ## Troubleshooting
 
 ### Parameter Not Found Error
+
 **Solution**: Verify SSM parameters exist
+
 ```bash
 aws ssm get-parameters --names /sites/bryanchasko.com/* \
   --profile websites-bryanchasko
 ```
 
 ### IAM Permission Denied
+
 **Solution**: Ensure IAM policy includes SSM read permissions:
+
 ```json
 {
   "Effect": "Allow",
@@ -292,6 +317,7 @@ aws ssm get-parameters --names /sites/bryanchasko.com/* \
 ```
 
 ### GitHub Actions Workflow Fails
+
 **Solution**: Check workflow logs for exact error, verify credentials in GitHub Secrets are correct
 
 ---
@@ -308,6 +334,7 @@ aws ssm get-parameters --names /sites/bryanchasko.com/* \
 ## Questions?
 
 Refer to:
+
 - [GITHUB_ACTIONS_CHECKLIST.md](GITHUB_ACTIONS_CHECKLIST.md) for setup assistance
 - [CI_CD_SETUP.md](CI_CD_SETUP.md) for comprehensive reference
 - [.github/copilot-instructions.md](.github/copilot-instructions.md) for strategy details

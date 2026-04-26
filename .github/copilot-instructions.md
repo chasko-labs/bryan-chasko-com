@@ -22,7 +22,7 @@ See `.squad/` for the full squad configuration:
 
 | Property | Value |
 |---|---|
-| Site URL | https://bryanchasko.com |
+| Site URL | <https://bryanchasko.com> |
 | Framework | Hugo |
 | Theme | `themes/bryan-chasko-theme` — fully custom (not a PaperMod overlay) |
 | Hosting | AWS S3 + CloudFront |

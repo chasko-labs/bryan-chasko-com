@@ -54,10 +54,12 @@
 ### Color Flow
 
 **Light Mode (opacity: 0.8)**:
+
 - Purple → Lavender → Orange (left to right)
 - Subtle but visible accent
 
 **Dark Mode (opacity: 0.9)**:
+
 - Same gradient, higher opacity for contrast
 - Better visibility against dark backgrounds
 

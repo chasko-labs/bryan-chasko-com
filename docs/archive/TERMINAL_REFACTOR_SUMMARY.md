@@ -9,6 +9,7 @@ Successfully extracted and modularized the terminal greeting component into a re
 ### 1. New Files Created
 
 #### `themes/bryan-chasko-theme/layouts/partials/terminal_greeting.html`
+
 - **Purpose**: Reusable terminal greeting component
 - **Features**:
   - Accepts custom props: `message`, `user`, `prompt`, `class`, `showSocialReveal`
@@ -18,6 +19,7 @@ Successfully extracted and modularized the terminal greeting component into a re
 - **Usage**: `{{ partial "terminal_greeting.html" (dict "message" "Custom Text") }}`
 
 #### `themes/bryan-chasko-theme/assets/css/components/terminal.css`
+
 - **Purpose**: All terminal-specific styling
 - **Contents**:
   - Terminal wrapper and header styles
@@ -29,6 +31,7 @@ Successfully extracted and modularized the terminal greeting component into a re
 - **Size**: ~600 lines (extracted from home.css)
 
 #### `TERMINAL_COMPONENT.md`
+
 - **Purpose**: Comprehensive component documentation
 - **Sections**:
   - Usage examples (basic, custom, advanced)
@@ -45,12 +48,15 @@ Successfully extracted and modularized the terminal greeting component into a re
   - Troubleshooting
 
 #### `TERMINAL_REFACTOR_SUMMARY.md` (this file)
+
 - **Purpose**: Document the refactoring changes
 
 ### 2. Modified Files
 
 #### `themes/bryan-chasko-theme/layouts/partials/home_info.html`
+
 **Before**:
+
 ```hugo
 <div class="terminal-wrapper" role="status" aria-live="polite" aria-label="Terminal greeting animation">
     <header class="entry-header">
@@ -63,6 +69,7 @@ Successfully extracted and modularized the terminal greeting component into a re
 ```
 
 **After**:
+
 ```hugo
 {{ partial "terminal_greeting.html" (dict 
     "message" "Hello, Friend"
@@ -73,26 +80,32 @@ Successfully extracted and modularized the terminal greeting component into a re
 ```
 
 **Benefits**:
+
 - Cleaner, more maintainable
 - Easy to customize
 - Reusable across templates
 - Props-based configuration
 
 #### `themes/bryan-chasko-theme/assets/css/components/home.css`
+
 **Changes**:
+
 - Removed ~600 lines of terminal-specific CSS
 - Kept home-page-specific styles (navigation links, builder card, Instagram embed, GitHub dashboard)
 - Added comment referencing `terminal.css`
 - Reduced file size by ~37%
 
 **Removed Sections**:
+
 - `.terminal-wrapper` and related styles
 - `.terminal-social-reveal` styles
 - All terminal animations
 - Terminal text/cursor styling
 
 #### `themes/bryan-chasko-theme/static/js/terminal-overlay.js`
+
 **Changes**:
+
 - Added comprehensive JSDoc comments
 - Clarified animation timeline
 - Made code more generic (targets `.terminal-wrapper` class)
@@ -112,6 +125,7 @@ To use the new terminal component, ensure `terminal.css` is imported in your mai
 ```
 
 Or in Hugo config (if using CSS bundling):
+
 ```toml
 [params]
   cssFiles = [
@@ -123,33 +137,39 @@ Or in Hugo config (if using CSS bundling):
 ## Key Features
 
 ### ✅ Reusability
+
 - Single partial handles all terminal use cases
 - Props-based configuration
 - No hardcoded values
 
 ### ✅ Maintainability
+
 - Dedicated CSS file (easy to find and modify)
 - Clear separation of concerns
 - Well-documented code
 
 ### ✅ Extensibility
+
 - Easy to add new props
 - Customizable animations
 - Theme-aware styling
 
 ### ✅ Accessibility
+
 - ARIA labels and live regions
 - Semantic HTML
 - Keyboard navigation support
 - Screen reader friendly
 
 ### ✅ Performance
+
 - CSS-based animations (GPU-accelerated)
 - Minimal JavaScript (8.5s timeout only)
 - No layout thrashing
 - SSR-friendly
 
 ### ✅ Dark/Light Mode
+
 - Automatic theme detection
 - Distinct visual styles per theme
 - CSS variable-based theming
@@ -170,6 +190,7 @@ Or in Hugo config (if using CSS bundling):
 ## Testing Recommendations
 
 ### Manual Testing
+
 1. **Visual**: Verify terminal renders correctly in light/dark modes
 2. **Animation**: Confirm slide, glitch, and fade animations work
 3. **Social Icons**: Verify reveal animation after terminal fades
@@ -178,6 +199,7 @@ Or in Hugo config (if using CSS bundling):
 6. **Screen Reader**: Verify ARIA labels are announced
 
 ### Automated Testing
+
 ```bash
 # Run visual regression tests
 npm test
@@ -189,9 +211,11 @@ npm run test:update-baselines
 ## Migration Guide
 
 ### For Existing Code
+
 If you have terminal components elsewhere, update them:
 
 **Old**:
+
 ```hugo
 <div class="terminal-wrapper">
     <header class="entry-header">
@@ -201,11 +225,13 @@ If you have terminal components elsewhere, update them:
 ```
 
 **New**:
+
 ```hugo
 {{ partial "terminal_greeting.html" (dict "message" "Your text") }}
 ```
 
 ### For New Features
+
 Use the partial with custom props:
 
 ```hugo
@@ -257,6 +283,7 @@ Use the partial with custom props:
 ## Questions & Support
 
 For detailed usage, see:
+
 - **Component Usage**: [TERMINAL_COMPONENT.md](TERMINAL_COMPONENT.md)
 - **Integration Examples**: [TERMINAL_COMPONENT.md#integration-examples](TERMINAL_COMPONENT.md#integration-examples)
 - **Customization**: [TERMINAL_COMPONENT.md#customization](TERMINAL_COMPONENT.md#customization)

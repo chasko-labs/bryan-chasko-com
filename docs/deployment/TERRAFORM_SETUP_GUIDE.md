@@ -8,7 +8,7 @@ Complete guide for implementing Terraform infrastructure-as-code with HCP Terraf
 
 Before starting, ensure you have:
 
-- ✅ HCP Terraform account (create at https://app.terraform.io/signup/account)
+- ✅ HCP Terraform account (create at <https://app.terraform.io/signup/account>)
 - ✅ AWS CLI configured with `websites-bryanchasko` profile
 - ✅ Terraform CLI installed (>= 1.5.0): `terraform --version`
 - ✅ Git repository access with GitHub Actions enabled
@@ -21,7 +21,7 @@ Before starting, ensure you have:
 ### Step 1: HCP Terraform Cloud Setup (5 minutes)
 
 1. **Create HCP Terraform Account** (if needed):
-   - Visit: https://app.terraform.io/signup/account
+   - Visit: <https://app.terraform.io/signup/account>
    - Sign up with GitHub (recommended)
    - Verify email
 
@@ -44,6 +44,7 @@ Before starting, ensure you have:
    - Copy the token (you'll only see it once!)
 
 5. **Configure GitHub Secret**:
+
    ```bash
    # Go to: GitHub repo → Settings → Secrets and variables → Actions
    # Click "New repository secret"
@@ -67,6 +68,7 @@ terraform {
 ```
 
 **Commit and push**:
+
 ```bash
 git add terraform/backend.tf
 git commit -m "chore: configure Terraform Cloud organization"
@@ -117,11 +119,13 @@ terraform import module.ssm.aws_ssm_parameter.aws_region /sites/bryanchasko.com/
 ```
 
 **Get your Distribution ID**:
+
 ```bash
 aws ssm get-parameter --name /sites/bryanchasko.com/cloudfront_distribution_id --query 'Parameter.Value' --output text --profile websites-bryanchasko
 ```
 
 **Get your Hosted Zone ID**:
+
 ```bash
 aws route53 list-hosted-zones --query "HostedZones[?Name=='bryanchasko.com.'].Id" --output text --profile websites-bryanchasko
 ```
@@ -136,6 +140,7 @@ terraform plan
 ```
 
 **Expected output**:
+
 ```
 No changes. Your infrastructure matches the configuration.
 ```
@@ -145,11 +150,13 @@ If you see planned changes, the import may have missed some resources or configu
 ### Step 5: Test GitHub Actions Workflow (5 minutes)
 
 1. **Create a test branch**:
+
 ```bash
 git checkout -b test-terraform-workflow
 ```
 
-2. **Make a trivial change** (e.g., add comment to `variables.tf`):
+1. **Make a trivial change** (e.g., add comment to `variables.tf`):
+
 ```bash
 echo "# Test comment" >> terraform/variables.tf
 git add terraform/variables.tf
@@ -157,19 +164,19 @@ git commit -m "test: verify Terraform workflow"
 git push origin test-terraform-workflow
 ```
 
-3. **Create Pull Request**:
+1. **Create Pull Request**:
    - Go to GitHub repository
    - Click "Compare & pull request"
    - Wait for Terraform Plan to run (~2 minutes)
 
-4. **Verify workflow output**:
+2. **Verify workflow output**:
    - Check PR comments for Terraform plan output
    - Format check should pass ✅
    - Init should pass ✅
    - Validate should pass ✅
    - Plan should show your test change
 
-5. **Merge PR**:
+3. **Merge PR**:
    - If plan looks good, merge to main
    - Terraform Apply will run automatically
    - Check Actions tab for apply results
@@ -201,11 +208,13 @@ git push origin test-terraform-workflow
 **File**: `.github/workflows/terraform.yml`
 
 **Triggers**:
+
 - Pull requests to `main` branch (runs `terraform plan`)
 - Push to `main` branch (runs `terraform apply`)
 - Manual dispatch via Actions tab
 
 **Jobs**:
+
 1. **Terraform Format Check**: Ensures code is properly formatted
 2. **Terraform Init**: Connects to HCP Terraform Cloud
 3. **Terraform Validate**: Checks syntax and configuration
@@ -213,6 +222,7 @@ git push origin test-terraform-workflow
 5. **Terraform Apply** (main only): Applies changes automatically
 
 **Environment Variables**:
+
 - `TF_CLOUD_ORGANIZATION`: Your HCP Terraform org name
 - `TF_API_TOKEN`: GitHub Secret for authentication
 - `TF_WORKSPACE`: bryanchasko-com-infrastructure
@@ -222,11 +232,13 @@ git push origin test-terraform-workflow
 **File**: `.github/workflows/deploy.yml`
 
 **Changes made**:
+
 1. Added "Get configuration from Parameter Store" step
 2. Replaced hardcoded S3 bucket name with `${{ steps.config.outputs.s3_bucket }}`
 3. Replaced CloudFront discovery logic with `${{ steps.config.outputs.cf_distribution_id }}`
 
 **Why this matters**:
+
 - Infrastructure values managed in one place (Terraform)
 - No more hardcoded ARNs or IDs in workflows
 - Parameter Store provides runtime configuration
@@ -239,11 +251,13 @@ git push origin test-terraform-workflow
 ### Making Infrastructure Changes
 
 1. **Create feature branch**:
+
 ```bash
 git checkout -b infra/add-s3-lifecycle-rule
 ```
 
-2. **Edit Terraform files** (e.g., `terraform/modules/s3/main.tf`):
+1. **Edit Terraform files** (e.g., `terraform/modules/s3/main.tf`):
+
 ```hcl
 resource "aws_s3_bucket_lifecycle_configuration" "production_cleanup" {
   bucket = aws_s3_bucket.production.id
@@ -259,7 +273,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "production_cleanup" {
 }
 ```
 
-3. **Test locally**:
+1. **Test locally**:
+
 ```bash
 cd terraform
 terraform fmt -recursive  # Format code
@@ -267,19 +282,20 @@ terraform validate        # Check syntax
 terraform plan           # See proposed changes
 ```
 
-4. **Push and create PR**:
+1. **Push and create PR**:
+
 ```bash
 git add terraform/
 git commit -m "feat: add S3 lifecycle rule for old versions"
 git push origin infra/add-s3-lifecycle-rule
 ```
 
-5. **Review plan in PR**:
+1. **Review plan in PR**:
    - GitHub Actions will comment with full Terraform plan
    - Review changes with team
    - Merge when approved
 
-6. **Auto-apply on merge**:
+2. **Auto-apply on merge**:
    - Merging to main triggers `terraform apply`
    - Check Actions tab for results
 
@@ -288,6 +304,7 @@ git push origin infra/add-s3-lifecycle-rule
 If you add a new output to a module:
 
 1. **Add to module outputs** (e.g., `terraform/modules/cloudfront/outputs.tf`):
+
 ```hcl
 output "distribution_domain_name" {
   description = "CloudFront distribution domain name"
@@ -295,7 +312,8 @@ output "distribution_domain_name" {
 }
 ```
 
-2. **Expose in root outputs** (`terraform/outputs.tf`):
+1. **Expose in root outputs** (`terraform/outputs.tf`):
+
 ```hcl
 output "cloudfront_domain_name" {
   description = "CloudFront distribution domain"
@@ -303,7 +321,8 @@ output "cloudfront_domain_name" {
 }
 ```
 
-3. **Update SSM parameter** (if needed in deploy.yml):
+1. **Update SSM parameter** (if needed in deploy.yml):
+
 ```hcl
 # In terraform/modules/ssm/main.tf
 resource "aws_ssm_parameter" "cloudfront_domain" {
@@ -314,7 +333,8 @@ resource "aws_ssm_parameter" "cloudfront_domain" {
 }
 ```
 
-4. **Update deploy.yml** to read new parameter:
+1. **Update deploy.yml** to read new parameter:
+
 ```yaml
 - name: Get configuration from Parameter Store
   id: config
@@ -355,6 +375,7 @@ terraform import module.s3.aws_s3_bucket_versioning.production bryanchasko.com
 ```
 
 Common import errors:
+
 - **Resource not found**: Check resource ID/name
 - **Permission denied**: Verify AWS credentials
 - **Already managed**: Resource already in state (use `terraform state rm` first)
@@ -366,6 +387,7 @@ Common import errors:
 ### Sensitive Data Handling
 
 1. **Mark outputs as sensitive**:
+
 ```hcl
 output "cloudfront_distribution_id" {
   description = "CloudFront distribution ID"
@@ -374,7 +396,8 @@ output "cloudfront_distribution_id" {
 }
 ```
 
-2. **Use Parameter Store for secrets**:
+1. **Use Parameter Store for secrets**:
+
 ```hcl
 resource "aws_ssm_parameter" "api_key" {
   name  = "/sites/bryanchasko.com/api_key"
@@ -383,7 +406,8 @@ resource "aws_ssm_parameter" "api_key" {
 }
 ```
 
-3. **Never commit**:
+1. **Never commit**:
+
 - ❌ `*.tfvars` files with secrets
 - ❌ `terraform.tfstate` (contains all values)
 - ❌ `.terraform/` directory
@@ -394,12 +418,14 @@ resource "aws_ssm_parameter" "api_key" {
 **Least Privilege**: Grant only needed permissions
 
 Current IAM policy for `github-actions-webgl-tests` user:
+
 - ✅ S3 baseline bucket: Get/Put/List only
 - ✅ S3 deploy bucket: Full S3 access (needed for sync)
 - ✅ CloudFront: Create invalidations only
 - ✅ SSM: Read parameters under `/sites/*` only
 
 **Avoid**:
+
 - ❌ `AdministratorAccess` policy
 - ❌ Wildcard resources (`Resource: "*"`) when specific ARNs available
 - ❌ `s3:*` on all buckets
@@ -407,6 +433,7 @@ Current IAM policy for `github-actions-webgl-tests` user:
 ### Terraform State Security
 
 **HCP Terraform Cloud benefits**:
+
 - ✅ State stored remotely (not in Git)
 - ✅ Encrypted at rest and in transit
 - ✅ Automatic state locking (prevents concurrent runs)
@@ -423,11 +450,13 @@ S3 backend requires manual locking setup with DynamoDB.
 ### HCP Terraform Console
 
 **Daily checks**:
-1. Log in to https://app.terraform.io
+
+1. Log in to <https://app.terraform.io>
 2. View workspace runs: Workspaces → bryanchasko-com-infrastructure
 3. Check for failed applies or drift detection alerts
 
 **Run history**:
+
 - Each run stores full plan/apply output
 - State versions tracked automatically
 - Can download state files for audit
@@ -435,6 +464,7 @@ S3 backend requires manual locking setup with DynamoDB.
 ### GitHub Actions Status
 
 **Check workflow health**:
+
 ```bash
 # View recent workflow runs
 gh run list --workflow=terraform.yml
@@ -463,6 +493,7 @@ HCP Terraform supports scheduled drift detection:
 **Cause**: Resource already exists in state
 
 **Fix**:
+
 ```bash
 # Remove from state
 terraform state rm module.s3.aws_s3_bucket.production
@@ -476,6 +507,7 @@ terraform import module.s3.aws_s3_bucket.production bryanchasko.com
 **Cause**: TF_API_TOKEN secret not set or expired
 
 **Fix**:
+
 1. Generate new token in HCP Terraform
 2. Update GitHub Secret: Settings → Secrets → TF_API_TOKEN
 
@@ -484,6 +516,7 @@ terraform import module.s3.aws_s3_bucket.production bryanchasko.com
 **Cause**: Organization name mismatch between backend.tf and HCP Terraform
 
 **Fix**:
+
 ```bash
 # Reinitialize with new backend config
 terraform init -reconfigure
@@ -494,6 +527,7 @@ terraform init -reconfigure
 **Cause**: Configuration drift or incorrect import
 
 **Example**:
+
 ```
 # aws_s3_bucket.production will be updated in-place
 ~ resource "aws_s3_bucket" "production" {
@@ -504,6 +538,7 @@ terraform init -reconfigure
 ```
 
 **Fix options**:
+
 1. **Update Terraform to match AWS**: Add tags to Terraform
 2. **Update AWS to match Terraform**: Remove tags from AWS
 3. **Accept drift**: Run `terraform apply` to align
@@ -517,6 +552,7 @@ terraform init -reconfigure
 ### The Problem
 
 Hugo static site URL structure:
+
 ```
 public/
 ├── index.html                     # Homepage
@@ -530,6 +566,7 @@ public/
 ```
 
 **Wrong Configuration (SPA-style)**:
+
 - `default_root_object = ""` (empty)
 - 404 errors return `/index.html` with status 200
 - No URL rewriting
@@ -562,6 +599,7 @@ EOF
 ```
 
 **Also fixed**:
+
 - `default_root_object = "index.html"` (not empty)
 - Error responses return `/404.html` with status 404 (not homepage with 200)
 
@@ -626,12 +664,12 @@ For CI/CD, use HCP Terraform Cloud with workspace-configured AWS credentials (av
 
 ## 📖 Additional Resources
 
-- **Terraform Documentation**: https://developer.hashicorp.com/terraform
-- **HCP Terraform**: https://developer.hashicorp.com/terraform/cloud-docs
-- **AWS Provider**: https://registry.terraform.io/providers/hashicorp/aws
-- **GitHub Actions**: https://docs.github.com/en/actions
-- **CloudFront Functions**: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-functions.html
-- **AWS SSO + Terraform**: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html
+- **Terraform Documentation**: <https://developer.hashicorp.com/terraform>
+- **HCP Terraform**: <https://developer.hashicorp.com/terraform/cloud-docs>
+- **AWS Provider**: <https://registry.terraform.io/providers/hashicorp/aws>
+- **GitHub Actions**: <https://docs.github.com/en/actions>
+- **CloudFront Functions**: <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-functions.html>
+- **AWS SSO + Terraform**: <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html>
 
 ---
 

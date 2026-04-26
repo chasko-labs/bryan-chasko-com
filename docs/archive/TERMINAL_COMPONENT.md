@@ -33,6 +33,7 @@ themes/bryan-chasko-theme/
 ```
 
 Renders with defaults:
+
 - Message: "Hello, Friend"
 - User: "^.^"
 - Prompt: "$"
@@ -79,12 +80,14 @@ Renders with defaults:
 ## Styling & Theming
 
 ### Light Mode
+
 - **Background**: Frosted glass with purple tint
 - **Text**: Purple glow effect
 - **Cursor**: Purple with white text
 - **Prompt**: Orange with glow
 
 ### Dark Mode (CRT/Matrix Style)
+
 - **Background**: Deep black with green phosphor effect
 - **Text**: Classic green (#00ff41) with glow
 - **Cursor**: Green with glow
@@ -253,6 +256,7 @@ npm test
 ```
 
 Tests verify:
+
 - Text rendering and color accuracy
 - Animation timing
 - Dark/light mode switching
@@ -311,6 +315,7 @@ Tests verify:
 ## Questions?
 
 See the component in action:
+
 - Home page: `content/_index.md`
 - Partial: `themes/bryan-chasko-theme/layouts/partials/terminal_greeting.html`
 - Styles: `themes/bryan-chasko-theme/assets/css/components/terminal.css`

@@ -34,19 +34,24 @@
 ## Validation Steps Completed
 
 ### ✅ Step 1: Patch Applied
+
 - Modified `common/post-single.css`
 - Verified changes with grep:
   - `margin: var(--space-lg) auto var(--content-gap) auto` found at line 3
 
 ### ✅ Step 2: Hugo Rebuild
+
 - Dev server still running on localhost:1313
 - CSS hot-reload applied
 
 ### ✅ Step 3: Screenshot Capture
+
 - **Home Page**: `phase4-validation-home-dev-4.png` (1280x720)
 
 ### ✅ Step 4: Visual Inspection
+
 **No regressions detected** in:
+
 - ✅ Post header spacing
 - ✅ Post content layout
 - ✅ Heading hierarchy
@@ -59,6 +64,7 @@
 ## Spacing Verification
 
 ### Before Patch
+
 ```css
 .page-header { margin: 24px auto var(--content-gap) auto; }  /* 24px */
 .post-title { margin-bottom: 2px; }                         /* 2px */
@@ -72,6 +78,7 @@
 ```
 
 ### After Patch
+
 ```css
 .page-header { margin: var(--space-lg) auto var(--content-gap) auto; }  /* 24px */
 .post-title { margin-bottom: var(--space-xs); }                         /* 4px */

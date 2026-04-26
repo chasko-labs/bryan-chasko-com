@@ -23,6 +23,7 @@
 ```
 
 **Impact**:
+
 - Larger, bolder titles for stronger visual hierarchy
 - Better emoji/icon alignment with flexbox
 - Increased spacing below title (var(--space-md) = 16px)
@@ -48,6 +49,7 @@
 ```
 
 **Impact**:
+
 - Subtle glassmorphism background separates content from card
 - Increased padding (16px) improves readability
 - Reduced line clamp (3 → 2) prevents text overflow
@@ -73,6 +75,7 @@
 ```
 
 **Impact**:
+
 - Clearer visual separation with refined divider
 - Increased spacing between meta items (8px → 16px)
 - Better padding distribution for breathing room
@@ -101,6 +104,7 @@
 ```
 
 **Impact**:
+
 - Softer, more rounded corners (16px) for modern look
 - Increased padding (24px → 32px) for better breathing room
 - Enhanced shadow depth for better visual separation
@@ -126,6 +130,7 @@
 ```
 
 **Impact**:
+
 - More pronounced hover effect with enhanced shadow
 - Better visual feedback on interaction
 - Consistent lift effect (translateY(-2px))
@@ -135,6 +140,7 @@
 **File**: `cards.css`
 
 **Mobile (≤480px)**:
+
 ```css
 .post-entry .entry-header h2 {
   font-size: 1.2rem;
@@ -147,6 +153,7 @@
 ```
 
 **Tablet (481px-768px)**:
+
 ```css
 .post-entry .entry-header h2 {
   font-size: 1.35rem;
@@ -158,6 +165,7 @@
 ```
 
 **Desktop (≥769px)**:
+
 ```css
 .post-entry .entry-header h2 {
   font-size: 1.5rem;
@@ -169,6 +177,7 @@
 ```
 
 **Impact**:
+
 - Consistent spacing across all breakpoints
 - Responsive padding for content blocks
 - Better typography scaling for readability
@@ -201,6 +210,7 @@
 ## CSS Variables Used
 
 All changes use project variables:
+
 - `--space-xs`, `--space-sm`, `--space-md`, `--space-lg`, `--space-xl`
 - `--radius-md`, `--radius-xl`
 - `--color-text`, `--color-text-secondary`, `--color-text-muted`

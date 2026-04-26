@@ -10,6 +10,7 @@
 ## Hardcoded Spacing Values Found
 
 ### Already Using Variables ✅ (Good)
+
 These are already using `--space-*` variables and need NO changes:
 
 ```
@@ -77,6 +78,7 @@ These are already using `--space-*` variables and need NO changes:
 ## Summary
 
 ### Current State
+
 - **Already Using Variables**: ~40 declarations (52%)
 - **Hardcoded Values**: 3 declarations (4%)
 - **Mixed/Partial**: 33 declarations (44%)
@@ -84,6 +86,7 @@ These are already using `--space-*` variables and need NO changes:
 ### Mapping Results
 
 **High Priority Changes** (3 declarations):
+
 1. Line 68: `.profile-hero` padding `1.5rem` → `var(--space-lg)`
 2. Line 72: `.hero-name` margin-bottom `1.25rem` → `var(--space-md)`
 3. Line 76: `.hero-bio, .hero-headline` margin-bottom `1.25rem` → `var(--space-md)`
@@ -148,12 +151,14 @@ These are already using `--space-*` variables and need NO changes:
 ## Notes
 
 **Why 1.25rem → --space-md?**
+
 - 1.25rem = 20px (custom value)
 - Closest variable: --space-md = 16px (1rem)
 - Alternative: --space-lg = 24px (1.5rem)
 - Decision: Use --space-md for tighter spacing on hero name/bio (visual hierarchy)
 
 **Why 1.5rem → --space-lg?**
+
 - 1.5rem = 24px (exact match!)
 - Maps directly to --space-lg
 - Used for card padding (consistent with design system)

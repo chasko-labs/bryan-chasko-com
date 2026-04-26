@@ -14,6 +14,7 @@ tags: ["AboutMe", "bryanChasko"]
 **Community & Spatial Computing** 🌍[AWS Hero Bio](https://aws.amazon.com/developer/community/heroes/bryan-chasko/)
 
 ### Personal Background
+
 - **US Army Special Operations Veteran** 🎖️  
   New York Institute of Photography Alumni 📸. [insta](https://instagram.com/bryanChasko)
 

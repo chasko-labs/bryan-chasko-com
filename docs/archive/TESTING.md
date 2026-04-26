@@ -40,6 +40,7 @@ npm run test:update-baselines
 - ✅ Responsive sizing validation (canvas dimensions, center position recalculation)
 
 **Recent Regression Tests Added** (December 2025):
+
 - OrbitScene.onResize() method validates center position recalculation on window resize
 - Responsive canvas sizing between 120-240px validated across viewport sizes
 - Orbit radius scaling verified to scale proportionally (no distortion)
@@ -75,12 +76,14 @@ npm run test:update-baselines
 ### AWS Credentials
 
 **Local Development:**
+
 ```bash
 # Use AWS CLI profile (configured in ~/.aws/credentials)
 export AWS_PROFILE=websites-bryanchasko
 ```
 
 **GitHub Actions CI/CD:**
+
 - Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` in repository secrets
 - GitHub Actions automatically uses these for S3 operations
 
@@ -89,21 +92,25 @@ export AWS_PROFILE=websites-bryanchasko
 Workflow: [`.github/workflows/webgl-tests.yml`](.github/workflows/webgl-tests.yml)
 
 **Triggers:**
+
 - Pull requests to `main` branch
 - Pushes to `main` branch (auto-updates baselines)
 - Manual workflow dispatch
 
 **Test Matrix:**
+
 - Chrome (Chromium)
 - Firefox (latest)
 - Safari (WebKit)
 
 **Artifacts:**
+
 - Test results (JSON + HTML report)
 - Screenshots (actual vs. baseline)
 - Performance metrics
 
 **PR Comments:**
+
 - Automated test result summary
 - Links to detailed reports and visual diffs
 
@@ -178,6 +185,7 @@ Each WebGL scene requires specific DOM hooks and CSS variables to function. Use 
 ```
 
 **Required CSS**:
+
 ```css
 .constellation-hero {
   position: fixed; /* Full viewport */
@@ -189,6 +197,7 @@ Each WebGL scene requires specific DOM hooks and CSS variables to function. Use 
 ```
 
 **CSS Variables**:
+
 - `--cosmic-primary` (particle color - orange/gold)
 - `--cosmic-accent` (connection lines)
 
@@ -210,6 +219,7 @@ Each WebGL scene requires specific DOM hooks and CSS variables to function. Use 
 ```
 
 **Required CSS**:
+
 ```css
 .builder-card {
   position: relative; /* Establishes positioning context */
@@ -218,6 +228,7 @@ Each WebGL scene requires specific DOM hooks and CSS variables to function. Use 
 ```
 
 **CSS Variables**:
+
 - `--cosmic-teal` (#00CED1) - Orbit particle color
 - `--cosmic-energy` (#00FA9A) - Center node color
 
@@ -237,6 +248,7 @@ Each WebGL scene requires specific DOM hooks and CSS variables to function. Use 
 ```
 
 **Required CSS**:
+
 ```css
 #webgl-transition-overlay {
   position: fixed;
@@ -281,6 +293,7 @@ skills:
 ```
 
 **CSS Variables**:
+
 - `--brand-purple` - Cloud category
 - `--brand-orange` - Frontend category
 - `--brand-lavender` - Backend category
@@ -305,6 +318,7 @@ skills:
 ```
 
 **Required CSS**:
+
 ```css
 .post-entry {
   position: relative; /* Establishes positioning context */
@@ -313,6 +327,7 @@ skills:
 ```
 
 **CSS Variables**:
+
 - `--brand-purple` - Ripple wave color
 - `--brand-lavender` - Secondary ripple ring
 
@@ -327,6 +342,7 @@ skills:
 **Problem**: Browsers aggressively cache JavaScript, causing old WebGL code to run even after deploy.
 
 **Solution Workflow**:
+
 1. **Rebuild Hugo**: `hugo --minify` (clears `public/` and regenerates all assets)
 2. **Hard Refresh Browser**: Cmd+Shift+R (macOS) or Ctrl+Shift+R (Windows/Linux)
 3. **Disable Cache in DevTools**: Network tab → "Disable cache" checkbox
@@ -335,6 +351,7 @@ skills:
 **Why Tests Are Critical**: Even if colors "look wrong" in browser, tests extract actual RGB values from canvas. This definitively answers: "Is the bug in the code or just browser cache?"
 
 **Example Debug Workflow**:
+
 ```bash
 # User reports: "Orbit particles are purple, not teal"
 
@@ -374,6 +391,7 @@ perl scripts/deploy.pl --skip-tests --profile websites-bryanchasko
 ```
 
 **Deployment Flow:**
+
 1. Hugo build (`--minify`)
 2. **WebGL tests** (visual regression + performance)
 3. S3 sync (`public/` → S3 bucket)
@@ -391,6 +409,7 @@ perl scripts/deploy.pl --skip-tests --profile websites-bryanchasko
 ### What Regression Testing Prevents
 
 **Visual Regression**:
+
 - Unintended color shifts (e.g., CSS variable change breaks particle appearance)
 - Layout shifts in canvas positioning (e.g., off-center orbit due to resize logic)
 - Cross-browser rendering differences (Chrome vs Firefox vs Safari)
@@ -398,17 +417,20 @@ perl scripts/deploy.pl --skip-tests --profile websites-bryanchasko
 - Shader compilation issues on specific drivers
 
 **Performance Regression**:
+
 - Scene initialization time creep (slow GPU detection logic, delayed shader compilation)
 - FPS drops due to particle count increases without optimization
 - Memory leaks from incomplete cleanup on dispose/visibility change
 - Responsive resize performance degradation (dropped frames during viewport changes)
 
 **Documentation**:
+
 - See [RESPONSIVE_ORBIT_FIX.md](RESPONSIVE_ORBIT_FIX.md) for a detailed case study of responsive sizing regression testing (December 2025)
 
 ### Test Infrastructure Components
 
 **1. Visual Regression**
+
 - **Tool**: Playwright screenshot capture
 - **Comparison**: Pixel-by-pixel comparison against S3 baseline
 - **Tolerance**: 5% (accounts for antialiasing variations between browsers)
@@ -416,12 +438,14 @@ perl scripts/deploy.pl --skip-tests --profile websites-bryanchasko
 - **Verification**: RGB tuple extraction from canvas (ground truth for actual rendering)
 
 **2. Performance Budgets**
+
 - **Orbit Init**: <150ms (measured on Intel UHD 620, 2020 mid-tier GPU)
 - **FPS**: >50 (headroom below 60Hz vsync to prevent frame drops)
 - **WebGL Memory**: <200MB after 30s steady-state runtime
 - **Responsive Resize**: No frame drops (<16ms per frame) during viewport changes
 
 **3. Responsive Sizing Validation** (NEW - December 2025)
+
 - **Test File**: `tests/webgl/orbit-scene.spec.js`
 - **Coverage**:
   - Canvas sizing: 120-240px (clamp formula validation)
@@ -431,6 +455,7 @@ perl scripts/deploy.pl --skip-tests --profile websites-bryanchasko
 - **Regression Prevention**: Ensures `OrbitScene.onResize()` handles all viewport changes correctly
 
 **4. Cross-Browser Consistency**
+
 - **Browsers**: Chrome (Chromium), Firefox, Safari (WebKit)
 - **Validation**: RGB color values match palette definitions across all browsers
 - **Known Variations**: Subpixel rendering causes <2% color variation (within 5% tolerance)
@@ -438,6 +463,7 @@ perl scripts/deploy.pl --skip-tests --profile websites-bryanchasko
 ### How the Test Gate Works
 
 **Deploy Script Integration** (scripts/deploy.pl, lines 405-431):
+
 ```perl
 # Step 1: Build
 # Step 1.5: Run WebGL Tests ⬅️ TEST GATE HERE
@@ -446,6 +472,7 @@ perl scripts/deploy.pl --skip-tests --profile websites-bryanchasko
 ```
 
 **Behavior**:
+
 1. User runs: `perl scripts/deploy.pl --profile websites-bryanchasko`
 2. Hugo builds the site (`hugo --minify`)
 3. **TEST GATE EXECUTES**: `npm test` runs all WebGL tests
@@ -459,6 +486,7 @@ perl scripts/deploy.pl --skip-tests --profile websites-bryanchasko
    - Deploy completes normally
 
 **Emergency Override**:
+
 ```bash
 # Skip tests for critical hotfixes (NOT recommended)
 perl scripts/deploy.pl --skip-tests --profile websites-bryanchasko
@@ -467,12 +495,14 @@ perl scripts/deploy.pl --skip-tests --profile websites-bryanchasko
 ### Baseline Update Automation
 
 **Main Branch Auto-Update** (GitHub Actions):
+
 - When PR is merged to `main`, tests pass automatically triggers baseline update
 - New baselines are pushed to S3
 - All subsequent PRs test against updated baselines
 - Ensures baselines stay current with intentional visual changes
 
 **Local Development**:
+
 ```bash
 # After making intentional visual changes
 npm run test:update-baselines
@@ -483,11 +513,13 @@ npm run test:update-baselines
 ### Tests failing with "No baseline found"
 
 **First run creates initial baselines:**
+
 ```bash
 npm run test:update-baselines
 ```
 
 **Verify S3 bucket exists and is accessible:**
+
 ```bash
 aws s3 ls s3://bryanchasko-com-webgl-baselines/ --profile websites-bryanchasko
 ```
@@ -495,11 +527,13 @@ aws s3 ls s3://bryanchasko-com-webgl-baselines/ --profile websites-bryanchasko
 ### S3 permission errors
 
 **Check IAM user has S3 baseline bucket access:**
+
 ```bash
 aws s3api head-bucket --bucket bryanchasko-com-webgl-baselines --profile websites-bryanchasko
 ```
 
 **Required IAM permissions**:
+
 - `s3:GetObject` (read baselines)
 - `s3:PutObject` (write updated baselines)
 - `s3:ListBucket` (list baseline directory)
@@ -509,12 +543,14 @@ aws s3api head-bucket --bucket bryanchasko-com-webgl-baselines --profile website
 **Scenario**: Test shows pixel differences after code change, but changes are intentional
 
 **Solution**:
+
 1. Inspect actual vs. baseline in test output
 2. Verify pixels match intended colors (check RGB tuples)
 3. If intentional, update baselines: `npm run test:update-baselines`
 4. Note: Antialiasing variations (<2% color shift) are expected and within 5% tolerance
 
 **Adjust tolerance if needed**:
+
 ```javascript
 // In tests/webgl/orbit-scene.spec.js
 const comparison = await baselineManager.compareImages(screenshot, baseline, 0.10); // 10% tolerance
@@ -527,12 +563,14 @@ const comparison = await baselineManager.compareImages(screenshot, baseline, 0.1
 **Root cause**: GitHub Actions runners use shared infrastructure, slower than local development
 
 **Solution**:
+
 ```javascript
 // In tests/webgl/performance.spec.js
 const budget = process.env.CI ? 200 : 150; // Relax budget for CI (ms for orbit init)
 ```
 
 **Alternative**: Add performance tier detection:
+
 ```javascript
 const isFastRunner = process.env.CI_PERFORMANCE_TIER === 'fast';
 const budget = isFastRunner ? 150 : 200;
@@ -541,12 +579,15 @@ const budget = isFastRunner ? 150 : 200;
 ### Canvas shows old colors despite code change
 
 **Diagnostic Workflow**:
+
 1. Verify code change is correct: `grep "cosmic-teal" themes/bryan-chasko-theme/assets/js/webgl-scenes/OrbitScene.js`
 2. Check CSS variable definition: `grep "cosmic-teal" themes/bryan-chasko-theme/assets/css/extended/nebula.css`
 3. **Key Step**: Run test to capture actual canvas pixels
+
    ```bash
    npm test -- tests/webgl/orbit-scene.spec.js
    ```
+
 4. Inspect test output RGB values (ground truth)
 5. If test passes with correct colors, browser cache is serving old code:
    - Rebuild: `hugo --minify`
@@ -558,11 +599,13 @@ const budget = isFastRunner ? 150 : 200;
 ### GitHub Actions workflow not triggering
 
 **Check workflow file exists**:
+
 ```bash
 ls -la .github/workflows/webgl-tests.yml
 ```
 
 **Verify secrets are configured**:
+
 ```bash
 # In GitHub repository settings → Secrets and variables → Actions
 # Must have:
@@ -572,6 +615,7 @@ ls -la .github/workflows/webgl-tests.yml
 ```
 
 **Troubleshoot PR tests**:
+
 1. Open PR and check Actions tab
 2. If workflow doesn't appear, check branch is `main` (workflow triggers only on main)
 3. Review `.github/workflows/webgl-tests.yml` for syntax errors

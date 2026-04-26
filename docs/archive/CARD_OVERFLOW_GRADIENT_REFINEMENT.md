@@ -20,6 +20,7 @@
 ```
 
 **Responsive Overflow Handling**:
+
 ```css
 /* Mobile */
 .post-entry .entry-header h2 {
@@ -38,7 +39,9 @@
 ### 2. Gradient Accents ✅
 
 #### Entry Header Gradient
+
 **Light Mode**:
+
 ```css
 .post-entry .entry-header {
   background: linear-gradient(
@@ -52,6 +55,7 @@
 ```
 
 **Dark Mode**:
+
 ```css
 [data-theme="dark"] .post-entry .entry-header {
   background: linear-gradient(
@@ -65,7 +69,9 @@
 ```
 
 #### Content Block Gradient
+
 **Light Mode**:
+
 ```css
 .post-entry .entry-content {
   background: linear-gradient(
@@ -79,6 +85,7 @@
 ```
 
 **Dark Mode**:
+
 ```css
 [data-theme="dark"] .post-entry .entry-content {
   background: linear-gradient(
@@ -98,7 +105,9 @@
 ### 3. Enhanced Glassmorphism & Depth ✅
 
 #### Card Container Improvements
+
 **Light Mode**:
+
 ```css
 .post-entry {
   background: linear-gradient(
@@ -119,6 +128,7 @@
 ```
 
 **Dark Mode**:
+
 ```css
 [data-theme="dark"] .post-entry {
   backdrop-filter: blur(10px);        /* Enhanced blur */
@@ -132,7 +142,9 @@
 ```
 
 #### Enhanced Hover States
+
 **Light Mode Hover**:
+
 ```css
 .post-entry:hover {
   box-shadow: 
@@ -145,6 +157,7 @@
 ```
 
 **Dark Mode Hover**:
+
 ```css
 [data-theme="dark"] .post-entry:hover {
   box-shadow: 
@@ -163,6 +176,7 @@
 ### 4. Responsive & Accessibility Improvements ✅
 
 #### Mobile Overflow Prevention
+
 ```css
 @media (max-width: 480px) {
   .post-entry .entry-header {
@@ -178,6 +192,7 @@
 ```
 
 #### Tablet Adjustments
+
 ```css
 @media (min-width: 481px) and (max-width: 768px) {
   .post-entry .entry-content {
@@ -187,6 +202,7 @@
 ```
 
 #### Desktop Optimization
+
 ```css
 @media (min-width: 769px) {
   .post-entry .entry-content {
@@ -219,17 +235,21 @@
 All gradients and colors use project variables:
 
 **Brand Colors**:
+
 - `--nebula-purple`: rgba(94, 65, 162, ...)
 - `--nebula-lavender`: rgba(129, 105, 197, ...)  
 - `--nebula-orange`: rgba(255, 153, 0, ...)
 
 **Spacing**:
+
 - `--space-xs`, `--space-sm`, `--space-md`, `--space-lg`
 
 **Border Radius**:
+
 - `--radius-md` (6px)
 
 **Transitions**:
+
 - `--transition-base` (200ms)
 
 ---

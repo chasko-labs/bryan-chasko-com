@@ -57,6 +57,7 @@ onResize() {
 ```
 
 **Why This Works**:
+
 - `BaseScene.handleResize()` updates `this.options.width/height` when the window resizes
 - Then calls `this.onResize()` hook at the end of the resize handler
 - OrbitScene now overrides this hook to recalculate `centerX/Y` with the new canvas dimensions
@@ -115,6 +116,7 @@ initHomeScenes() {
 ```
 
 **Key Features**:
+
 - **Responsive Canvas**: `Math.min(Math.max(containerWidth, 120), 240)` - canvas grows with container but caps at 240px
 - **Center Position**: Calculated from responsive canvas size (not fixed 120, 120)
 - **Orbit Scaling**: `maxRadius = (width+height)/2 * 0.42` - keeps orbits proportional to canvas
@@ -125,6 +127,7 @@ initHomeScenes() {
 ## Testing & Verification
 
 ### Test Results
+
 ✅ **All 4 tests passed** (14.5 seconds)
 
 ```
@@ -135,6 +138,7 @@ initHomeScenes() {
 ```
 
 ### Console Verification Logs
+
 ```
 [OrbitScene] Responsive sizing: canvas=(240x240px), 
                                 center=(120.0, 120.0),
@@ -160,6 +164,7 @@ initHomeScenes() {
 ## Browser Behavior
 
 ### Resize Event Flow
+
 ```
 1. Window resize triggered
 2. BaseScene.handleResize() called
@@ -179,18 +184,21 @@ initHomeScenes() {
 ## Deployment Instructions
 
 ### 1. Verify Build
+
 ```bash
 hugo --minify
 # Expected output: "Built in 129 ms"
 ```
 
 ### 2. Run Tests
+
 ```bash
 npm test -- tests/webgl/orbit-scene.spec.js
 # Expected: "4 passed"
 ```
 
 ### 3. Deploy
+
 ```bash
 # Option A: With test gate (recommended)
 perl scripts/deploy.pl --profile websites-bryanchasko
@@ -200,7 +208,8 @@ perl scripts/deploy.pl --dry-run --verbose --profile websites-bryanchasko
 ```
 
 ### 4. Verify Live
-1. Open https://bryanchasko.com in browser
+
+1. Open <https://bryanchasko.com> in browser
 2. Resize window width
 3. Observe orbit particles remain centered (no smushing)
 4. Check browser console for responsive sizing logs

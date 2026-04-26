@@ -12,7 +12,7 @@ description: "AWS Account Access Audit & Remediation — IAM, SSO, stale access 
 - HIPAA / SOC 2 posture review and immediate, actionable fixes
 - Secure deployment patterns and developer-safe deployment guidance
 
-{{< cta-button href="https://www.upwork.com/services/product/development-it-aws-account-access-audit-remediation-1994568317264259092" label="Book AWS Access Audit" >}}
+{{< cta-button href="<https://www.upwork.com/services/product/development-it-aws-account-access-audit-remediation-1994568317264259092>" label="Book AWS Access Audit" >}}
 
 <div class="ccc-footer-cta">
   <p>For ongoing strategic partnership beyond these engagements, please <a href="/contact/">say hello</a>.</p>

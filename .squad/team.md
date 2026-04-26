@@ -28,6 +28,7 @@
 | @copilot | Coding Agent | 🤖 Coding Agent |
 
 ### Good fit for @copilot
+
 - Content edits and new Markdown pages
 - CSS overrides in `assets/css/` (using existing variables)
 - Layout template fixes in `layouts/`
@@ -36,6 +37,7 @@
 - `infrastructure/` JSON config updates
 
 ### Needs squad review
+
 - New WebGL scenes or shader changes (→ Stratia review)
 - CloudFront behavior changes (→ Myrren review)
 - Structural theme changes affecting all pages (→ Stratia)
@@ -46,6 +48,6 @@
 - **Owner:** Bryan Chasko
 - **Stack:** Hugo, custom `bryan-chasko-theme` (PaperMod fork + 3D/WebGL),
   AWS S3 + CloudFront, Playwright, Terraform
-- **URL:** https://bryanchasko.com
+- **URL:** <https://bryanchasko.com>
 - **Persona Source:** HeraldStack
 - **Created:** 2026-03-08

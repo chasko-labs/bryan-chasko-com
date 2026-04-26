@@ -31,6 +31,7 @@ npm test
 ```
 
 **Playwright test example for validating clicks:**
+
 ```bash
 # Test specific feature
 npm test -- tests/menu-click.spec.js --project=chromium
@@ -42,6 +43,7 @@ npm test
 ### 3. Pull Request Review (Human in Loop)
 
 **Before merging to main:**
+
 - [ ] PR opened with clear description of changes
 - [ ] All tests passing (CI/CD checks green)
 - [ ] Manual QA verification (ideally by another person)
@@ -50,6 +52,7 @@ npm test
 ### 4. Merge to Main
 
 Only merge after human review confirms:
+
 - ✅ Feature works as intended
 - ✅ No regressions in existing functionality
 - ✅ Tests pass across all browsers (chromium, firefox, webkit)
@@ -85,6 +88,7 @@ curl -s https://bryanchasko.com/ | head -20
 ### Test Gate: Why It Blocks Deployment
 
 The test gate ensures:
+
 - ✅ WebGL scenes render correct colors (visual regression)
 - ✅ Performance stays within budget (<150ms init, >50fps)
 - ✅ Reduced motion accessibility works
@@ -118,11 +122,13 @@ Before running `deploy.pl`, verify:
 ### Security Setup
 
 **S3 Bucket Access:**
+
 - ✅ Block Public Access: **Enabled** (all 4 settings)
 - ✅ Only CloudFront can access
 - ✅ No direct public S3 URLs work
 
 **CloudFront + Origin Access Control (OAC):**
+
 - ✅ OAC ID: `[YOUR-OAC-ID]` (your OAC name)
 - ✅ Distribution: `[YOUR-DISTRIBUTION-ID]`
 - ✅ Origin: `[your-site-domain].s3.us-west-2.amazonaws.com` (regional endpoint)
@@ -130,6 +136,7 @@ Before running `deploy.pl`, verify:
 - ✅ HTTP → HTTPS: Automatic redirect
 
 **Bucket Policy:**
+
 ```json
 {
   "Version": "2012-10-17",
@@ -184,6 +191,7 @@ perl scripts/deploy.pl --invalidate-only --profile websites-bryanchasko
 ### Never Commit to GitHub
 
 ❌ **DON'T hardcode:**
+
 - AWS Account ID: `[YOUR-AWS-ACCOUNT-ID]`
 - S3 Bucket: `[your-site-domain]`
 - CloudFront Distribution: `[YOUR-DISTRIBUTION-ID]`
@@ -191,6 +199,7 @@ perl scripts/deploy.pl --invalidate-only --profile websites-bryanchasko
 - AWS Profile: `[YOUR-AWS-PROFILE]`
 
 ✅ **DO use:**
+
 - Environment variables
 - `~/.bcc-site/config.json` (gitignored)
 - AWS Systems Manager Parameter Store
@@ -199,8 +208,11 @@ perl scripts/deploy.pl --invalidate-only --profile websites-bryanchasko
 ### Configuration Priority (deploy.pl)
 
 1. **Command-line args** - Highest priority
+
    ```bash
+
   perl scripts/deploy.pl --profile websites-bryanchasko --bucket bryanchasko.com
+
    ```
 
 2. **Environment variables**
@@ -209,7 +221,8 @@ perl scripts/deploy.pl --invalidate-only --profile websites-bryanchasko
    export SITE_BUCKET=bryanchasko.com
    ```
 
-3. **Local config file** - `~/.bcc-site/config.json`
+1. **Local config file** - `~/.bcc-site/config.json`
+
    ```json
    {
      "SITE_DOMAIN": "bryanchasko.com",
@@ -220,7 +233,8 @@ perl scripts/deploy.pl --invalidate-only --profile websites-bryanchasko
    }
    ```
 
-4. **AWS Parameter Store** - Lowest priority
+2. **AWS Parameter Store** - Lowest priority
+
    ```bash
    aws ssm put-parameter --name /sites/bryanchasko.com/s3_bucket --type String --value bryanchasko.com
    ```
@@ -283,6 +297,7 @@ curl -sI https://bryanchasko.com/ | grep -i cache-control
 ### Expected Responses
 
 **After successful deployment:**
+
 ```
 HTTP/2 200
 Content-Type: text/html
@@ -311,6 +326,7 @@ hugo server --config hugo.toml
 **Cause:** Bucket policy doesn't allow CloudFront access, or OAC misconfigured.
 
 **Fix:**
+
 ```bash
 # Verify bucket policy allows CloudFront
 aws s3api get-bucket-policy --bucket bryanchasko.com --profile websites-bryanchasko | jq .
@@ -326,6 +342,7 @@ aws cloudfront get-distribution-config --id [your-actual-distribution-id] --prof
 **Cause:** CloudFront cache not invalidated.
 
 **Fix:**
+
 ```bash
 # Check invalidation status
 aws cloudfront list-invalidations --distribution-id [your-actual-distribution-id] --profile websites-bryanchasko | jq '.InvalidationList.Items[0] | {Status, CreateTime}'

@@ -65,6 +65,7 @@ const tealColor = this.getThemeColor('--cosmic-teal');  // Returns RGB object
 ```
 
 **Active Palette** (defined in `nebula.css`):
+
 ```css
 --cosmic-teal: #00CED1;      /* Orbit particles */
 --cosmic-energy: #00FA9A;    /* Center node */
@@ -110,6 +111,7 @@ onResize() {
 ```
 
 The resize event flow:
+
 ```
 window.resize → BaseScene.handleResize() → Update options.width/height → Call this.onResize()
 ```
@@ -142,6 +144,7 @@ themes/bryan-chasko-theme/assets/css/
 ### Color Variables (3-Palette System)
 
 **1. Core Brand** (identity):
+
 ```css
 --nebula-purple: #5E41A2;
 --nebula-lavender: #8169C5;
@@ -149,6 +152,7 @@ themes/bryan-chasko-theme/assets/css/
 ```
 
 **2. Vibrant Cosmic** (WebGL):
+
 ```css
 --cosmic-teal: #00CED1;
 --cosmic-energy: #00FA9A;
@@ -156,6 +160,7 @@ themes/bryan-chasko-theme/assets/css/
 ```
 
 **3. Semantic Mappings** (theme-aware):
+
 ```css
 /* Light mode */
 --color-background: var(--white);
@@ -341,17 +346,20 @@ npm run test:debug
 ### Troubleshooting Tests
 
 **Tests pass locally but fail in CI:**
+
 ```javascript
 // Relax budget for slower CI runners
 const budget = process.env.CI ? 200 : 150;
 ```
 
 **"No baseline found" error:**
+
 ```bash
 npm run test:update-baselines
 ```
 
 **Colors wrong after code change:**
+
 ```bash
 # Run test to capture actual pixels (ground truth)
 npm test -- tests/webgl/orbit-scene.spec.js
@@ -374,6 +382,7 @@ npm test -- tests/webgl/orbit-scene.spec.js
 **Matrix**: Chrome, Firefox, Safari
 
 **Steps**:
+
 1. Checkout code
 2. Scan for secrets (security gate)
 3. Install Node.js + dependencies
@@ -389,6 +398,7 @@ npm test -- tests/webgl/orbit-scene.spec.js
 **Triggers**: Push to main, manual dispatch
 
 **Steps**:
+
 1. Checkout code
 2. Scan for secrets (security gate)
 3. Setup Hugo + Node.js

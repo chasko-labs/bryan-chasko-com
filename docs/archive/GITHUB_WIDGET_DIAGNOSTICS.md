@@ -3,6 +3,7 @@
 ## Current Implementation Overview
 
 ### Location
+
 - **File**: `themes/bryan-chasko-theme/layouts/partials/home_info.html`
 - **Section**: `.github-dashboard` container (lines ~94-250+)
 
@@ -18,6 +19,7 @@
 | Tech Stack | Dynamic fetch + cache | GitHub REST API `/languages` | ⚠️ Check needed |
 
 ### JavaScript Features
+
 - **Caching**: 5-minute localStorage cache for API responses
 - **Error Handling**: Try-catch with fallback messages
 - **Relative Time**: Converts commit dates to "Xm/h/d ago" format
@@ -26,16 +28,19 @@
 ## Issues Found
 
 ### 1. Repository Name Mismatch
+
 - **Issue**: Code references `hugoBryanChaskoWebsite` but actual repo is `bryan-chasko-com`
 - **Impact**: API calls to `/repos/BryanChasko/hugoBryanChaskoWebsite/` will fail
 - **Fix**: Update all API URLs to use correct repo name
 
 ### 2. GitHub API Rate Limiting
+
 - **Issue**: Unauthenticated requests limited to 60/hour
 - **Impact**: May fail during high traffic or testing
 - **Fix**: Add GitHub token or implement better error handling
 
 ### 3. Calendar Library Dependency
+
 - **Issue**: Relies on external CDN (`unpkg.com/github-calendar@latest`)
 - **Impact**: If CDN is down, calendar won't load
 - **Fix**: Add fallback or local copy
@@ -43,21 +48,25 @@
 ## Repairs Applied
 
 ### Repair #1: Fix Repository Name in All Links & API Calls ✅
+
 **File**: `themes/bryan-chasko-theme/layouts/partials/home_info.html`
 
 Changed all 5 occurrences from:
+
 ```
 https://github.com/BryanChasko/hugoBryanChaskoWebsite/
 https://api.github.com/repos/BryanChasko/hugoBryanChaskoWebsite/
 ```
 
 To:
+
 ```
 https://github.com/BryanChasko/bryan-chasko-com/
 https://api.github.com/repos/BryanChasko/bryan-chasko-com/
 ```
 
 **Affected Locations**:
+
 - Line 43: Repo link (HTML)
 - Line 53: Deploy workflow badge link
 - Line 54: Deploy workflow badge image URL
@@ -67,6 +76,7 @@ https://api.github.com/repos/BryanChasko/bryan-chasko-com/
 - Line 200: `fetchLanguages()` API call
 
 ### Error Handling Already in Place ✅
+
 - Fallback text when API calls fail: "View on GitHub"
 - Languages fallback: "Hugo • HTML • CSS • JS • Perl"
 - Console warnings for debugging: `console.warn()` on errors
@@ -75,12 +85,14 @@ https://api.github.com/repos/BryanChasko/bryan-chasko-com/
 ## Testing Results
 
 ### Before Repairs
+
 - ❌ Commit info: "Loading..." (API 404 - wrong repo name)
 - ❌ Tech stack: "Loading languages..." (API 404 - wrong repo name)
 - ❌ Badges: 404 errors (wrong repo name)
 - ✅ Calendar: Loads (uses proxy, not direct API)
 
 ### After Repairs
+
 - ✅ Commit info: Fetches and displays correctly
 - ✅ Tech stack: Shows language breakdown
 - ✅ Badges: Display correctly with live CI/CD status
@@ -104,7 +116,8 @@ https://api.github.com/repos/BryanChasko/bryan-chasko-com/
 
 ## Network Tab Status
 
-**Expected**: 
+**Expected**:
+
 - 2 successful API calls (commits, languages)
 - 1 calendar library load
 - 2 badge image loads

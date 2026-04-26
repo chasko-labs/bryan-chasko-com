@@ -22,12 +22,13 @@ Custom Hugo theme for bryanchasko.com portfolio and consulting site. Forked from
 theme = "bryan-chasko-theme"
 ```
 
--   Uses Hugo's asset generator with pipelining, fingerprinting, bundling and minification by default.
--   3 Modes:
-    -   [Regular Mode.](https://github.com/adityatelange/hugo-PaperMod/wiki/Features#regular-mode-default-mode)
-    -   [Home-Info Mode.](https://github.com/adityatelange/hugo-PaperMod/wiki/Features#home-info-mode)
-    -   [Profile Mode.](https://github.com/adityatelange/hugo-PaperMod/wiki/Features#profile-mode)
--   Table of Content Generation (newer implementation).
+- Uses Hugo's asset generator with pipelining, fingerprinting, bundling and minification by default.
+- 3 Modes:
+  - [Regular Mode.](https://github.com/adityatelange/hugo-PaperMod/wiki/Features#regular-mode-default-mode)
+  - [Home-Info Mode.](https://github.com/adityatelange/hugo-PaperMod/wiki/Features#home-info-mode)
+  - [Profile Mode.](https://github.com/adityatelange/hugo-PaperMod/wiki/Features#profile-mode)
+- Table of Content Generation (newer implementation).
+
 ### As Git Submodule (Future)
 
 ```bash
@@ -65,6 +66,7 @@ See main site [hugo.toml](../../hugo.toml) for configuration examples.
 ```
 
 **Parameters:**
+
 - `href` (required): Destination URL
 - `label` (required): Button text
 - `emphasis` (optional): "primary" (purple) or "secondary" (gray), default "primary"
@@ -105,6 +107,7 @@ This theme is actively being modularized from PaperMod. See [THEME_DEVELOPMENT.m
 **Current Phase:** Extraction and enhancement of existing customizations
 
 **Planned:**
+
 - Modular CSS architecture with component-based structure
 - Nebula color system implementation
 - Enhanced responsive table of contents
@@ -121,4 +124,3 @@ This theme is actively being modularized from PaperMod. See [THEME_DEVELOPMENT.m
 MIT License - See [LICENSE](LICENSE) file for details.
 
 This theme is forked from PaperMod which is also MIT licensed.
-

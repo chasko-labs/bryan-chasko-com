@@ -1,15 +1,19 @@
 # Constellation Mouse Interaction Fix - Technical Summary
 
 ## Issue Description
+
 The WebGL constellation background on the home page was not responding to mouse hover/movement. The constellation should have interactive particle behavior where particles react to cursor position by moving away from the mouse (repel behavior).
 
 ## Root Cause
+
 The `.constellation-hero` container had `pointer-events: none` in `themes/bryan-chasko-theme/assets/css/core/utilities.css` (line 267). According to the CSS specification, `pointer-events: none` on a parent element blocks ALL pointer events from reaching its children, regardless of whether the children have `pointer-events: auto`.
 
 ### Why This Happened
+
 The CSS was likely set to `pointer-events: none` to prevent the full-viewport background container from blocking clicks on page content. However, this also prevented the constellation canvas from receiving mouse events needed for particle interaction.
 
 ## Solution
+
 Removed `pointer-events: none` from the `.constellation-hero` container. This is safe because:
 
 1. **Z-index layering protects page content**: The constellation container has `z-index: -2`, placing it behind all page content (which has default z-index of 0 or positive values)
@@ -19,6 +23,7 @@ Removed `pointer-events: none` from the `.constellation-hero` container. This is
 ## Changes Made
 
 ### 1. CSS Fix
+
 **File**: `themes/bryan-chasko-theme/assets/css/core/utilities.css` (lines 258-280)
 
 ```css
@@ -49,11 +54,13 @@ Removed `pointer-events: none` from the `.constellation-hero` container. This is
 ```
 
 **Key Changes**:
+
 - Removed `pointer-events: none` from `.constellation-hero`
 - Added `pointer-events: auto !important` to `.constellation-hero .webgl-canvas` (overrides the generic `.webgl-canvas { pointer-events: none; }` rule)
 - Updated comments to document the behavior
 
 ### 2. Test Suite
+
 **File**: `tests/webgl/constellation-interaction.spec.js` (NEW)
 
 Created comprehensive test suite with 5 test cases:
@@ -67,6 +74,7 @@ Created comprehensive test suite with 5 test cases:
 ## Verification
 
 ### Manual Testing Steps
+
 1. Rebuild site: `hugo --minify`
 2. Start dev server: `hugo server -p 1313`
 3. Open browser to `http://localhost:1313`
@@ -74,6 +82,7 @@ Created comprehensive test suite with 5 test cases:
 5. **Expected**: Particles move away from cursor (repel behavior)
 
 ### Automated Testing
+
 ```bash
 # Run constellation interaction tests
 npm test -- tests/webgl/constellation-interaction.spec.js --project=chromium
@@ -85,6 +94,7 @@ npm test -- tests/webgl/ --project=chromium
 ## How Mouse Interaction Works
 
 ### Event Flow
+
 1. User moves mouse over constellation background
 2. Browser fires `mousemove` event on canvas element
 3. `ConstellationScene.onMouseMove()` handler updates `this.mousePos` with scaled coordinates
@@ -94,6 +104,7 @@ npm test -- tests/webgl/ --project=chromium
 7. Force magnitude scales with distance: `(mouseInfluence - dist) / mouseInfluence * 0.02`
 
 ### JavaScript Implementation
+
 **File**: `themes/bryan-chasko-theme/static/js/constellation.js`
 
 - **Lines 73-74**: Mouse event listeners attached to canvas

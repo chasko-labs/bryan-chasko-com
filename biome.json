@@ -11,14 +11,17 @@
 			"**/*.ts",
 			"**/*.mjs",
 			"**/*.json",
+			"**/*.css",
+			"**/*.yml",
+			"**/*.yaml",
 			"!!**/node_modules",
-			"!!themes/PaperMod",
-			"!!themes/bryan-chasko-theme/PaperMod",
 			"!!themes/bryan-chasko-theme/layouts",
-			"!!infrastructure/*.json",
 			"!!themes/bryan-chasko-theme/assets/js/fuse.basic.min.js",
 			"!!themes/bryan-chasko-theme/assets/js/notes-tilt.min.js",
-			"!!public"
+			"!!themes/bryan-chasko-theme/assets/css/components/terminal.css",
+			"!!public",
+			"!!test-results",
+			"!!test-report"
 		]
 	},
 	"formatter": {
@@ -40,6 +43,15 @@
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"
+		}
+	},
+	"css": {
+		"formatter": {
+			"enabled": true,
+			"indentStyle": "tab"
+		},
+		"linter": {
+			"enabled": true
 		}
 	},
 	"assist": {

@@ -3,6 +3,7 @@
 ## Summary
 
 Comprehensive GitHub Actions CI/CD documentation has been created and integrated into the project. The pipeline automates:
+
 - WebGL visual regression testing (cross-browser)
 - Hugo site building
 - S3 deployment with cache control
@@ -14,7 +15,9 @@ Comprehensive GitHub Actions CI/CD documentation has been created and integrated
 ## Documentation Created/Updated
 
 ### 1. **CI_CD_SETUP.md** (NEW) - 500+ lines
+
 Complete reference guide for the entire CI/CD pipeline including:
+
 - Quick start setup instructions
 - Workflow architecture diagrams
 - Detailed step-by-step pipeline breakdown
@@ -25,6 +28,7 @@ Complete reference guide for the entire CI/CD pipeline including:
 - Best practices and monitoring
 
 **Key Sections**:
+
 - Quick Start (5 minutes to get started)
 - Workflow Architecture overview
 - Two detailed workflow explanations:
@@ -36,7 +40,9 @@ Complete reference guide for the entire CI/CD pipeline including:
 - Troubleshooting scenarios with fixes
 
 ### 2. **README.md** (UPDATED) - GitHub Actions section expanded
+
 Added comprehensive CI/CD workflow documentation including:
+
 - WebGL Tests Workflow details
 - Deploy Workflow details  
 - Pipeline stages (10 steps)
@@ -46,7 +52,9 @@ Added comprehensive CI/CD workflow documentation including:
 - Reference to CI_CD_SETUP.md for full details
 
 ### 3. **.github/copilot-instructions.md** (UPDATED) - Added full CI/CD section
+
 Integrated detailed workflow documentation into project instructions:
+
 - GitHub Actions workflows overview
 - WebGL Tests Workflow specifics
 - Deploy Workflow complete pipeline
@@ -59,6 +67,7 @@ Integrated detailed workflow documentation into project instructions:
 ## Existing Workflow Files (Verified)
 
 ### ✅ `.github/workflows/deploy.yml`
+
 - **Lines**: 137
 - **Triggers**: Push to main, manual dispatch
 - **Pipeline**: Hugo build → Test gate → S3 sync → CloudFront invalidation → Baseline update
@@ -69,6 +78,7 @@ Integrated detailed workflow documentation into project instructions:
   - 5-second S3 propagation wait
 
 ### ✅ `.github/workflows/webgl-tests.yml`
+
 - **Lines**: 158
 - **Triggers**: PR, push, manual dispatch
 - **Matrix**: Chrome, Firefox, Safari (parallel execution)
@@ -85,7 +95,6 @@ Integrated detailed workflow documentation into project instructions:
 
 Follow the Quick Start in CI_CD_SETUP.md, but with the new OIDC-powered authentication instead of static IAM keys:
 
-
 1. **Provision the backend resources** — run the helper script (or the Terraform stack) to create the S3 state bucket, DynamoDB lock table, and GitHub OIDC role:
 
     ```bash
@@ -98,6 +107,7 @@ Follow the Quick Start in CI_CD_SETUP.md, but with the new OIDC-powered authenti
 
 3. **Attach S3 baseline upload policy to the role**:
     - Create a file named `policy.json` with:
+
        ```json
        {
           "Version": "2012-10-17",
@@ -117,7 +127,9 @@ Follow the Quick Start in CI_CD_SETUP.md, but with the new OIDC-powered authenti
           ]
        }
        ```
+
     - Attach the policy:
+
        ```bash
        aws iam put-role-policy \
           --role-name github-actions-terraform-role \
@@ -138,23 +150,27 @@ Follow the Quick Start in CI_CD_SETUP.md, but with the new OIDC-powered authenti
 ## Key CI/CD Features
 
 ### Test Gate (Deployment Blocker)
+
 - ✅ All tests pass → Deploy proceeds
 - ❌ Any test fails → Deploy blocked
 - Philosophy: "No more unsubstantiated claims"
 
 ### CloudFront Auto-Discovery
+
 - Queries all CloudFront distributions
 - Finds distribution by domain alias ('bryanchasko.com')
 - No hardcoded distribution IDs
 - Graceful fallback if not found
 
 ### Baseline Auto-Update
+
 - Only runs on main branch push
 - Uploads new baseline screenshots to S3
 - Prevents baseline drift
 - Ensures latest visual state is captured
 
 ### Performance Considerations
+
 - Orbit init: <150ms (local), <250ms (CI)
 - FPS: >50fps (local), >40fps (CI)
 - Memory: <200MB
@@ -208,6 +224,7 @@ Follow the Quick Start in CI_CD_SETUP.md, but with the new OIDC-powered authenti
 ## Next Steps
 
 ### For Current Developers
+
 1. **Add GitHub Secrets** (if not already done):
    - Go to repo Settings → Secrets and variables → Actions
    - Add `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
@@ -223,6 +240,7 @@ Follow the Quick Start in CI_CD_SETUP.md, but with the new OIDC-powered authenti
    - Monitor Actions tab for completion
 
 ### For Future Reference
+
 - **Full CI/CD Details**: See [CI_CD_SETUP.md](CI_CD_SETUP.md)
 - **Project Setup**: See [README.md](README.md)
 - **Developer Instructions**: See [.github/copilot-instructions.md](.github/copilot-instructions.md)

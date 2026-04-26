@@ -1,0 +1,8 @@
+node_modules/
+public/
+themes/PaperMod/
+themes/bryan-chasko-theme/PaperMod/
+test-results/
+test-report/
+playwright-report/
+.git/

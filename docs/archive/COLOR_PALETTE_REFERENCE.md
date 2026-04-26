@@ -1,9 +1,11 @@
 # Color Palette Reference
+
 **Bryan Chasko Portfolio - Consolidated Color System**
 
 ## 🎨 Complete Color Variables
 
 ### Brand Colors (Nebula Palette)
+
 | Variable | Hex | Usage |
 |----------|-----|-------|
 | `--nebula-dark-navy` | `#1C2230` | Dark theme backgrounds, headers |
@@ -15,6 +17,7 @@
 ---
 
 ### Neutral Grays (Tailwind Scale)
+
 | Variable | Hex | Light Theme | Dark Theme |
 |----------|-----|-------------|------------|
 | `--white` | `#FFFFFF` | Backgrounds | Text |
@@ -35,6 +38,7 @@
 ---
 
 ### Syntax Highlighting (Catppuccin Macchiato)
+
 | Variable | Hex | Token Type |
 |----------|-----|------------|
 | `--syntax-bg` | `#24273a` | Code block background |
@@ -58,6 +62,7 @@
 ## 🔗 Semantic Color Mappings
 
 ### Primary System Colors
+
 ```css
 --color-primary: var(--nebula-purple);           /* #5E41A2 */
 --color-primary-hover: var(--nebula-lavender);   /* #8169C5 */
@@ -67,6 +72,7 @@
 ```
 
 ### Light Theme (Default)
+
 ```css
 --color-background: var(--white);                /* #FFFFFF */
 --color-background-secondary: var(--gray-50);    /* #F9FAFB */
@@ -80,6 +86,7 @@
 ```
 
 ### Dark Theme Overrides
+
 ```css
 --color-background: var(--nebula-dark-navy);     /* #1C2230 */
 --color-background-secondary: var(--gray-800);   /* #2D3748 */
@@ -97,6 +104,7 @@
 ## 📋 Usage Examples
 
 ### Primary CTA Button
+
 ```css
 .cta-button--primary {
   background: var(--color-primary);      /* Nebula purple */
@@ -109,6 +117,7 @@
 ```
 
 ### Accent Button
+
 ```css
 .cta-button--accent {
   background: var(--color-accent);       /* Orange */
@@ -121,6 +130,7 @@
 ```
 
 ### Text Hierarchy
+
 ```css
 .title {
   color: var(--color-text);              /* Gray-900 / Gray-100 */
@@ -136,6 +146,7 @@
 ```
 
 ### Borders & Backgrounds
+
 ```css
 .card {
   background: var(--color-background);
@@ -158,28 +169,33 @@
 ### When to Use Each Color
 
 **Nebula Purple (`--color-primary`):**
+
 - Primary action buttons
 - Navigation links
 - Important headings
 - Brand elements
 
 **Nebula Lavender (`--color-primary-hover`):**
+
 - Hover states for purple elements
 - Secondary emphasis
 - Interactive highlights
 
 **Nebula Orange (`--color-accent`):**
+
 - High-priority CTAs ("Book Now", "Hire Me")
 - Warnings or alerts
 - Time-sensitive actions
 
 **Neutral Grays:**
+
 - Backgrounds: `--gray-50`, `--white`
 - Text: `--gray-900` (primary), `--gray-500` (secondary)
 - Borders: `--gray-200`, `--gray-700` (dark)
 - Code blocks: `--gray-100` (light), `--gray-700` (dark)
 
 **Syntax Colors:**
+
 - Only use for code syntax highlighting
 - Keep within `.chroma` context
 
@@ -221,25 +237,33 @@ Colors automatically adapt when `data-theme="dark"` is set on `<html>`:
 
 ## 🛠️ Updating Colors
 
-### To Change Brand Colors:
+### To Change Brand Colors
+
 1. Update base variables in [variables.css](themes/bryan-chasko-theme/assets/css/core/variables.css):
+
    ```css
    --nebula-purple: #NEW_HEX;
    ```
+
 2. Semantic mappings automatically update
 3. Rebuild site: `hugo --gc`
 
-### To Add New Color:
+### To Add New Color
+
 1. Add to neutral scale:
+
    ```css
    --gray-450: #8B92A0; /* Between 400 and 500 */
    ```
+
 2. Create semantic mapping (optional):
+
    ```css
    --color-text-tertiary: var(--gray-450);
    ```
 
-### To Override for Specific Component:
+### To Override for Specific Component
+
 ```css
 .special-card {
   --color-primary: #CUSTOM_COLOR; /* Local override */

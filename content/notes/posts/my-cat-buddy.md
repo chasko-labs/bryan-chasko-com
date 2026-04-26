@@ -12,8 +12,7 @@ Buddy is a tabby cat from Mesilla Park, New Mexico. He likes to play catch with 
 
 **Guadalupe County Animal Control**
 Phone: [505-472-3711](tel:505-472-3711)  
-Santa Rosa Animal Shelter, 117 S. 5th Street, 
+Santa Rosa Animal Shelter, 117 S. 5th Street,
 Santa Rosa, New Mexico 88435
 
 [Get directions to adopt your new pet from beautiful Santa Rosa NM on Route 66](https://www.google.com/maps/place/Santa+Rosa+Animal+Shelter,+117+S+5th+St,+Santa+Rosa,+NM+88435/@34.7289485,-104.513631,15z)  
-

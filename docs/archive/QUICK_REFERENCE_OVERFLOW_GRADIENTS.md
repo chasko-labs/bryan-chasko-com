@@ -3,6 +3,7 @@
 ## What Changed?
 
 ### 1. **Text Overflow Fixes** - No More Broken Layouts
+
 ```css
 /* Added to .entry-content */
 overflow-wrap: break-word;    /* Breaks long words */
@@ -12,6 +13,7 @@ text-overflow: ellipsis;      /* Ellipsis for truncation */
 ```
 
 ### 2. **Entry Header Gradient** - Subtle Brand Colors
+
 ```css
 /* Light mode */
 background: linear-gradient(135deg,
@@ -30,6 +32,7 @@ background: linear-gradient(135deg,
 ```
 
 ### 3. **Content Block Gradient** - Enhanced Separation
+
 ```css
 /* Light mode */
 background: linear-gradient(135deg,
@@ -49,6 +52,7 @@ backdrop-filter: blur(4px);
 ```
 
 ### 4. **Enhanced Glassmorphism** - Better Depth
+
 ```css
 /* Card container */
 backdrop-filter: blur(8px);           /* Was 6px */
@@ -65,6 +69,7 @@ box-shadow:
 ```
 
 ### 5. **Enhanced Hover States** - More Dramatic
+
 ```css
 /* Light mode hover */
 box-shadow: 
@@ -84,6 +89,7 @@ box-shadow:
 ```
 
 ### 6. **Responsive Consistency** - No Layout Shifts
+
 ```css
 /* Mobile */
 .post-entry .entry-content {
@@ -117,6 +123,7 @@ box-shadow:
 ## Brand Colors Used
 
 All gradients use CSS variables:
+
 - `--nebula-purple`: #5E41A2
 - `--nebula-lavender`: #8169C5
 - `--nebula-orange`: #FF9900
@@ -142,6 +149,7 @@ hugo server --config hugo.toml
 ```
 
 Then test:
+
 - [ ] Long text/URLs in card content
 - [ ] Gradient visibility in light/dark modes
 - [ ] Hover effects on cards

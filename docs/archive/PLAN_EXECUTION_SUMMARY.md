@@ -17,6 +17,7 @@ Enhance the visual polish and consistency of `.post-entry` cards' content (title
 ### ✅ Step 1: Title & Header Enhancement
 
 **Changes Made:**
+
 - Font-size: `1.25-1.5rem` → `1.3-1.6rem` (+4% larger)
 - Font-weight: `700` → `800` (+14% bolder)
 - Line-height: `1.35` → `1.3` (tighter)
@@ -31,6 +32,7 @@ Enhance the visual polish and consistency of `.post-entry` cards' content (title
 ### ✅ Step 2: Content Block Refinement
 
 **Changes Made:**
+
 - Added padding: `var(--space-md)` (16px)
 - Added background: `rgba(94, 65, 162, 0.04)` (subtle glassmorphism)
 - Added border-radius: `var(--radius-md)` (6px)
@@ -46,6 +48,7 @@ Enhance the visual polish and consistency of `.post-entry` cards' content (title
 ### ✅ Step 3: Footer/Meta Refinement
 
 **Changes Made:**
+
 - Margin-top: `var(--space-md)` → `0` (removed)
 - Padding-top: `var(--space-sm)` → `var(--space-md)` (+100% spacing)
 - Added padding-bottom: `var(--space-xs)` (4px)
@@ -60,6 +63,7 @@ Enhance the visual polish and consistency of `.post-entry` cards' content (title
 ### ✅ Step 4: Card Layout Enhancement
 
 **Changes Made:**
+
 - Border-radius: `var(--radius-xl)` (12px) → `16px` (+33% rounder)
 - Padding: `var(--space-lg)` (24px) → `var(--space-xl)` (32px) (+33% breathing room)
 - Box-shadow: Enhanced from `0 2px 8px` to `0 4px 12px` (better depth)
@@ -73,18 +77,21 @@ Enhance the visual polish and consistency of `.post-entry` cards' content (title
 ### ✅ Step 5: Responsive Typography Scaling
 
 **Mobile (≤480px):**
+
 - Title: `1.2rem` (was 1.125rem)
 - Content padding: `var(--space-sm)` (8px)
 - Content lines: `2` (maintained)
 - Footer gap: `var(--space-sm)` (8px)
 
 **Tablet (481px-768px):**
+
 - Title: `1.35rem` (was 1.25rem)
 - Content padding: `var(--space-md)` (16px)
 - Content lines: `2` (maintained)
 - Footer gap: `var(--space-md)` (16px)
 
 **Desktop (≥769px):**
+
 - Title: `1.5rem` (was 1.375rem)
 - Content padding: `var(--space-md)` (16px)
 - Content lines: `2` (reduced from 3)
@@ -128,6 +135,7 @@ Enhance the visual polish and consistency of `.post-entry` cards' content (title
 All changes use project-defined variables:
 
 **Spacing:**
+
 - `--space-xs` (4px)
 - `--space-sm` (8px)
 - `--space-md` (16px)
@@ -135,16 +143,19 @@ All changes use project-defined variables:
 - `--space-xl` (32px)
 
 **Border Radius:**
+
 - `--radius-md` (6px)
 - `--radius-xl` (12px)
 
 **Colors:**
+
 - `--color-text`
 - `--color-text-secondary`
 - `--color-text-muted`
 - `--color-border`
 
 **Transitions:**
+
 - `--transition-base` (200ms)
 
 ---
@@ -214,6 +225,7 @@ All changes use project-defined variables:
 ## Summary
 
 The blog post cards now have:
+
 - **Better visual hierarchy** with larger, bolder titles
 - **Improved content separation** with subtle background
 - **Clearer spacing** throughout the card

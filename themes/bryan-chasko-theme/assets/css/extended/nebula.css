@@ -760,20 +760,21 @@ body::after {
 /* ============================================
    ENTRANCE REVEAL — page-load stagger (#34)
    One high-impact moment per route.
-   Gate: prefers-reduced-motion: reduce block at
-   bottom of this file nullifies animation-duration
-   site-wide via !important — no bypass needed here.
+   @keyframes declared unconditionally: Safari <15.4 and
+   some Chromium versions do not resolve @keyframes inside
+   @media blocks. Selectors that apply the animation remain
+   gated by prefers-reduced-motion below. The site-wide
+   prefers-reduced-motion: reduce block at bottom of file
+   nullifies via !important — double-guard on selector side.
    ============================================ */
-@media (prefers-reduced-motion: no-preference) {
-	@keyframes entrance-fade-up {
-		from {
-			opacity: 0;
-			transform: translateY(16px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
+@keyframes entrance-fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(16px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
 	}
 }
 

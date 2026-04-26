@@ -1157,23 +1157,28 @@ h6 {
 	margin-bottom: var(--space-md);
 }
 
+/* fluid type scale (#31) — 1.25 modular scale anchored at 1rem base,
+   min viewport 320px / max viewport 1280px. preferred vw derived from
+   (max-size - min-size) / (1280 - 320) * 100. prefers-reduced-motion guard
+   not needed here — clamp() is a size function, not an animation.
+   system-font stack preserved (no web font fetch, no foit) — see head.html:4-6. */
 h1 {
-	font-size: var(--font-size-4xl);
+	font-size: clamp(1.875rem, 2.29vw + 1.146rem, 2.5rem);
 }
 h2 {
-	font-size: var(--font-size-3xl);
+	font-size: clamp(1.5rem, 1.56vw + 1.0rem, 2rem);
 }
 h3 {
-	font-size: var(--font-size-2xl);
+	font-size: clamp(1.25rem, 0.78vw + 1.0rem, 1.5rem);
 }
 h4 {
-	font-size: var(--font-size-xl);
+	font-size: clamp(1.125rem, 0.39vw + 1.0rem, 1.25rem);
 }
 h5 {
-	font-size: var(--font-size-lg);
+	font-size: clamp(1rem, 0.39vw + 0.875rem, 1.125rem);
 }
 h6 {
-	font-size: var(--font-size-base);
+	font-size: clamp(0.875rem, 0.39vw + 0.75rem, 1rem);
 }
 
 p {
@@ -1342,16 +1347,7 @@ section {
 	:root {
 		--font-size-base: 1.0625rem; /* 17px */
 	}
-
-	h1 {
-		font-size: 2.5rem;
-	}
-	h2 {
-		font-size: 2rem;
-	}
-	h3 {
-		font-size: 1.75rem;
-	}
+	/* h1/h2/h3 fixed overrides removed — fluid clamp() in base rules covers this range (#31) */
 }
 
 /* Desktop: 1024px and up */

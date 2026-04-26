@@ -1042,6 +1042,7 @@
 /* Builder Center feature card - Modern Glassmorphism Design */
 .builder-card {
 	margin: auto;
+	margin-bottom: var(--space-xl); /* 32px seam above first note-entry (#34 spacing fix) */
 	max-width: calc(100% - 2 * var(--space-md));
 	padding: 64px var(--space-xl);
 	border: 1px solid rgba(94, 65, 162, 0.15);

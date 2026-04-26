@@ -474,6 +474,16 @@
 	--code-bg: var(--gray-700);
 	--border: var(--color-border);
 }
+/* Theme transition — softens color/border swap on theme toggle (#30)
+   Scoped to color and border-color only; background radial-gradients hard-swap
+   (smooth gradient interpolation not feasible across full gradient sets).
+   Covered by the global prefers-reduced-motion: reduce block below (0.01ms). */
+*, *::before, *::after {
+	transition:
+		color var(--duration-base) var(--ease-out),
+		border-color var(--duration-base) var(--ease-out);
+}
+
 /* Typography Styles */
 
 body {

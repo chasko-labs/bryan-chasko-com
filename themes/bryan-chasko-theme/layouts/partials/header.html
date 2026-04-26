@@ -115,3 +115,14 @@
         </ul>
     </nav>
 </header>
+{{- if (not site.Params.disableThemeToggle) }}
+<script>
+    // Sync aria-pressed on load so it reflects the restored theme before any click (#30)
+    (function () {
+        var btn = document.getElementById('theme-toggle');
+        if (!btn) return;
+        var theme = document.documentElement.dataset.theme || 'light';
+        btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+    })();
+</script>
+{{- end }}

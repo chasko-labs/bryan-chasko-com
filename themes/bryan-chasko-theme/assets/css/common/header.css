@@ -535,6 +535,11 @@
 	transform: scale(0.95);
 }
 
+#theme-toggle:focus-visible {
+	outline: var(--focus-ring);
+	outline-offset: 4px;
+}
+
 [data-theme="dark"] #theme-toggle:hover {
 	background: rgba(129, 105, 197, 0.1);
 }

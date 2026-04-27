@@ -90,16 +90,6 @@ summaryLength = 50
   [[params.homeInfoParams.links]]
     label = "Skills"
     url = "notes/posts/my-skills-and-experience#skills"
-  [[params.homeInfoParams.links]]
-    label = "Experience"
-    url = "notes/posts/my-skills-and-experience#experience"
-  [[params.homeInfoParams.links]]
-    label = "AWS Cloud"
-    url = "notes/posts/aws-hero-bryan-chasko"
-  [[params.homeInfoParams.links]]
-    label = "Booking"
-    url = "services"
-
   [[params.homeInfoParams.instagram]]
     url = "https://www.instagram.com/p/EXAMPLE1/"
     image = "/images/insta/example1.jpg"

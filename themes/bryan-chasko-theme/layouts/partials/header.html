@@ -83,18 +83,6 @@
                 {{- end }}
             </div>
         </div>
-        <button
-            class="nav-hamburger"
-            id="nav-hamburger"
-            aria-label="open navigation menu"
-            aria-expanded="false"
-            aria-controls="menu"
-            type="button"
-        >
-            <span class="nav-hamburger-bar"></span>
-            <span class="nav-hamburger-bar"></span>
-            <span class="nav-hamburger-bar"></span>
-        </button>
         {{- $currentPage := . }}
         <ul id="menu">
             {{- range site.Menus.main }}
@@ -138,32 +126,3 @@
     })();
 </script>
 {{- end }}
-<script>
-    // mobile nav hamburger toggle
-    (function () {
-        var hamburger = document.getElementById('nav-hamburger');
-        var menu = document.getElementById('menu');
-        if (!hamburger || !menu) return;
-        hamburger.addEventListener('click', function () {
-            var isOpen = menu.classList.toggle('nav-open');
-            hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-            hamburger.setAttribute('aria-label', isOpen ? 'close navigation menu' : 'open navigation menu');
-        });
-        // close on outside click
-        document.addEventListener('click', function (e) {
-            if (!hamburger.contains(e.target) && !menu.contains(e.target)) {
-                menu.classList.remove('nav-open');
-                hamburger.setAttribute('aria-expanded', 'false');
-                hamburger.setAttribute('aria-label', 'open navigation menu');
-            }
-        });
-        // close on nav link click (SPA-style navigation)
-        menu.addEventListener('click', function (e) {
-            if (e.target.closest('a')) {
-                menu.classList.remove('nav-open');
-                hamburger.setAttribute('aria-expanded', 'false');
-                hamburger.setAttribute('aria-label', 'open navigation menu');
-            }
-        });
-    })();
-</script>

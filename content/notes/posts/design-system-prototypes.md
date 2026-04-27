@@ -4,10 +4,86 @@ date: 2026-04-27
 draft: false
 tags: ["design", "frontend", "prototypes"]
 description: "six chromatic shadow + surface depth explorations adapted from cloud-del-norte structural patterns into the nebula violet/indigo/orange palette. review surface before any site-wide lift."
-ShowToc: true
 ---
 
 <style>
+/* ── demo well — showcase container ──────────────────── */
+.demo-well {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
+  padding: var(--space-2xl, 3rem);
+  margin: var(--space-xl, 2rem) 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: color-mix(in srgb, var(--color-background) 92%, var(--brand-purple) 8%);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] .demo-well {
+  background: color-mix(in srgb, var(--color-background) 85%, var(--brand-lavender) 15%);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.20);
+}
+
+/* ── chromatic shadow comparison row inside a demo well */
+.demo-well-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-xl, 2rem);
+  width: 100%;
+  align-items: start;
+  justify-items: center;
+}
+
+/* ── section heading accent rule ─────────────────────── */
+.proto-section-heading {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs, 0.5rem);
+  padding-bottom: var(--space-sm, 0.75rem);
+  border-bottom: 2px solid var(--brand-purple);
+}
+
+.proto-section-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+/* ── details / summary collapse ──────────────────────── */
+.proto-details {
+  margin-top: var(--space-md, 1rem);
+}
+
+.proto-details summary {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.proto-details summary:hover {
+  color: var(--color-text);
+}
+
+.proto-details .proto-details-body {
+  margin-top: var(--space-sm, 0.75rem);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-base);
+}
+
+/* ── section gap ──────────────────────────────────────── */
+.proto-section {
+  margin-bottom: var(--space-3xl, 4rem);
+}
+
 /* ── prototype layout helpers ─────────────────────── */
 .proto-compare-row {
   display: grid;
@@ -343,102 +419,172 @@ ShowToc: true
 }
 </style>
 
-six chromatic shadow + surface depth explorations adapted from cloud-del-norte structural patterns into the nebula violet/indigo/orange palette. intent: find out what reads as depth vs silhouette against dark backgrounds before any site-wide lift into nebula.css
+these are the patterns from the cloud-del-norte / sumerian-hosts research synthesis. evaluate each in both modes before deciding which to lift site-wide. six prototypes — chromatic shadows, gradient surfaces, spring motion, conic edges, perspective tilt, inset buttons.
 
 ---
 
-## a — chromatic shadow card
+<div class="proto-section">
 
-side-by-side: current `--shadow-md` (black channel) vs a 3-layer violet shadow. violet channels read as warmth rather than silhouette — the card sits in the plane instead of floating above it
+## chromatic shadow card
 
-<div class="proto-compare-row">
-  <figure class="proto-figure">
-    <figcaption class="proto-label">current — <code>--shadow-md</code> (black shadow)</figcaption>
-    <article class="proto-card proto-card-black-shadow">
-      <strong>service card</strong>
-      <p>black-channel shadow — visually lifts but reads cool/flat against nebula backgrounds</p>
-      <a href="#a----chromatic-shadow-card" class="proto-card-link">learn more →</a>
-    </article>
-  </figure>
-  <figure class="proto-figure">
-    <figcaption class="proto-label">prototype a — chromatic violet shadow (3-layer)</figcaption>
-    <article class="proto-card proto-card-chromatic">
-      <strong>service card</strong>
-      <p>warm violet channels: ambient diffuse + mid shadow + ambient base. reads as depth rather than silhouette. dark mode uses higher opacity rgba values on the same hue</p>
-      <a href="#a----chromatic-shadow-card" class="proto-card-link">learn more →</a>
-    </article>
-  </figure>
+<p class="proto-section-subtitle">side-by-side: current black-channel shadow vs 3-layer violet shadow — does the color channel read as depth or just tint?</p>
+
+<div class="demo-well">
+  <div class="demo-well-compare">
+    <figure class="proto-figure">
+      <figcaption class="proto-label">current — <code>--shadow-md</code></figcaption>
+      <article class="proto-card proto-card-black-shadow">
+        <strong>service card</strong>
+        <p>black-channel shadow — lifts but reads cool/flat against nebula backgrounds</p>
+        <a href="#chromatic-shadow-card" class="proto-card-link">learn more →</a>
+      </article>
+    </figure>
+    <figure class="proto-figure">
+      <figcaption class="proto-label">prototype — chromatic violet shadow</figcaption>
+      <article class="proto-card proto-card-chromatic">
+        <strong>service card</strong>
+        <p>warm violet channels: ambient diffuse + mid shadow + ambient base. reads as depth rather than silhouette</p>
+        <a href="#chromatic-shadow-card" class="proto-card-link">learn more →</a>
+      </article>
+    </figure>
+  </div>
+</div>
+
+<details class="proto-details">
+  <summary>see notes</summary>
+  <div class="proto-details-body">
+    3-layer pattern: <code>rgba(94,65,162,0.06)</code> ambient diffuse + <code>rgba(94,65,162,0.10)</code> mid shadow + <code>rgba(0,0,0,0.04)</code> ambient base. dark mode bumps all opacity values — <code>rgba(129,105,197,...)</code> at 0.10 / 0.18 / 0.20. the demo well bg must differ from the card surface for the shadow to read — if they match, the shadow disappears.
+  </div>
+</details>
+
 </div>
 
 ---
 
-## b — multi-layer gradient surface
+<div class="proto-section">
 
-`color-mix` tints the secondary background with `--brand-purple` at 8% in light mode, `--brand-lavender` at 10% in dark. perceived surface variation without new token values — just existing tokens composed differently
+## multi-layer gradient surface
 
-<div class="proto-single-row">
+<p class="proto-section-subtitle">color-mix tints the card background with brand-purple at 8% — perceived surface variation without new token declarations</p>
+
+<div class="demo-well">
   <article class="proto-card proto-card-gradient-surface">
     <strong>gradient surface card</strong>
-    <p>background uses <code>color-mix</code> to tint the secondary background with brand-purple at 8%, creating perceived surface variation without introducing new token values</p>
-    <a href="#b----multi-layer-gradient-surface" class="proto-card-link">learn more →</a>
+    <p>135deg diagonal — secondary bg to purple-tinted midpoint and back. the tint is subtle in light mode, slightly stronger in dark</p>
+    <a href="#multi-layer-gradient-surface" class="proto-card-link">learn more →</a>
   </article>
+</div>
+
+<details class="proto-details">
+  <summary>see notes</summary>
+  <div class="proto-details-body">
+    light mode: <code>color-mix(in srgb, var(--color-background-secondary) 92%, var(--brand-purple) 8%)</code> at the 50% stop. dark mode: same pattern with <code>var(--brand-lavender)</code> at 10%. no new token declarations — only existing tokens composed differently. pair with chromatic shadow for maximum surface read.
+  </div>
+</details>
+
 </div>
 
 ---
 
-## c — spring-hover lift
+<div class="proto-section">
 
-`cubic-bezier(0.22, 1, 0.36, 1)` gives a physical overshoot feel on hover. the shadow expands as the card lifts. both light + dark get tuned opacity values. guarded by `prefers-reduced-motion`
+## spring-hover lift
 
-<div class="proto-single-row">
+<p class="proto-section-subtitle">cubic-bezier(0.22, 1, 0.36, 1) gives physical overshoot on hover — shadow expands as the card lifts</p>
+
+<div class="demo-well">
   <article class="proto-card proto-card-spring">
     <strong>spring lift card</strong>
-    <p>hover this card — <code>cubic-bezier(0.22, 1, 0.36, 1)</code> gives a physical overshoot bounce on translate. chromatic shadow expands on lift</p>
-    <a href="#c----spring-hover-lift" class="proto-card-link">learn more →</a>
+    <p>hover this card — chromatic shadow expands as the card rises. both light + dark get tuned opacity values</p>
+    <a href="#spring-hover-lift" class="proto-card-link">learn more →</a>
   </article>
+</div>
+
+<details class="proto-details">
+  <summary>see notes</summary>
+  <div class="proto-details-body">
+    <code>transform: translateY(-3px)</code> on hover. shadow grows from mid-level to <code>0 16px 40px rgba(94,65,162,0.16)</code>. guarded by <code>@media (prefers-reduced-motion: no-preference)</code> — no motion fires for reduced-motion users. dark mode uses the 129,105,197 violet channel at higher opacity to maintain legibility.
+  </div>
+</details>
+
 </div>
 
 ---
 
-## d — conic-gradient accent edge
+<div class="proto-section">
 
-3px `::before` pseudo on the top edge — purple → orange → lavender → purple loop. portable CDN signature pattern adapted to nebula palette. color-stops are all existing brand tokens, no new values needed
+## conic-gradient accent edge
 
-<div class="proto-single-row">
+<p class="proto-section-subtitle">3px ::before pseudo on the top edge — purple → orange → lavender → purple loop using existing brand tokens only</p>
+
+<div class="demo-well">
   <article class="proto-card proto-card-conic-edge">
     <strong>accent edge card</strong>
-    <p>3px <code>::before</code> conic gradient on top edge — purple → orange → lavender → purple loop. most portable CDN signature adapted to nebula palette</p>
-    <a href="#d----conic-gradient-accent-edge" class="proto-card-link">learn more →</a>
+    <p>most portable cloud-del-norte signature adapted to nebula palette. the gradient loops — no hard stops, no new color values</p>
+    <a href="#conic-gradient-accent-edge" class="proto-card-link">learn more →</a>
   </article>
+</div>
+
+<details class="proto-details">
+  <summary>see notes</summary>
+  <div class="proto-details-body">
+    <code>::before</code> pseudo, <code>height: 3px</code>, <code>position: absolute; top: 0</code>. conic-gradient from 90deg — <code>var(--brand-purple)</code> → <code>var(--brand-orange)</code> → <code>var(--brand-lavender)</code> → <code>var(--brand-purple)</code>. card must have <code>overflow: hidden</code> and matching border-radius on the pseudo. no light/dark override needed — the gradient is always visible regardless of mode.
+  </div>
+</details>
+
 </div>
 
 ---
 
-## e — perspective tilt (featured card)
+<div class="proto-section">
 
-hover to see `rotateX(2deg)` at `perspective(1000px)`. lightest-touch 3D feel, no babylon.js dependency, universal browser support. guarded by `prefers-reduced-motion`
+## perspective tilt
 
-<div class="proto-single-row">
+<p class="proto-section-subtitle">rotateX(2deg) at perspective(1000px) on hover — lightest-touch 3D feel, no babylon.js dependency</p>
+
+<div class="demo-well">
   <article class="proto-card proto-card-perspective">
     <strong>perspective tilt card</strong>
-    <p>hover to see <code>rotateX(2deg)</code> tilt at <code>perspective(1000px)</code> — lightest-touch 3D feel without babylon.js weight. works in every browser</p>
-    <a href="#e----perspective-tilt-featured-card" class="proto-card-link">learn more →</a>
+    <p>hover to see the tilt. works in every browser. combines well with chromatic shadow expansion</p>
+    <a href="#perspective-tilt" class="proto-card-link">learn more →</a>
   </article>
 </div>
 
----
+<details class="proto-details">
+  <summary>see notes</summary>
+  <div class="proto-details-body">
+    <code>transform: perspective(1000px) rotateX(0deg)</code> on rest state — declares the perspective context. hover applies <code>rotateX(2deg)</code>. 2deg is the minimum perceptible tilt; more reads as novelty rather than depth. guarded by <code>prefers-reduced-motion</code>. shadow stays chromatic on hover — same 3-layer pattern as prototype a, lighter opacity values.
+  </div>
+</details>
 
-## f — inset highlight button (light catch)
-
-inset top-edge shadow catches the "light source" reading. chromatic violet shadow below. dark mode drops the inset opacity to `rgba(255,255,255,0.04)` — barely perceptible, but the shadow below does the heavy lifting. both variants: primary (solid purple) + secondary (ghost with border)
-
-<div class="proto-btn-row">
-  <button type="button" class="proto-btn-inset">primary action</button>
-  <button type="button" class="proto-btn-inset proto-btn-inset-secondary">secondary action</button>
 </div>
 
-inset top edge catches "light". chromatic violet shadow below. dark mode uses `rgba(255,255,255,0.04)` inset — barely visible, shadow carries the depth read
+---
+
+<div class="proto-section">
+
+## inset highlight button
+
+<p class="proto-section-subtitle">inset top-edge shadow catches the light-source reading — both primary (solid purple) and secondary (ghost with border) variants</p>
+
+<div class="demo-well">
+  <div>
+    <div class="proto-btn-row">
+      <button type="button" class="proto-btn-inset">primary action</button>
+      <button type="button" class="proto-btn-inset proto-btn-inset-secondary">secondary action</button>
+    </div>
+  </div>
+</div>
+
+<details class="proto-details">
+  <summary>see notes</summary>
+  <div class="proto-details-body">
+    primary: <code>inset 0 1px 0 rgba(255,255,255,0.15)</code> catches light from above. dark mode drops inset to <code>rgba(255,255,255,0.04)</code> — barely perceptible, shadow below carries the depth read. secondary variant: ghost background with <code>rgba(94,65,162,0.25)</code> border + high inset highlight (<code>rgba(255,255,255,0.60)</code> in light mode). hover shifts primary bg from <code>--brand-purple</code> to <code>--brand-lavender</code>. focus-visible ring via <code>var(--focus-ring)</code> with 3px offset.
+  </div>
+</details>
+
+</div>
 
 ---
 
-_self-contained — every rule in this post's inline `<style>` block. ready to lift into nebula.css site-wide once any prototype clears review_
+switch the theme toggle in the nav to compare both modes — the demo-well backgrounds shift between modes, so the contrast read changes for each prototype.

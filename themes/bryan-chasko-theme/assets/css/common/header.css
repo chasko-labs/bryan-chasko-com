@@ -181,34 +181,6 @@
 		justify-content: center !important;
 	}
 
-	#menu {
-		display: flex !important;
-		flex-direction: row !important;
-		flex-wrap: nowrap !important;
-		gap: 2px !important;
-		flex: 1 1 auto !important;
-		justify-content: flex-end !important;
-		align-items: center !important;
-		margin: 0 !important;
-		overflow-x: auto !important;
-		overflow-y: hidden !important;
-		min-width: 0 !important;
-	}
-
-	#menu li {
-		display: inline-flex !important;
-		flex-shrink: 1 !important;
-		min-width: 0 !important;
-		list-style: none !important;
-	}
-
-	#menu li a {
-		padding: 0.2em 0.4em !important;
-		font-size: clamp(0.55rem, 2.5vw, 0.75rem) !important;
-		white-space: nowrap !important;
-		display: inline-block !important;
-	}
-
 	/* Hide span text and replace with CCC abbreviation */
 	#menu li a[href*="cloudcroft"] span {
 		display: none;

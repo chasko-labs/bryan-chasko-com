@@ -1,0 +1,34 @@
+{
+  "project_slug": "bryan-chasko-com",
+  "repo_type": "hugo",
+  "stack": [],
+  "deploy_targets": [],
+  "kb_families_required": [
+    "frontend/hugo",
+    "frontend/css",
+    "frontend/webgl",
+    "author/voice",
+    "author/voss",
+    "governance",
+    "observability",
+    "personas"
+  ],
+  "mcp_overlay_families": [
+    "mcp-qdrant",
+    "mcp-devtools",
+    "mcp-observability"
+  ],
+  "governance_tier": "medium",
+  "agents_in_scope": [
+    "poltergeist-voss-chasko-author",
+    "ghost-scribe-style-enforcer",
+    "ghost-liora-css-repair",
+    "ghost-stratia-code-mapper",
+    "ghost-orin-ci-cd",
+    "ghost-kerouac-research-analyst",
+    "ghost-ralph-wiggum-otel-trace"
+  ],
+  "squad_predecessor": "",
+  "bootstrap_timestamp": "2026-05-04T19:37:13Z",
+  "haunting_commit": "3490835d714d353955193309e4e1f33070797fa0"
+}

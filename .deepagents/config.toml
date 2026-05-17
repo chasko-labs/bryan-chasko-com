@@ -1,0 +1,42 @@
+[models]
+default = "bedrock_converse:us.amazon.nova-pro-v1:0"
+
+# Bedrock provider — coordinator tier (Harald only).
+# Auth: boto3 picks up credentials_profile_name from ~/.aws/config.
+# IAM RolesAnywhere chain handled transparently by boto3 — no extra keys here.
+# Heralds (voss/liora/orin/stratia) run on Ollama via heraldstack/orchestrator.py
+# create_harold_nova() — the per-tool LLM split is in code, not this config.
+
+[models.providers.bedrock_converse.params]
+region_name = "us-west-2"
+credentials_profile_name = "bryanchasko-kiro"
+
+[models.providers.bedrock_converse.profile."us.amazon.nova-pro-v1:0"]
+tool_calling = true
+max_input_tokens = 200000
+max_output_tokens = 5120
+
+[models.providers.bedrock_converse.profile."us.amazon.nova-lite-v1:0"]
+tool_calling = true
+max_input_tokens = 100000
+max_output_tokens = 5120
+
+# Ollama provider — herald-as-tool tier. Reachable from heraldstack code paths.
+[models.providers.ollama.profile."qwen3:8b"]
+tool_calling = true
+max_input_tokens = 32768
+max_output_tokens = 8192
+
+[models.providers.ollama.profile."llama3.1:8b"]
+tool_calling = true
+max_input_tokens = 16384
+max_output_tokens = 4096
+
+[models.providers.ollama.profile."llama3.2:3b"]
+tool_calling = true
+max_input_tokens = 128000
+max_output_tokens = 4096
+
+# TODO(sprint-3): swap coordinator default to trained voss-pro LoRA endpoint
+# once the May 14 primary plan sprint-3 retrain ships. Refs:
+# splintercells-deep-agents-cli/docs/nova-custom-planning/2026-05-14-primary-plan-summary.md
